@@ -1,29 +1,35 @@
 package com.project.aidememoire.activity;
 
-import android.app.Activity;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.view.Menu;
-import android.widget.ListView;
 
 import com.project.aidememoire.R;
-import com.project.aidememoire.adapter.database.DataBaseAdapter;
+import com.project.aidememoire.adapter.ViewPagerAdapter;
 
-public class AideMemoireActivity extends Activity {
+public class AccueilActivity extends FragmentActivity {
 	
 	private final static String TAG = "AideMemoireActivity";
 	
 	// le numero de la ligne saisie
 	//private int mLineNumber = 1;
 	// la base de données
-	private DataBaseAdapter mDbHelper;
+	//private DataBaseAdapter mDbHelper;
 	//private ListView peopleListView;
+	
+	private ViewPagerAdapter viewPagerAdapter;
+	private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
+        setContentView(R.layout.main);
+        
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+		viewPagerAdapter = new ViewPagerAdapter(getBaseContext(),
+				getSupportFragmentManager());
+		viewPager.setAdapter(viewPagerAdapter);
         
     }
 
