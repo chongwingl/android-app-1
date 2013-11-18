@@ -53,7 +53,7 @@ public class AccueilFragment extends Fragment {
 		List<Person> personRetrieved = new ArrayList<Person>();
 
 		while (c.moveToNext()){
-			personRetrieved.add(new Person(c.getString(0), c.getString(1)));
+			personRetrieved.add(new Person(c.getString(1), c.getString(2)));
 			Log.i(TAG, "People : " + c.getString(0) + " " + c.getString(1) + " " + c.getString(2));
 		}
 		
