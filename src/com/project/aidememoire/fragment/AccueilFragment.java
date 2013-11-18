@@ -34,7 +34,7 @@ public class AccueilFragment extends Fragment {
 			Bundle savedInstanceState) {
 
 		fragmentView = inflater.inflate(R.layout.accueil_fragment, container, false);
-		peopleListView = (ListView) getActivity().findViewById(R.id.peopleListView);
+		peopleListView = (ListView) fragmentView.findViewById(R.id.peopleListView);
 		persons = getPersons();
 
 		adapter = new PersonListAdapter(getActivity(), R.layout.person_list, persons);
