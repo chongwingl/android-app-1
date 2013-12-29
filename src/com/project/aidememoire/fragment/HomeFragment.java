@@ -7,6 +7,8 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +21,7 @@ import com.project.aidememoire.adapter.PersonListAdapter;
 import com.project.aidememoire.adapter.database.DataBaseAdapter;
 import com.project.aidememoire.model.Person;
 
-public class AccueilFragment extends Fragment {
+public class HomeFragment extends Fragment {
 	
 	private final static String TAG = "AccueilFragment";
 	
@@ -28,6 +30,8 @@ public class AccueilFragment extends Fragment {
 	private List<Person> persons;
 	private ListView peopleListView;
 	private PersonListAdapter adapter;
+	private FragmentTransaction  transaction;
+	private Fragment addElementFragment;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +43,10 @@ public class AccueilFragment extends Fragment {
 
 		adapter = new PersonListAdapter(getActivity(), R.layout.person_list, persons);
 		peopleListView.setAdapter(adapter);
+		
+		addElementFragment = new AddElementFragment();
+		transaction = getChildFragmentManager().beginTransaction();
+		transaction.add(R.id.addElementFragment, addElementFragment).commit();
 
 		return fragmentView;
 	}

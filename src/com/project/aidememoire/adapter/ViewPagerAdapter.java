@@ -8,7 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.project.aidememoire.fragment.AccueilFragment;
+import com.project.aidememoire.fragment.HomeFragment;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
@@ -21,7 +21,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
 		super(fm);
 
-		Fragment f = (Fragment) Fragment.instantiate(context, AccueilFragment.class.getName());
+		Fragment f = (Fragment) Fragment.instantiate(context, HomeFragment.class.getName());
 		fragmentList.add(f);
 	}
 
