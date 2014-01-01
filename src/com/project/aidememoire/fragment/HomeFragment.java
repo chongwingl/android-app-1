@@ -22,6 +22,7 @@ import android.widget.TimePicker;
 import com.project.aidememoire.R;
 import com.project.aidememoire.adapter.PersonListAdapter;
 import com.project.aidememoire.adapter.database.DataBaseAdapter;
+import com.project.aidememoire.model.Money;
 import com.project.aidememoire.model.Person;
 
 public class HomeFragment extends Fragment {
@@ -63,6 +64,21 @@ public class HomeFragment extends Fragment {
 		
 		addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+            	
+            	Person person;
+            	Money money;
+            	
+            	money = new Money(Double.parseDouble(sumEdit.getText().toString()), new Date());
+            	person = new Person(nameEdit.getText().toString(), surnameEdit.getText().toString());
+            	
+            	if(sumSignsRadioGroup.getCheckedRadioButtonId() == R.id.minus){
+            		person.setDette(money);
+            	}
+            	else {
+            		person.setCredit(money);
+            	}
+            	adapter.add(person);
+            	
             	Log.i(TAG, "name : " + nameEdit.getText());
             	Log.i(TAG, "surname : " + surnameEdit.getText());
             	Log.i(TAG, "sum : " + sumEdit.getText());
@@ -87,6 +103,10 @@ public class HomeFragment extends Fragment {
 		}
 		
 		return personRetrieved;
+		
+	}
+	
+	public void addPerson(Person person) {
 		
 	}
 	
