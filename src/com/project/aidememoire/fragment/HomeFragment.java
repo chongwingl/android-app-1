@@ -1,6 +1,7 @@
 package com.project.aidememoire.fragment;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RadioGroup;
+import android.widget.TimePicker;
 
 import com.project.aidememoire.R;
 import com.project.aidememoire.adapter.PersonListAdapter;
@@ -36,7 +38,7 @@ public class HomeFragment extends Fragment {
 	private EditText nameEdit;
 	private EditText surnameEdit;
 	private EditText sumEdit;
-	private EditText dateEdit;
+	private TimePicker dateEdit;
 	private RadioGroup sumSignsRadioGroup;
 	
 	@Override
@@ -55,7 +57,7 @@ public class HomeFragment extends Fragment {
 		nameEdit = (EditText) fragmentView.findViewById(R.id.name);
 		surnameEdit = (EditText) fragmentView.findViewById(R.id.surname);
 		sumEdit = (EditText) fragmentView.findViewById(R.id.sum);
-		dateEdit = (EditText) fragmentView.findViewById(R.id.date);
+		dateEdit = (TimePicker) fragmentView.findViewById(R.id.date);
 		
 		sumSignsRadioGroup = (RadioGroup) fragmentView.findViewById(R.id.sumSign);
 		
@@ -64,7 +66,6 @@ public class HomeFragment extends Fragment {
             	Log.i(TAG, "name : " + nameEdit.getText());
             	Log.i(TAG, "surname : " + surnameEdit.getText());
             	Log.i(TAG, "sum : " + sumEdit.getText());
-            	Log.i(TAG, "date : " + dateEdit.getText());
             }
         });
 
