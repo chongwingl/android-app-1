@@ -1,18 +1,23 @@
 package com.project.aidememoire.fragment;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.CallLog.Calls;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -22,6 +27,7 @@ import android.widget.TimePicker;
 import com.project.aidememoire.R;
 import com.project.aidememoire.adapter.PersonListAdapter;
 import com.project.aidememoire.adapter.database.DataBaseAdapter;
+import com.project.aidememoire.enumeration.TextType;
 import com.project.aidememoire.model.Money;
 import com.project.aidememoire.model.Person;
 
@@ -39,12 +45,14 @@ public class HomeFragment extends Fragment {
 	private EditText nameEdit;
 	private EditText surnameEdit;
 	private EditText sumEdit;
-	private TimePicker dateEdit;
+	private DatePicker dateEdit;
 	private RadioGroup sumSignsRadioGroup;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		
+		Calendar date = Calendar.getInstance();
 
 		fragmentView = inflater.inflate(R.layout.home_fragment, container, false);
 		peopleListView = (ListView) fragmentView.findViewById(R.id.peopleListView);
@@ -58,7 +66,8 @@ public class HomeFragment extends Fragment {
 		nameEdit = (EditText) fragmentView.findViewById(R.id.name);
 		surnameEdit = (EditText) fragmentView.findViewById(R.id.surname);
 		sumEdit = (EditText) fragmentView.findViewById(R.id.sum);
-		dateEdit = (TimePicker) fragmentView.findViewById(R.id.date);
+		dateEdit = (DatePicker) fragmentView.findViewById(R.id.date);
+		dateEdit.updateDate(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH));
 		
 		sumSignsRadioGroup = (RadioGroup) fragmentView.findViewById(R.id.sumSign);
 		
@@ -77,6 +86,7 @@ public class HomeFragment extends Fragment {
             	else {
             		person.setCredit(money);
             	}
+            	
             	adapter.add(person);
             	
             	Log.i(TAG, "name : " + nameEdit.getText());
