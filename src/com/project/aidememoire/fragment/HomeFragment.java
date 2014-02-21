@@ -6,7 +6,12 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.DatePickerDialog;
+import android.content.Context;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.CallLog.Calls;
 import android.support.v4.app.Fragment;
@@ -45,13 +50,14 @@ public class HomeFragment extends Fragment {
 	private EditText nameEdit;
 	private EditText surnameEdit;
 	private EditText sumEdit;
-	private DatePicker dateEdit;
+	private static Button dateEdit;
 	private RadioGroup sumSignsRadioGroup;
+	private Context context;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		
+		context = getActivity();
 		Calendar date = Calendar.getInstance();
 
 		fragmentView = inflater.inflate(R.layout.home_fragment, container, false);
@@ -66,10 +72,19 @@ public class HomeFragment extends Fragment {
 		nameEdit = (EditText) fragmentView.findViewById(R.id.name);
 		surnameEdit = (EditText) fragmentView.findViewById(R.id.surname);
 		sumEdit = (EditText) fragmentView.findViewById(R.id.sum);
-		dateEdit = (DatePicker) fragmentView.findViewById(R.id.date);
-		dateEdit.updateDate(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH));
+		dateEdit = (Button) fragmentView.findViewById(R.id.date);
+		dateEdit.setText(date.get(Calendar.YEAR) + "/" + date.get(Calendar.MONTH) + "/" + date.get(Calendar.DAY_OF_MONTH));
 		
 		sumSignsRadioGroup = (RadioGroup) fragmentView.findViewById(R.id.sumSign);
+		
+		dateEdit.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				showFragment();
+			}
+		});
 		
 		addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -96,6 +111,11 @@ public class HomeFragment extends Fragment {
         });
 
 		return fragmentView;
+	}
+	
+	public void showFragment() {
+		DialogFragment newFragment = new DatePickerFragment();
+		newFragment.show(getFragmentManager(), "Choisissez une date");
 	}
 
 	@Override
@@ -128,5 +148,33 @@ public class HomeFragment extends Fragment {
 		mDbHelper.addDetteLine("Dupont", "Paul", 1235679, 987);
 		return mDbHelper.fetchAllPeople();
 		
+	}
+	
+	public static class DatePickerFragment extends DialogFragment implements
+		DatePickerDialog.OnDateSetListener {
+	
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+		
+			// Use the current date as the default date in the picker
+		
+			final Calendar c = Calendar.getInstance();
+			int year = c.get(Calendar.YEAR);
+			int month = c.get(Calendar.MONTH);
+			int day = c.get(Calendar.DAY_OF_MONTH);
+		
+			// Create a new instance of DatePickerDialog and return it
+			return new DatePickerDialog(getActivity(), this, year, month, day);
+		}
+		
+		@Override
+		public void onDateSet(DatePicker view, int year, int monthOfYear,
+				int dayOfMonth) {
+		
+			dateEdit.setText(Calendar.getInstance().get(Calendar.YEAR) + "/" 
+					+ Calendar.getInstance().get(Calendar.MONTH) + "/" 
+					+ Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+		}
+	
 	}
 }
