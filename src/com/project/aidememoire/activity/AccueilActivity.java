@@ -1,12 +1,17 @@
 package com.project.aidememoire.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 
 import com.project.aidememoire.R;
 import com.project.aidememoire.adapter.ViewPagerAdapter;
+import com.project.aidememoire.fragment.AddFragment;
+import com.project.aidememoire.fragment.ListFragment;
 
 public class AccueilActivity extends FragmentActivity {
 	
@@ -20,6 +25,9 @@ public class AccueilActivity extends FragmentActivity {
 	
 	private ViewPagerAdapter viewPagerAdapter;
 	private ViewPager viewPager;
+	private FragmentManager fragmentManager = getSupportFragmentManager();
+	private Fragment addFragment;
+	private Fragment listFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +36,7 @@ public class AccueilActivity extends FragmentActivity {
         
         viewPager = (ViewPager) findViewById(R.id.viewpager);
 		viewPagerAdapter = new ViewPagerAdapter(getBaseContext(),
-				getSupportFragmentManager());
+				fragmentManager);
 		viewPager.setAdapter(viewPagerAdapter);
         
     }

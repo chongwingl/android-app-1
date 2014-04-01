@@ -8,7 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.project.aidememoire.fragment.HomeFragment;
+import com.project.aidememoire.fragment.AddFragment;
+import com.project.aidememoire.fragment.ListFragment;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
@@ -20,8 +21,10 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 	public ViewPagerAdapter(Context context, FragmentManager fm) {
 
 		super(fm);
-
-		Fragment f = (Fragment) Fragment.instantiate(context, HomeFragment.class.getName());
+		
+		Fragment f = (Fragment) Fragment.instantiate(context, AddFragment.class.getName());
+		fragmentList.add(f);
+		f = (Fragment) Fragment.instantiate(context, ListFragment.class.getName());
 		fragmentList.add(f);
 	}
 
