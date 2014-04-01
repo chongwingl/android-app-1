@@ -42,9 +42,9 @@ public class HomeFragment extends Fragment {
 	
 	private View fragmentView;
 	private DataBaseAdapter mDbHelper;
-	private List<Person> persons;
-	private ListView peopleListView;
-	private PersonListAdapter adapter;
+//	private List<Person> persons;
+//	private ListView peopleListView;
+//	private PersonListAdapter adapter;
 	
 	private Button addButton;
 	private EditText nameEdit;
@@ -60,12 +60,12 @@ public class HomeFragment extends Fragment {
 		context = getActivity();
 		Calendar date = Calendar.getInstance();
 
-		fragmentView = inflater.inflate(R.layout.home_fragment, container, false);
-		peopleListView = (ListView) fragmentView.findViewById(R.id.peopleListView);
-		persons = getPersons();
-
-		adapter = new PersonListAdapter(getActivity(), R.layout.person_list, persons);
-		peopleListView.setAdapter(adapter);
+		fragmentView = inflater.inflate(R.layout.add, container, false);
+//		peopleListView = (ListView) fragmentView.findViewById(R.id.peopleListView);
+//		persons = getPersons();
+//
+//		adapter = new PersonListAdapter(getActivity(), R.layout.person_list, persons);
+//		peopleListView.setAdapter(adapter);
 		
 		addButton = (Button) fragmentView.findViewById(R.id.addElement);
 		
@@ -102,7 +102,7 @@ public class HomeFragment extends Fragment {
             		person.setCredit(money);
             	}
             	
-            	adapter.add(person);
+//            	adapter.add(person);
             	
             	Log.i(TAG, "name : " + nameEdit.getText());
             	Log.i(TAG, "surname : " + surnameEdit.getText());
@@ -123,32 +123,32 @@ public class HomeFragment extends Fragment {
 		super.onSaveInstanceState(outState);
 	}
 	
-	public List<Person> getPersons(){
-		Cursor c = this.getData();
-		List<Person> personRetrieved = new ArrayList<Person>();
-
-		while (c.moveToNext()){
-			personRetrieved.add(new Person(c.getString(1), c.getString(2)));
-			Log.i(TAG, "People : " + c.getString(0) + " " + c.getString(1) + " " + c.getString(2));
-		}
-		
-		return personRetrieved;
-		
-	}
+//	public List<Person> getPersons(){
+//		Cursor c = this.getData();
+//		List<Person> personRetrieved = new ArrayList<Person>();
+//
+//		while (c.moveToNext()){
+//			personRetrieved.add(new Person(c.getString(1), c.getString(2)));
+//			Log.i(TAG, "People : " + c.getString(0) + " " + c.getString(1) + " " + c.getString(2));
+//		}
+//		
+//		return personRetrieved;
+//		
+//	}
 	
-	public void addPerson(Person person) {
-		
-	}
-	
-	public Cursor getData(){
-		mDbHelper = new DataBaseAdapter(this.getActivity());
-		mDbHelper.open();
-		mDbHelper.addCreditLine("Martin", "Pierre", 1234567890, 1234);
-		mDbHelper.addCreditLine("Durand", "Pauline", 987654321, 765);
-		mDbHelper.addDetteLine("Dupont", "Paul", 1235679, 987);
-		return mDbHelper.fetchAllPeople();
-		
-	}
+//	public void addPerson(Person person) {
+//		
+//	}
+//	
+//	public Cursor getData(){
+//		mDbHelper = new DataBaseAdapter(this.getActivity());
+//		mDbHelper.open();
+//		mDbHelper.addCreditLine("Martin", "Pierre", 1234567890, 1234);
+//		mDbHelper.addCreditLine("Durand", "Pauline", 987654321, 765);
+//		mDbHelper.addDetteLine("Dupont", "Paul", 1235679, 987);
+//		return mDbHelper.fetchAllPeople();
+//		
+//	}
 	
 	public static class DatePickerFragment extends DialogFragment implements
 		DatePickerDialog.OnDateSetListener {
