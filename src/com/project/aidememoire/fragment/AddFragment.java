@@ -36,9 +36,9 @@ import com.project.aidememoire.enumeration.TextType;
 import com.project.aidememoire.model.Money;
 import com.project.aidememoire.model.Person;
 
-public class HomeFragment extends Fragment {
+public class AddFragment extends Fragment {
 	
-	private final static String TAG = "HomeFragment";
+	private final static String TAG = "AddFragment";
 	
 	private View fragmentView;
 	private DataBaseAdapter mDbHelper;
