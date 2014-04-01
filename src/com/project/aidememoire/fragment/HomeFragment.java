@@ -7,13 +7,13 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.CallLog.Calls;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
