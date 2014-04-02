@@ -43,5 +43,9 @@ public class PersonListAdapter extends ArrayAdapter<Person>{
 		
 		return view;
 	}
+	
+	public List<Person> getItems(){
+		return items;
+	}
 
 }
