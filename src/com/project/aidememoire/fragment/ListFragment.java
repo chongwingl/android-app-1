@@ -20,7 +20,7 @@ import android.widget.ListView;
 
 public class ListFragment extends Fragment implements OnFragmentChange{
 
-	private final static String TAG = "AddFragment";
+	private final static String TAG = "ListFragment";
 	
 	private List<Person> persons;
 	private ListView peopleListView;
@@ -61,9 +61,19 @@ public class ListFragment extends Fragment implements OnFragmentChange{
 	public Cursor getData(){
 		mDbHelper = new DataBaseAdapter(this.getActivity());
 		mDbHelper.open();
-//		mDbHelper.addCreditLine("Martin", "Pierre", 1234567890, 1234);
-//		mDbHelper.addCreditLine("Durand", "Pauline", 987654321, 765);
-//		mDbHelper.addDetteLine("Dupont", "Paul", 1235679, 987);
+
+		if(mDbHelper.fetchPeople("Martin", "Pierre").getCount() == 0){
+			mDbHelper.addCreditLine("Martin", "Pierre", 1234567890, 1234);
+		}
+		
+		if(mDbHelper.fetchPeople("Durand", "Pauline").getCount() == 0){
+			mDbHelper.addCreditLine("Durand", "Pauline", 987654321, 765);	
+		}
+		
+		if(mDbHelper.fetchPeople("Dupont", "Paul").getCount() == 0){
+			mDbHelper.addDetteLine("Dupont", "Paul", 1235679, 987);
+		}
+		
 		return mDbHelper.fetchAllPeople();
 		
 	}
@@ -71,7 +81,7 @@ public class ListFragment extends Fragment implements OnFragmentChange{
 	@Override
 	public void OnFragmentVisible() {
 		persons = getPersons();
-		
+
 		if(persons.size() > adapter.getCount()){
 			List<Person> temp = persons;
 			temp.removeAll(adapter.getItems());
