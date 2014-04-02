@@ -81,6 +81,10 @@ public class TabsAdapter extends FragmentPagerAdapter
 	@Override
 	public void onPageSelected(int position) {
 		actionBar.setSelectedNavigationItem(position);
+		OnFragmentChange fragment = (OnFragmentChange) this.instantiateItem(viewPager, position);
+		if(fragment != null){
+			fragment.OnFragmentVisible();
+		}
 	}
 
 	@Override

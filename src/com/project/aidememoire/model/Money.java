@@ -6,12 +6,12 @@ import com.project.aidememoire.enumeration.SumType;
 
 public class Money {
 	private int somme;
-	private Date date;
+	private int date;
 	private SumType type;
 
 	public Money(int somme, Date date, SumType type) {
 		this.somme = somme;
-		this.date = date;
+		this.date = 123456;
 		this.type = type;
 	}
 	
@@ -27,11 +27,11 @@ public class Money {
 		this.somme = somme;
 	}
 
-	public Date getDate() {
+	public int getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(int date) {
 		this.date = date;
 	}
 

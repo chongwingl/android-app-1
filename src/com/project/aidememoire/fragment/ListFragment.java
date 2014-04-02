@@ -61,17 +61,22 @@ public class ListFragment extends Fragment implements OnFragmentChange{
 	public Cursor getData(){
 		mDbHelper = new DataBaseAdapter(this.getActivity());
 		mDbHelper.open();
-		mDbHelper.addCreditLine("Martin", "Pierre", 1234567890, 1234);
-		mDbHelper.addCreditLine("Durand", "Pauline", 987654321, 765);
-		mDbHelper.addDetteLine("Dupont", "Paul", 1235679, 987);
+//		mDbHelper.addCreditLine("Martin", "Pierre", 1234567890, 1234);
+//		mDbHelper.addCreditLine("Durand", "Pauline", 987654321, 765);
+//		mDbHelper.addDetteLine("Dupont", "Paul", 1235679, 987);
 		return mDbHelper.fetchAllPeople();
 		
 	}
 
 	@Override
 	public void OnFragmentVisible() {
-		// TODO Auto-generated method stub
+		persons = getPersons();
 		
+		if(persons.size() > adapter.getCount()){
+			List<Person> temp = persons;
+			temp.removeAll(adapter.getItems());
+			adapter.addAll(temp);
+		}
 	}
 	
 	

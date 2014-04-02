@@ -40,5 +40,24 @@ public class Person {
 	public void setMoney(Money money) {
 		this.money = money;
 	}
+	
+	@Override
+	public boolean equals(Object otherPerson) {
+	    if (!(otherPerson instanceof Person)) {
+	        return false;
+	    }
+
+	    Person person = (Person) otherPerson;
+
+	    boolean isEqual = false;
+	    // Custom equality check here.
+	    isEqual = this.name.equals(person.name);
+	    isEqual = isEqual && this.surname.equals(person.surname);
+	    isEqual = isEqual && (this.money.getSomme() == person.money.getSomme());
+	    isEqual = isEqual && (this.money.getDate() == person.money.getDate());
+	    isEqual = isEqual && (this.money.getType() == person.money.getType());
+	    
+	    return isEqual;
+	}
 
 }
