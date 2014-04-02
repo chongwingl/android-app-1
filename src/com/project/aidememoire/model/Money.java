@@ -3,23 +3,23 @@ package com.project.aidememoire.model;
 import java.util.Date;
 
 public class Money {
-	private double somme;
+	private int somme;
 	private Date date;
 
-	public Money(double somme, Date date) {
+	public Money(int somme, Date date) {
 		this.somme = somme;
 		this.date = date;
 	}
 	
-	public double addSomme(double sommeToAdd) {
+	public double addSomme(int sommeToAdd) {
 		return (this.somme + sommeToAdd);
 	}
 	
-	public double getSomme() {
+	public int getSomme() {
 		return somme;
 	}
 
-	public void setSomme(double somme) {
+	public void setSomme(int somme) {
 		this.somme = somme;
 	}
 

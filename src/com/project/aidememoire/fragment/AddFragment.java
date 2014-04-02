@@ -85,7 +85,7 @@ public class AddFragment extends Fragment {
             	Person person;
             	Money money;
             	
-            	money = new Money(Double.parseDouble(sumEdit.getText().toString()), new Date());
+            	money = new Money(Integer.parseInt(sumEdit.getText().toString()), new Date());
             	person = new Person(nameEdit.getText().toString(), surnameEdit.getText().toString());
             	
             	if(sumSignsRadioGroup.getCheckedRadioButtonId() == R.id.minus){
