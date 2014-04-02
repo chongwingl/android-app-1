@@ -48,8 +48,17 @@ public class DataBaseAdapter {
     private static final String DATABASE_TABLE_D = "dette";
     private static final int DATABASE_VERSION = 2;
     
-    private static final String GET_PERSON_QUERY = "select * from personne where name=\"{{name}}\" and surname=\"{{surname}}\"";
-    private static final String GET_PERSON_S_MONEY_QUERY = "select * from {{table}} inner join personne on personne._id={{table}}.p_id where personne.name=\"{{name}}\" and personne.surname=\"{{surname}}\"";
+    private static final String GET_PERSON_QUERY = 
+    		"select * from personne where name=\"{{name}}\" and surname=\"{{surname}}\"";
+    private static final String GET_PERSON_S_MONEY_QUERY = 
+    		"select * from {{table}} inner join personne on personne._id={{table}}.p_id "+
+    		"where personne.name=\"{{name}}\" and personne.surname=\"{{surname}}\"";
+    private static final String GET_PERSON_S_ALL_MONEY_QUERY = 
+    		"select * from dette inner join personne on personne._id=dette.p_id "+
+    		"where personne.name=\"{{name}}\" and personne.surname=\"{{surname}}\" "+
+    		"union "+
+    		"select * from credit inner join personne on personne._id=credit.p_id "+
+    		"where personne.name=\"{{name}}\" and personne.surname=\"{{surname}}\" ";
 
     private final Context ctx;
     
@@ -167,6 +176,13 @@ public class DataBaseAdapter {
     	
     	return db.rawQuery(GET_PERSON_S_MONEY_QUERY
 				.replace("{{table}}", table)
+    			.replace("{{name}}", name.toLowerCase(Locale.FRANCE))
+    			.replace("{{surname}}", surname.toLowerCase(Locale.FRANCE)), 
+    		null);
+    }
+    
+    public Cursor fetchPeopleAndMoney(String name, String surname){
+    	return db.rawQuery(GET_PERSON_S_ALL_MONEY_QUERY
     			.replace("{{name}}", name.toLowerCase(Locale.FRANCE))
     			.replace("{{surname}}", surname.toLowerCase(Locale.FRANCE)), 
     		null);
