@@ -4,12 +4,17 @@ public class Person {
 	
 	private String name;
 	private String surname;
-	private Money credit;
-	private Money dette;
+	private Money money;
 	
 	public Person(String name, String surname){
 		this.name = name;
 		this.surname = surname;
+	}
+	
+	public Person(String name, String surname, Money money){
+		this.name = name;
+		this.surname = surname;
+		this.money = money;
 	}
 
 	public String getName() {
@@ -28,19 +33,12 @@ public class Person {
 		this.surname = surname;
 	}
 
-	public Money getCredit() {
-		return credit;
+	public Money getMoney() {
+		return money;
 	}
 
-	public void setCredit(Money credit) {
-		this.credit = credit;
+	public void setMoney(Money money) {
+		this.money = money;
 	}
 
-	public Money getDette() {
-		return dette;
-	}
-
-	public void setDette(Money dette) {
-		this.dette = dette;
-	}
 }
