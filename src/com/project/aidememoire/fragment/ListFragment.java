@@ -52,6 +52,7 @@ public class ListFragment extends Fragment {
 			personRetrieved.add(new Person(c.getString(1), c.getString(2)));
 			Log.i(TAG, "People : " + c.getString(0) + " " + c.getString(1) + " " + c.getString(2));
 		}
+		mDbHelper.close();
 		
 		return personRetrieved;
 		
