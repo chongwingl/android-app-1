@@ -1,5 +1,7 @@
 package com.project.aidememoire.adapter.database;
 
+import java.util.Locale;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -43,6 +45,10 @@ public class DataBaseAdapter {
     private static final String DATABASE_TABLE_C = "credit";
     private static final String DATABASE_TABLE_D = "dette";
     private static final int DATABASE_VERSION = 2;
+    
+    private static final String GET_PERSON_QUERY = "select * from personne where name=\"{{name}}\" and surname=\"{{surname}}\"";
+    private static final String GET_PERSON_S_DETTE_QUERY = "select * from dette where p_id=";
+    private static final String GET_PERSON_S_CREDIT_QUERY = "select * from credit where p_id=";
 
     private final Context ctx;
     
@@ -116,8 +122,8 @@ public class DataBaseAdapter {
      */
     public long addPeople(String name, String surname){
     	ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_NAME, name);
-        initialValues.put(KEY_SURNAME, surname);
+        initialValues.put(KEY_NAME, name.toLowerCase(Locale.FRANCE));
+        initialValues.put(KEY_SURNAME, surname.toLowerCase(Locale.FRANCE));
     	return db.insert(DATABASE_TABLE_P, null, initialValues);
     }
     
@@ -135,6 +141,14 @@ public class DataBaseAdapter {
         initialValues.put(KEY_DATE, date);
         initialValues.put(KEY_SOMME, somme);
     	return db.insert(DATABASE_TABLE_D, null, initialValues);
+    }
+    
+    public Cursor fetchPeople(String name, String surname){
+    	return db.rawQuery(
+    		GET_PERSON_QUERY
+    			.replace("{{name}}", name.toLowerCase(Locale.FRANCE))
+    			.replace("{{surname}}", surname.toLowerCase(Locale.FRANCE)), 
+    		null);
     }
     
     /**
