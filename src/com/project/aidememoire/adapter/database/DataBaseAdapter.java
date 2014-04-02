@@ -2,6 +2,8 @@ package com.project.aidememoire.adapter.database;
 
 import java.util.Locale;
 
+import com.project.aidememoire.enumeration.SumType;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -47,8 +49,7 @@ public class DataBaseAdapter {
     private static final int DATABASE_VERSION = 2;
     
     private static final String GET_PERSON_QUERY = "select * from personne where name=\"{{name}}\" and surname=\"{{surname}}\"";
-    private static final String GET_PERSON_S_DETTE_QUERY = "select * from dette where p_id=";
-    private static final String GET_PERSON_S_CREDIT_QUERY = "select * from credit where p_id=";
+    private static final String GET_PERSON_S_MONEY_QUERY = "select * from {{table}} inner join personne on personne._id={{table}}.p_id where personne.name=\"{{name}}\" and personne.surname=\"{{surname}}\"";
 
     private final Context ctx;
     
@@ -146,6 +147,26 @@ public class DataBaseAdapter {
     public Cursor fetchPeople(String name, String surname){
     	return db.rawQuery(
     		GET_PERSON_QUERY
+    			.replace("{{name}}", name.toLowerCase(Locale.FRANCE))
+    			.replace("{{surname}}", surname.toLowerCase(Locale.FRANCE)), 
+    		null);
+    }
+    
+    public Cursor fetchPeopleAndMoney(String name, String surname, SumType type){
+    	String table;
+    	switch (type) {
+			case DETTE:
+				table = "dette";
+				break;
+			case CREDIT:
+				table = "credit";
+				break;
+			default:
+				return null;
+		}
+    	
+    	return db.rawQuery(GET_PERSON_S_MONEY_QUERY
+				.replace("{{table}}", table)
     			.replace("{{name}}", name.toLowerCase(Locale.FRANCE))
     			.replace("{{surname}}", surname.toLowerCase(Locale.FRANCE)), 
     		null);
