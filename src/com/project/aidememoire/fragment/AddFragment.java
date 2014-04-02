@@ -124,15 +124,18 @@ public class AddFragment extends Fragment implements OnFragmentChange{
 		mDbHelper = new DataBaseAdapter(this.getActivity());
 		mDbHelper.open();
 		
-		switch (person.getMoney().getType()) {
-		case CREDIT:
-			mDbHelper.addCreditLine(person.getName(), person.getSurname(), 1234567890, person.getMoney().getSomme());
-			break;
-		case DETTE:
-			mDbHelper.addDetteLine(person.getName(), person.getSurname(), 1234567890, person.getMoney().getSomme());
-			break;
-		default:
-			return;
+		if(mDbHelper.fetchPeople(person.getName(), person.getSurname()).getCount() == 0){
+			
+			switch (person.getMoney().getType()) {
+			case CREDIT:
+				mDbHelper.addCreditLine(person.getName(), person.getSurname(), 1234567890, person.getMoney().getSomme());
+				break;
+			case DETTE:
+				mDbHelper.addDetteLine(person.getName(), person.getSurname(), 1234567890, person.getMoney().getSomme());
+				break;
+			default:
+				return;
+			}
 		}
 		
 		mDbHelper.close();
