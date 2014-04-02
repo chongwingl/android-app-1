@@ -34,9 +34,9 @@ public class DataBaseAdapter {
     private static final String DATABASE_CREATE_T1 =
         "create table personne (_id integer primary key autoincrement, name text, surname text not null);";
     private static final String DATABASE_CREATE_T2 =
-        "create table dette (_id integer primary key autoincrement, p_id integer not null, date integer not null, somme integer not null);";
+        "create table dette (_id integer primary key autoincrement, p_id integer foreign_key, date integer not null, somme integer not null);";
     private static final String DATABASE_CREATE_T3 =
-    	"create table credit (_id integer primary key autoincrement, p_id integer not null, date integer not null, somme integer not null);";
+    	"create table credit (_id integer primary key autoincrement, p_id integer foreign_key, date integer not null, somme integer not null);";
 
     private static final String DATABASE_NAME = "data";
     private static final String DATABASE_TABLE_P = "personne";
