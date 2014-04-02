@@ -6,6 +6,7 @@ import java.util.List;
 import com.project.aidememoire.R;
 import com.project.aidememoire.adapter.PersonListAdapter;
 import com.project.aidememoire.adapter.database.DataBaseAdapter;
+import com.project.aidememoire.listener.OnFragmentChange;
 import com.project.aidememoire.model.Person;
 
 import android.database.Cursor;
@@ -17,7 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-public class ListFragment extends Fragment {
+public class ListFragment extends Fragment implements OnFragmentChange{
 
 	private final static String TAG = "AddFragment";
 	
@@ -64,6 +65,12 @@ public class ListFragment extends Fragment {
 		mDbHelper.addCreditLine("Durand", "Pauline", 987654321, 765);
 		mDbHelper.addDetteLine("Dupont", "Paul", 1235679, 987);
 		return mDbHelper.fetchAllPeople();
+		
+	}
+
+	@Override
+	public void OnFragmentVisible() {
+		// TODO Auto-generated method stub
 		
 	}
 	

@@ -1,15 +1,14 @@
 package com.project.aidememoire.activity;
 
+import android.app.ActionBar;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 
 import com.project.aidememoire.R;
-import com.project.aidememoire.adapter.ViewPagerAdapter;
+import com.project.aidememoire.adapter.TabsAdapter;
 import com.project.aidememoire.fragment.AddFragment;
 import com.project.aidememoire.fragment.ListFragment;
 
@@ -17,28 +16,38 @@ public class AccueilActivity extends FragmentActivity {
 	
 	private final static String TAG = "AideMemoireActivity";
 	
-	// le numero de la ligne saisie
-	//private int mLineNumber = 1;
-	// la base de données
-	//private DataBaseAdapter mDbHelper;
-	//private ListView peopleListView;
-	
-	private ViewPagerAdapter viewPagerAdapter;
+	private TabsAdapter tabsAdapter;
 	private ViewPager viewPager;
 	private FragmentManager fragmentManager = getSupportFragmentManager();
-	private Fragment addFragment;
-	private Fragment listFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
         
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-		viewPagerAdapter = new ViewPagerAdapter(getBaseContext(),
-				fragmentManager);
-		viewPager.setAdapter(viewPagerAdapter);
+        viewPager = new ViewPager(this);
+        viewPager.setId(R.id.viewpager);
+        setContentView(viewPager);
         
+        ActionBar bar = getActionBar();
+        bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        bar.setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE);
+        
+        tabsAdapter = new TabsAdapter(this, fragmentManager, viewPager);
+        tabsAdapter.addTab(bar.newTab().setText("Ajout"),
+        		AddFragment.class, null);
+        tabsAdapter.addTab(bar.newTab().setText("Liste"),
+        		ListFragment.class, null);
+        
+        if (savedInstanceState != null) {
+            bar.setSelectedNavigationItem(savedInstanceState.getInt("tab", 0));
+        }
+
+    }
+    
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("tab", getActionBar().getSelectedNavigationIndex());
     }
 
     @Override
