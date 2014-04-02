@@ -97,6 +97,8 @@ public class AddFragment extends Fragment {
             	money = new Money(Integer.parseInt(sumEdit.getText().toString()), new Date(), type);
             	person = new Person(nameEdit.getText().toString(), surnameEdit.getText().toString(), money);
 
+
+            	addPerson(person);
             	
             	Log.i(TAG, "name : " + nameEdit.getText());
             	Log.i(TAG, "surname : " + surnameEdit.getText());
@@ -115,6 +117,24 @@ public class AddFragment extends Fragment {
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
+	}
+	
+	public void addPerson(Person person) {
+		mDbHelper = new DataBaseAdapter(this.getActivity());
+		mDbHelper.open();
+		
+		switch (person.getMoney().getType()) {
+		case CREDIT:
+			mDbHelper.addCreditLine(person.getName(), person.getSurname(), 1234567890, person.getMoney().getSomme());
+			break;
+		case DETTE:
+			mDbHelper.addDetteLine(person.getName(), person.getSurname(), 1234567890, person.getMoney().getSomme());
+			break;
+		default:
+			return;
+		}
+		
+		mDbHelper.close();
 	}
 	
 	public static class DatePickerFragment extends DialogFragment implements
