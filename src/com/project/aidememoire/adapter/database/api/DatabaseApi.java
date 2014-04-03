@@ -5,6 +5,9 @@ import java.util.List;
 
 import android.app.Activity;
 import android.database.Cursor;
+import android.util.Log;
+
+import android.database.SQLException;
 
 import com.project.aidememoire.adapter.database.DataBaseAdapter;
 import com.project.aidememoire.enumeration.SumType;
@@ -13,64 +16,68 @@ import com.project.aidememoire.model.Person;
 
 public class DatabaseApi {
 	
+	private static final String TAG = "DataBaseApi";
 	private DataBaseAdapter mDbHelper;
+	private boolean isOpen;
 	
 	public DatabaseApi(Activity activity){
 		mDbHelper = new DataBaseAdapter(activity);
+		open();
 	}
 	
-	public void fetchPerson(){
-		mDbHelper.open();
+	public boolean isOpen() {
+		return isOpen;
+	}
+	
+	public boolean open(){
+		try{
+			mDbHelper.open();
+		} catch(SQLException exception){
+			isOpen = false;
+			return false;
+		}
+		isOpen = true;
+		return true;
+	}
+	
+	public void close(){
 		mDbHelper.close();
+		isOpen = false;
+	}
+
+	public void fetchPerson(){
+		
 	}
 	
 	public List<Person> fetchAllPerson(){
-		mDbHelper.open();
 		Cursor c = mDbHelper.fetchAllPersons();
-		mDbHelper.close();
 		return fromDataToPersons(c);
 	}
 	
 	public void fetchPersonDette(){
-		mDbHelper.open();
-		mDbHelper.close();
 	}
 	
 	public void fetchPersonCredit(){
-		mDbHelper.open();
-		mDbHelper.close();
 	}
 	
 	public void fetchPersonMoney(){
-		mDbHelper.open();
-		mDbHelper.close();
 	}
 	
 	public void addPersonCredit(){
-		mDbHelper.open();
-		mDbHelper.close();
 	}
 	
 	public void addPersonDette(){
-		mDbHelper.open();
-		mDbHelper.close();
 	}
 	
 	public boolean hasPerson(){
-		mDbHelper.open();
-		mDbHelper.close();
 		return true;
 	}
 	
 	public boolean hasPersonDebt(){
-		mDbHelper.open();
-		mDbHelper.close();
 		return true;
 	}
 	
 	public boolean hasPersonCredit(){
-		mDbHelper.open();
-		mDbHelper.close();
 		return true;
 	}
 	
