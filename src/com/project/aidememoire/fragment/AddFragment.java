@@ -32,6 +32,7 @@ import android.widget.TimePicker;
 import com.project.aidememoire.R;
 import com.project.aidememoire.adapter.PersonListAdapter;
 import com.project.aidememoire.adapter.database.DataBaseAdapter;
+import com.project.aidememoire.adapter.database.api.DatabaseApi;
 import com.project.aidememoire.enumeration.SumType;
 import com.project.aidememoire.enumeration.TextType;
 import com.project.aidememoire.listener.OnPageChange;
@@ -45,6 +46,7 @@ public class AddFragment extends Fragment implements OnPageChange{
 	private View fragmentView;
 	
 	private DataBaseAdapter mDbHelper;
+	private DatabaseApi dataBaseApi;
 	
 	private Button addButton;
 	private EditText nameEdit;
@@ -58,6 +60,7 @@ public class AddFragment extends Fragment implements OnPageChange{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		context = getActivity();
+		dataBaseApi = new DatabaseApi(getActivity());
 		Calendar date = Calendar.getInstance();
 
 		fragmentView = inflater.inflate(R.layout.add_layout, container, false);
@@ -174,13 +177,17 @@ public class AddFragment extends Fragment implements OnPageChange{
 
 	@Override
 	public void onPageVisible() {
-		// TODO Auto-generated method stub
-	
+		Log.i(TAG, "Page is visible");
+		if(dataBaseApi != null && !dataBaseApi.isOpen()){
+			dataBaseApi.open();
+		}
 	}
 
 	@Override
 	public void onPageChanged() {
-		// TODO Auto-generated method stub
-		
+		Log.i(TAG, "Page has been left");
+		if(dataBaseApi.isOpen()){
+			dataBaseApi.close();
+		}
 	}
 }
