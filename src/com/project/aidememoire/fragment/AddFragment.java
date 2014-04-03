@@ -34,11 +34,11 @@ import com.project.aidememoire.adapter.PersonListAdapter;
 import com.project.aidememoire.adapter.database.DataBaseAdapter;
 import com.project.aidememoire.enumeration.SumType;
 import com.project.aidememoire.enumeration.TextType;
-import com.project.aidememoire.listener.OnFragmentChange;
+import com.project.aidememoire.listener.OnPageChange;
 import com.project.aidememoire.model.Money;
 import com.project.aidememoire.model.Person;
 
-public class AddFragment extends Fragment implements OnFragmentChange{
+public class AddFragment extends Fragment implements OnPageChange{
 	
 	private final static String TAG = "AddFragment";
 	
@@ -173,8 +173,14 @@ public class AddFragment extends Fragment implements OnFragmentChange{
 	}
 
 	@Override
-	public void OnFragmentVisible() {
+	public void onPageVisible() {
 		// TODO Auto-generated method stub
 	
+	}
+
+	@Override
+	public void onPageChanged() {
+		// TODO Auto-generated method stub
+		
 	}
 }

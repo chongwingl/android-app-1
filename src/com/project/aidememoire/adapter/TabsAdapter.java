@@ -19,7 +19,7 @@ import android.util.Log;
 
 import com.project.aidememoire.fragment.AddFragment;
 import com.project.aidememoire.fragment.ListFragment;
-import com.project.aidememoire.listener.OnFragmentChange;
+import com.project.aidememoire.listener.OnPageChange;
 
 public class TabsAdapter extends FragmentPagerAdapter 
 	implements ViewPager.OnPageChangeListener, ActionBar.TabListener {

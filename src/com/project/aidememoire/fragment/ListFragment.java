@@ -6,7 +6,7 @@ import com.project.aidememoire.R;
 import com.project.aidememoire.adapter.PersonListAdapter;
 import com.project.aidememoire.adapter.database.DataBaseAdapter;
 import com.project.aidememoire.adapter.database.api.DatabaseApi;
-import com.project.aidememoire.listener.OnFragmentChange;
+import com.project.aidememoire.listener.OnPageChange;
 import com.project.aidememoire.model.Person;
 
 import android.os.Bundle;
@@ -17,7 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-public class ListFragment extends Fragment implements OnFragmentChange{
+public class ListFragment extends Fragment implements OnPageChange{
 
 	private final static String TAG = "ListFragment";
 	
@@ -46,14 +46,25 @@ public class ListFragment extends Fragment implements OnFragmentChange{
 	}
 
 	@Override
-	public void OnFragmentVisible() {
-		Log.i(TAG, "Fragment visible");
+	public void onPageVisible() {
+		Log.i(TAG, "Page is visible");
+		if(!dataBaseApi.isOpen()){
+			dataBaseApi.open();
+		}
 		persons = dataBaseApi.fetchAllPerson();
 
 		if(persons.size() > adapter.getCount()){
 			List<Person> temp = persons;
 			temp.removeAll(adapter.getItems());
 			adapter.addAll(temp);
+		}
+	}
+
+	@Override
+	public void onPageChanged() {
+		Log.i(TAG, "Page has been left");
+		if(dataBaseApi.isOpen()){
+			dataBaseApi.close();
 		}
 	}
 	
