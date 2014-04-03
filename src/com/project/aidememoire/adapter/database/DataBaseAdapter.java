@@ -138,7 +138,7 @@ public class DataBaseAdapter {
      * @param body the body of the note
      * @return rowId or -1 if failed
      */
-    public long addPeople(String name, String surname){
+    public long addPerson(String name, String surname){
     	ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_NAME, name.toLowerCase(Locale.FRANCE));
         initialValues.put(KEY_SURNAME, surname.toLowerCase(Locale.FRANCE));
@@ -161,7 +161,7 @@ public class DataBaseAdapter {
     	return db.insert(DATABASE_TABLE_D, null, initialValues);
     }
     
-    public Cursor fetchPeople(String name, String surname){
+    public Cursor fetchPerson(String name, String surname){
     	return db.rawQuery(
     		GET_PERSON_QUERY
     			.replace("{{name}}", name.toLowerCase(Locale.FRANCE))
@@ -169,7 +169,7 @@ public class DataBaseAdapter {
     		null);
     }
     
-    public Cursor fetchPeopleAndMoney(String name, String surname, SumType type){
+    public Cursor fetchPersonMoney(String name, String surname, SumType type){
     	String table;
     	switch (type) {
 			case DETTE:
@@ -189,7 +189,7 @@ public class DataBaseAdapter {
     		null);
     }
     
-    public Cursor fetchPeopleAndMoney(String name, String surname){
+    public Cursor fetchPersonMoney(String name, String surname){
     	return db.rawQuery(GET_PERSON_S_ALL_MONEY_QUERY
     			.replace("{{name}}", name.toLowerCase(Locale.FRANCE))
     			.replace("{{surname}}", surname.toLowerCase(Locale.FRANCE)), 
@@ -201,7 +201,7 @@ public class DataBaseAdapter {
      * 
      * @return Cursor over all people
      */
-    public Cursor fetchAllPeople() {
+    public Cursor fetchAllPersons() {
 
         return db.query(DATABASE_TABLE_P, new String[] {KEY_ID, KEY_NAME, KEY_SURNAME}, 
         		null, null, null, null, null);
@@ -225,7 +225,7 @@ public class DataBaseAdapter {
      * @param id id of note to delete
      * @return true if deleted, false otherwise
      */
-    public boolean deletePeople(long id) {
+    public boolean deletePerson(long id) {
 
         return db.delete(DATABASE_TABLE_P, KEY_ID + "=" + id, null) > 0;
     }

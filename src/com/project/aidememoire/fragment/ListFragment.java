@@ -62,19 +62,19 @@ public class ListFragment extends Fragment implements OnFragmentChange{
 		mDbHelper = new DataBaseAdapter(this.getActivity());
 		mDbHelper.open();
 
-		if(mDbHelper.fetchPeople("Martin", "Pierre").getCount() == 0){
+		if(mDbHelper.fetchPerson("Martin", "Pierre").getCount() == 0){
 			mDbHelper.addCreditLine("Martin", "Pierre", 1234567890, 1234);
 		}
 		
-		if(mDbHelper.fetchPeople("Durand", "Pauline").getCount() == 0){
+		if(mDbHelper.fetchPerson("Durand", "Pauline").getCount() == 0){
 			mDbHelper.addCreditLine("Durand", "Pauline", 987654321, 765);	
 		}
 		
-		if(mDbHelper.fetchPeople("Dupont", "Paul").getCount() == 0){
+		if(mDbHelper.fetchPerson("Dupont", "Paul").getCount() == 0){
 			mDbHelper.addDetteLine("Dupont", "Paul", 1235679, 987);
 		}
 		
-		return mDbHelper.fetchAllPeople();
+		return mDbHelper.fetchAllPersons();
 		
 	}
 
