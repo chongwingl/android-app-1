@@ -3,6 +3,8 @@ package com.project.aidememoire.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.project.aidememoire.enumeration.SumType;
+
 public class Person {
 	
 	private String name;
@@ -47,6 +49,28 @@ public class Person {
 	
 	public void addMoneys(List<Money> money) {
 		this.money.addAll(money);
+	}
+	
+	public int allDette(){
+		int dette = 0;
+		for(Money m : this.money){
+			if(m.getType() == SumType.DETTE){
+				dette += m.getSomme();
+			}
+		}
+		
+		return dette;
+	}
+	
+	public int allCredit(){
+		int credit = 0;
+		for(Money m : this.money){
+			if(m.getType() == SumType.CREDIT){
+				credit += m.getSomme();
+			}
+		}
+		
+		return credit;
 	}
 
 	@Override
