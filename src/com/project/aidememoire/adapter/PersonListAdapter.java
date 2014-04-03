@@ -19,6 +19,8 @@ public class PersonListAdapter extends ArrayAdapter<Person>{
 	private View view;
 	private TextView name;
 	private TextView surname;
+	private TextView credit;
+	private TextView dette;
 	private LayoutInflater layoutInflater;
 
 	public PersonListAdapter(Context context, int resource, List<Person> items) {
@@ -37,9 +39,13 @@ public class PersonListAdapter extends ArrayAdapter<Person>{
 		
 		name = (TextView) view.findViewById(R.id.person_name);
         surname = (TextView) view.findViewById(R.id.person_surname);
+        credit = (TextView) view.findViewById(R.id.credit);
+        dette = (TextView) view.findViewById(R.id.dette);
         
         name.setText(person.getName());
         surname.setText(person.getSurname());
+		credit.setText(String.valueOf(person.allCredit()));
+		dette.setText(String.valueOf(person.allDette()));
 		
 		return view;
 	}
