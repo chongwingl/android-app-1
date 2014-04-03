@@ -57,14 +57,19 @@ public class DatabaseApi {
 	public List<Person> fetchAllPersonAndMoney(){
 	}
 	
-	public void fetchPersonDette(){
+	public void fetchMoneyOfPerson(Person person){
+		
 	}
 	
-	public void fetchPersonCredit(){
+	public void fetchDetteOfPerson(Person person){
+		
 	}
 	
-	public List<Person> fetchPersonMoney(Person person, Money money){
-		Cursor c = mDbHelper.fetchMoney(
+	public void fetchCreditOfPerson(){
+	}
+	
+	public List<Person> fetchPersonWithSpecifiedMoney(Person person, Money money){
+		Cursor c = mDbHelper.fetchSpecifiedMoney(
 					person.getName(), 
 					person.getSurname(), 
 					money.getSomme(), 
@@ -74,7 +79,7 @@ public class DatabaseApi {
 		return fromDataToPersons(c);
 	}
 	
-	public void addPersonMoney(Person person, Money money){
+	public void addMoneyOfPerson(Person person, Money money){
 		switch (money.getType()) {
 		case CREDIT:
 			mDbHelper.addCreditLine(person.getName(), 
@@ -99,8 +104,8 @@ public class DatabaseApi {
 		return true;
 	}
 	
-	public boolean hasPersonMoney(Person person, Money money){
-		if(fetchPersonMoney(person, money).size() > 0){
+	public boolean hasPersonWithSpecifiedMoney(Person person, Money money){
+		if(fetchPersonWithSpecifiedMoney(person, money).size() > 0){
 			return true;
 		}
 		return false;
@@ -128,7 +133,7 @@ public class DatabaseApi {
 	}
 	
 	public Money fromDataToMoney(Cursor c, SumType type){
-		Money money = new Money(c.getInt(1), c.getInt(2), type);
+		Money money = new Money(c.getInt(3), c.getInt(4), type);
 		return money;
 	}
 

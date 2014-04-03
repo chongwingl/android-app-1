@@ -123,8 +123,8 @@ public class AddFragment extends Fragment implements OnPageChange{
 	}
 	
 	public void addPerson(Person person) {
-		if(!dataBaseApi.hasPersonMoney(person, person.getMoney().get(0))){
-			dataBaseApi.addPersonMoney(person, person.getMoney().get(0));
+		if(!dataBaseApi.hasPersonWithSpecifiedMoney(person, person.getMoney().get(0))){
+			dataBaseApi.addMoneyOfPerson(person, person.getMoney().get(0));
 		}
 		
 	}

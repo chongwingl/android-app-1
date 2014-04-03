@@ -39,6 +39,8 @@ public class ListFragment extends Fragment implements OnPageChange{
 		peopleListView = (ListView) fragmentView.findViewById(R.id.peopleListView);
 		persons = dataBaseApi.fetchAllPerson();
 
+		// TODO le chargement de la liste des personnes entrées dans la BDD devrait se faire 
+		//dans l'adapter pour éviter de charger toute la BDD avant d'afficher les données
 		adapter = new PersonListAdapter(getActivity(), R.layout.person_list, persons);
 		peopleListView.setAdapter(adapter);
 		
