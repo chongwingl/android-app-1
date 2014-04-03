@@ -72,10 +72,12 @@ public class TabsAdapter extends FragmentPagerAdapter
 	
 	@Override
 	public void onPageScrollStateChanged(int arg0) {
+//		Log.i(TAG, "onPageScrollStateChanged called");
 	}
 
 	@Override
 	public void onPageScrolled(int arg0, float arg1, int arg2) {
+//		Log.i(TAG, "onPageScrolled called");
 	}
 
 	@Override
@@ -86,7 +88,7 @@ public class TabsAdapter extends FragmentPagerAdapter
 
 	@Override
 	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
-		
+		Log.i(TAG, "onTabReselected called");
 	}
 
 	@Override
@@ -107,8 +109,13 @@ public class TabsAdapter extends FragmentPagerAdapter
 	}
 
 	@Override
-	public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
-		
+	public void onTabUnselected(Tab tab, FragmentTransaction arg1) {
+		Log.i(TAG, "onTabUnselected called");
+		// call fragment listener
+		OnPageChange fragment = (OnPageChange) this.instantiateItem(viewPager, tab.getPosition());
+		if(fragment != null){
+			fragment.onPageChanged();
+		}
 	}
 
 }
