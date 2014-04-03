@@ -54,19 +54,19 @@ public class DatabaseApi {
 		return fromDataToPersons(c);
 	}
 	
+	public List<Person> fetchAllPersonAndMoney(){
+	}
+	
 	public void fetchPersonDette(){
 	}
 	
 	public void fetchPersonCredit(){
 	}
 	
-	public void fetchPersonMoney(){
+	public List<Person> fetchPersonMoney(Person person, Money money){
 	}
 	
-	public void addPersonCredit(){
-	}
-	
-	public void addPersonDette(){
+	public void addPersonMoney(Person person, Money money){
 	}
 	
 	public boolean hasPerson(){
