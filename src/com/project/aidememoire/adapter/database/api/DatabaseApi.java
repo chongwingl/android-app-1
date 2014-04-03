@@ -3,7 +3,7 @@ package com.project.aidememoire.adapter.database.api;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
@@ -20,8 +20,8 @@ public class DatabaseApi {
 	private DataBaseAdapter mDbHelper;
 	private boolean isOpen;
 	
-	public DatabaseApi(Activity activity){
-		mDbHelper = new DataBaseAdapter(activity);
+	public DatabaseApi(Context context){
+		mDbHelper = new DataBaseAdapter(context);
 		open();
 	}
 	
