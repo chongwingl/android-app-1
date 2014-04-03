@@ -94,7 +94,7 @@ public class AddFragment extends Fragment implements OnFragmentChange{
             		type = SumType.CREDIT;
             	}
             	
-            	money = new Money(Integer.parseInt(sumEdit.getText().toString()), new Date(), type);
+            	money = new Money(Integer.parseInt(sumEdit.getText().toString()), 12356, type);
             	person = new Person(nameEdit.getText().toString(), surnameEdit.getText().toString(), money);
 
 

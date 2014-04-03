@@ -9,7 +9,7 @@ public class Money {
 	private int date;
 	private SumType type;
 
-	public Money(int somme, Date date, SumType type) {
+	public Money(int somme, int date, SumType type) {
 		this.somme = somme;
 		this.date = 123456;
 		this.type = type;
