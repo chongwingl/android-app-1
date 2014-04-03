@@ -80,11 +80,8 @@ public class TabsAdapter extends FragmentPagerAdapter
 
 	@Override
 	public void onPageSelected(int position) {
+		Log.i(TAG, "onPageSelected called");
 		actionBar.setSelectedNavigationItem(position);
-		OnFragmentChange fragment = (OnFragmentChange) this.instantiateItem(viewPager, position);
-		if(fragment != null){
-			fragment.OnFragmentVisible();
-		}
 	}
 
 	@Override
@@ -94,10 +91,16 @@ public class TabsAdapter extends FragmentPagerAdapter
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction arg1) {
+		Log.i(TAG, "onTabSelected called");
 		Object tag = tab.getTag();
         for (int i=0; i<tabs.size(); i++) {
             if (tabs.get(i) == tag) {
                 viewPager.setCurrentItem(i);
+                // call fragment listener
+                OnPageChange fragment = (OnPageChange) this.instantiateItem(viewPager, i);
+        		if(fragment != null){
+        			fragment.onPageVisible();
+        		}
             }
         }
 		
