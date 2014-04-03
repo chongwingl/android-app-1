@@ -1,6 +1,7 @@
 package com.project.aidememoire.adapter.database.api;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import android.content.Context;
@@ -55,17 +56,37 @@ public class DatabaseApi {
 	}
 	
 	public List<Person> fetchAllPersonAndMoney(){
+		Cursor c = mDbHelper.fetchAllPersons();
+		List<Person> persons = fromDataToPersons(c);
+		for(Person p : persons){
+			p.addMoneys(fetchMoneyOfPerson(p));
+		}
+		return persons;
 	}
 	
-	public void fetchMoneyOfPerson(Person person){
-		
+	public List<Money> fetchMoneyOfPerson(Person person){
+		List<Money> money = new ArrayList<Money>();
+		money.addAll(fetchCreditOfPerson(person));
+		money.addAll(fetchDetteOfPerson(person));
+		return money;
 	}
 	
-	public void fetchDetteOfPerson(Person person){
-		
+	public List<Money> fetchDetteOfPerson(Person person){
+		List<Money> money = new ArrayList<Money>();
+		Cursor c = mDbHelper.fetchMoneyOfPerson(person.getName(), person.getSurname(), SumType.DETTE);
+		while(c.moveToNext()){
+			money.add(fromDataToMoney(c, SumType.DETTE));
+		}
+		return money;
 	}
 	
-	public void fetchCreditOfPerson(){
+	public List<Money> fetchCreditOfPerson(Person person){
+		List<Money> money = new ArrayList<Money>();
+		Cursor c = mDbHelper.fetchMoneyOfPerson(person.getName(), person.getSurname(), SumType.CREDIT);
+		while(c.moveToNext()){
+			money.add(fromDataToMoney(c, SumType.CREDIT));
+		}
+		return money;
 	}
 	
 	public List<Person> fetchPersonWithSpecifiedMoney(Person person, Money money){

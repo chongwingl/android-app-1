@@ -44,6 +44,10 @@ public class Person {
 	public void addMoney(Money money) {
 		this.money.add(money);
 	}
+	
+	public void addMoneys(List<Money> money) {
+		this.money.addAll(money);
+	}
 
 	@Override
 	public boolean equals(Object otherPerson) {
