@@ -211,6 +211,38 @@ public class DataBaseAdapter {
     			.replace("{{surname}}", surname.toLowerCase(Locale.FRANCE)), 
     		null);
     }
+   
+    public Cursor fetchMoney(String name, String surname, int somme, int date, SumType type){
+    	String table;
+    	switch (type) {
+			case DETTE:
+				table = "dette";
+				break;
+			case CREDIT:
+				table = "credit";
+				break;
+			default:
+				return null;
+		}
+    	
+    	return db.rawQuery(GET_PERSON_S_ALL_MONEY_QUERY
+    			.replace("{{table}}", table)
+    			.replace("{{name}}", name.toLowerCase(Locale.FRANCE))
+    			.replace("{{surname}}", surname.toLowerCase(Locale.FRANCE))
+    			.replace("{{somme}}", String.valueOf(somme))
+    			.replace("{{date}}", String.valueOf(date)), 
+    		null);
+    }
+    
+    public Cursor fetchMoney(String name, String surname, int somme, int date){
+    	
+    	return db.rawQuery(GET_PERSON_S_ALL_MONEY_QUERY
+    			.replace("{{name}}", name.toLowerCase(Locale.FRANCE))
+    			.replace("{{surname}}", surname.toLowerCase(Locale.FRANCE))
+    			.replace("{{somme}}", String.valueOf(somme))
+    			.replace("{{date}}", String.valueOf(date)), 
+    		null);
+    }
     
     /**
      * Return a Cursor over the list of all people in the database
