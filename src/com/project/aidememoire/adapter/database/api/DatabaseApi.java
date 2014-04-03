@@ -64,13 +64,46 @@ public class DatabaseApi {
 	}
 	
 	public List<Person> fetchPersonMoney(Person person, Money money){
+		Cursor c = mDbHelper.fetchMoney(
+					person.getName(), 
+					person.getSurname(), 
+					money.getSomme(), 
+					money.getDate(), 
+					money.getType());
+
+		return fromDataToPersons(c);
 	}
 	
 	public void addPersonMoney(Person person, Money money){
+		switch (money.getType()) {
+		case CREDIT:
+			mDbHelper.addCreditLine(person.getName(), 
+					person.getSurname(),
+					123456,
+//					money.getDate(),
+					money.getSomme());
+			break;
+		case DETTE:
+			mDbHelper.addDetteLine(person.getName(),
+					person.getSurname(),
+					123456,
+//					money.getDate(),
+					money.getSomme());
+			break;
+		default:
+			return;
+		}
 	}
 	
 	public boolean hasPerson(){
 		return true;
+	}
+	
+	public boolean hasPersonMoney(Person person, Money money){
+		if(fetchPersonMoney(person, money).size() > 0){
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean hasPersonDebt(){

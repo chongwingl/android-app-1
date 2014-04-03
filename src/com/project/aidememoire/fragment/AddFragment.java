@@ -123,28 +123,10 @@ public class AddFragment extends Fragment implements OnPageChange{
 	}
 	
 	public void addPerson(Person person) {
-		mDbHelper = new DataBaseAdapter(this.getActivity());
-		mDbHelper.open();
-		Cursor c = mDbHelper.fetchMoney(
-				person.getName(), 
-				person.getSurname(), 
-				person.getMoney().getSomme(), 
-				person.getMoney().getDate(), 
-				person.getMoney().getType());
-		if(!c.moveToNext()){
-			switch (person.getMoney().getType()) {
-			case CREDIT:
-				mDbHelper.addCreditLine(person.getName(), person.getSurname(), 1234567890, person.getMoney().getSomme());
-				break;
-			case DETTE:
-				mDbHelper.addDetteLine(person.getName(), person.getSurname(), 1234567890, person.getMoney().getSomme());
-				break;
-			default:
-				return;
-			}
+		if(!dataBaseApi.hasPersonMoney(person, person.getMoney().get(0))){
+			dataBaseApi.addPersonMoney(person, person.getMoney().get(0));
 		}
 		
-		mDbHelper.close();
 	}
 	
 	public static class DatePickerFragment extends DialogFragment implements
