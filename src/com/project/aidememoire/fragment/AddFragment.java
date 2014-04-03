@@ -76,7 +76,6 @@ public class AddFragment extends Fragment implements OnFragmentChange{
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				showFragment();
 			}
 		});
@@ -123,9 +122,13 @@ public class AddFragment extends Fragment implements OnFragmentChange{
 	public void addPerson(Person person) {
 		mDbHelper = new DataBaseAdapter(this.getActivity());
 		mDbHelper.open();
-		
-		if(mDbHelper.fetchPeople(person.getName(), person.getSurname()).getCount() == 0){
-			
+		Cursor c = mDbHelper.fetchMoney(
+				person.getName(), 
+				person.getSurname(), 
+				person.getMoney().getSomme(), 
+				person.getMoney().getDate(), 
+				person.getMoney().getType());
+		if(!c.moveToNext()){
 			switch (person.getMoney().getType()) {
 			case CREDIT:
 				mDbHelper.addCreditLine(person.getName(), person.getSurname(), 1234567890, person.getMoney().getSomme());

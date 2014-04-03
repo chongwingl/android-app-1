@@ -59,7 +59,15 @@ public class DataBaseAdapter {
     		"union "+
     		"select * from credit inner join personne on personne._id=credit.p_id "+
     		"where personne.name=\"{{name}}\" and personne.surname=\"{{surname}}\" ";
-
+    private static final String GET_MONEY_QUERY = "select from {{table}} inner join personne on personne._id={{table}}.p_id "+
+    		"where personne.name=\"{{name}}\" and personne.surname=\"{{surname}}\" and {{table}}.somme={{somme}} and {{table}}.date={{date}}";
+    private static final String GET_ALL_MONEY_QUERY = 
+    		"select * from dette inner join personne on personne._id=dette.p_id "+
+    		"where personne.name=\"{{name}}\" and personne.surname=\"{{surname}}\" and dette.somme={{somme}} and dette.date={{date}} "+
+    		"union "+
+    		"select * from credit inner join personne on personne._id=credit.p_id "+
+    		"where personne.name=\"{{name}}\" and personne.surname=\"{{surname}}\" and credit.somme={{somme}} and credit.date={{date}} ";
+    
     private final Context ctx;
     
     private static class DatabaseHelper extends SQLiteOpenHelper {
