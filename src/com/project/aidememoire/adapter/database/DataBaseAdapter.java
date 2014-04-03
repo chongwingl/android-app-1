@@ -110,7 +110,15 @@ public class DataBaseAdapter {
     }
     
     public boolean addCreditLine(String name, String surname, int date, int sum) {
-    	long p_id = this.addPeople(name, surname);
+    	long p_id;
+    	Cursor c = fetchPerson(name, surname);
+    	if(c.moveToNext()){
+    		p_id = c.getLong(0);
+    	}
+    	else {
+    		p_id = this.addPerson(name, surname);
+    	}
+    	
     	if(p_id > 0){
     		if(this.addCredit(p_id, date, sum) > 0) {
     			return true;
@@ -120,7 +128,15 @@ public class DataBaseAdapter {
     }
     
     public boolean addDetteLine(String name, String surname, int date, int sum) {
-    	long p_id = this.addPeople(name, surname);
+    	long p_id;
+    	Cursor c = fetchPerson(name, surname);
+    	if(c.moveToNext()){
+    		p_id = c.getLong(0);
+    	}
+    	else {
+    		p_id = this.addPerson(name, surname);
+    	}
+
     	if(p_id > 0){
     		if(this.addDette(p_id, date, sum) > 0) {
     			return true;
