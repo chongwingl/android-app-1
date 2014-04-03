@@ -154,7 +154,7 @@ public class DatabaseApi {
 	}
 	
 	public Money fromDataToMoney(Cursor c, SumType type){
-		Money money = new Money(c.getInt(3), c.getInt(4), type);
+		Money money = new Money(c.getInt(2), c.getInt(3), type);
 		return money;
 	}
 
