@@ -1,10 +1,13 @@
 package com.project.aidememoire.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Person {
 	
 	private String name;
 	private String surname;
-	private Money money;
+	private List<Money> money = new ArrayList<Money>();
 	
 	public Person(String name, String surname){
 		this.name = name;
@@ -14,7 +17,7 @@ public class Person {
 	public Person(String name, String surname, Money money){
 		this.name = name;
 		this.surname = surname;
-		this.money = money;
+		this.money.add(money);
 	}
 
 	public String getName() {
@@ -33,14 +36,15 @@ public class Person {
 		this.surname = surname;
 	}
 
-	public Money getMoney() {
+	
+	public List<Money> getMoney() {
 		return money;
 	}
 
-	public void setMoney(Money money) {
-		this.money = money;
+	public void addMoney(Money money) {
+		this.money.add(money);
 	}
-	
+
 	@Override
 	public boolean equals(Object otherPerson) {
 	    if (!(otherPerson instanceof Person)) {
@@ -53,9 +57,8 @@ public class Person {
 	    // Custom equality check here.
 	    isEqual = this.name.equals(person.name);
 	    isEqual = isEqual && this.surname.equals(person.surname);
-	    isEqual = isEqual && (this.money.getSomme() == person.money.getSomme());
-	    isEqual = isEqual && (this.money.getDate() == person.money.getDate());
-	    isEqual = isEqual && (this.money.getType() == person.money.getType());
+	    isEqual = isEqual && (this.money.size() == person.money.size());
+	    isEqual = isEqual && (this.money.containsAll(person.money));
 	    
 	    return isEqual;
 	}

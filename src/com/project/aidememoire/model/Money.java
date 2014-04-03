@@ -42,4 +42,20 @@ public class Money {
 	public void setType(SumType type) {
 		this.type = type;
 	}
+	
+	@Override
+	public boolean equals(Object otherMoney) {
+	    if (!(otherMoney instanceof Money)) {
+	        return false;
+	    }
+
+	    Money money = (Money) otherMoney;
+
+	    boolean isEqual = false;
+	    // Custom equality check here.
+	    isEqual = (this.somme == money.somme);
+	    isEqual = isEqual && (this.date == money.date);
+	    
+	    return isEqual;
+	}
 }
