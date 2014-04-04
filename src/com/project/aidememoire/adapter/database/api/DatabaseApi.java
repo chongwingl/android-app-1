@@ -64,6 +64,10 @@ public class DatabaseApi {
 		return persons;
 	}
 	
+	public Cursor fetchAllPersonAndMoneyCursor(){
+		return mDbHelper.fetchAll();
+	}
+	
 	public List<Money> fetchMoneyOfPerson(Person person){
 		List<Money> money = new ArrayList<Money>();
 		money.addAll(fetchCreditOfPerson(person));

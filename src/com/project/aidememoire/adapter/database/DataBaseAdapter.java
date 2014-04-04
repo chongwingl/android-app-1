@@ -120,8 +120,8 @@ public class DataBaseAdapter {
     		p_id = this.addPerson(name, surname);
     	}
     	
-    	if(p_id > 0){
-    		if(this.addCredit(p_id, date, sum) > 0) {
+    	if(p_id >= 0){
+    		if(this.addCredit(p_id, date, sum) >= 0) {
     			return true;
     		}
     	}
@@ -138,8 +138,8 @@ public class DataBaseAdapter {
     		p_id = this.addPerson(name, surname);
     	}
 
-    	if(p_id > 0){
-    		if(this.addDette(p_id, date, sum) > 0) {
+    	if(p_id >= 0){
+    		if(this.addDette(p_id, date, sum) >= 0) {
     			return true;
     		}
     	}
