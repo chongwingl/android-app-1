@@ -218,8 +218,8 @@ public class DataBaseAdapter {
         return db.delete(DATABASE_TABLE_P, KEY_ID + "=" + id, null) > 0;
     }
     public boolean deleteSomme(long id) {
-
-        return db.delete(DATABASE_TABLE_S, KEY_ID + "=" + id, null) > 0;
+  
+        return db.delete(DATABASE_TABLE_S, KEY_ID + "=?", new String [] {String.valueOf(id)}) > 0;
     }
 
 

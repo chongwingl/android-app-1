@@ -47,6 +47,10 @@ public class ListFragment extends Fragment implements OnPageChange{
                     long id) {
              
                Cursor c = (Cursor) adapter.getItem(position);
+        	   if(dataBaseApi.deleteSomme(c.getLong(1))){
+           	   		adapter.changeCursor(dataBaseApi.fetchAllPersonAndMoneyCursor());
+          			adapter.notifyDataSetChanged();
+        	   }
                if(dataBaseApi.deleteSomme(c.getLong(1))){
             	   	adapter.changeCursor(dataBaseApi.fetchAllPersonAndMoneyCursor());
            			adapter.notifyDataSetChanged();
