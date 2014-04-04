@@ -24,7 +24,7 @@ public class PersonListAdapter extends CursorAdapter{
 	
 	public PersonListAdapter(Context context, Cursor cursor, boolean autoRequery) {
 		super(context, cursor, autoRequery);
-		// TODO Auto-generated constructor stub
+		// TODO Utiliser un loader
 		this.context = context;
 	}
 	

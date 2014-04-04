@@ -45,10 +45,6 @@ public class DatabaseApi {
 		mDbHelper.close();
 		isOpen = false;
 	}
-
-	public void fetchPerson(){
-		
-	}
 	
 	public List<Person> fetchAllPerson(){
 		Cursor c = mDbHelper.fetchAllPersons();
@@ -97,6 +93,10 @@ public class DatabaseApi {
 	
 	public boolean hasPerson(){
 		return true;
+	}
+	
+	public boolean deleteSomme(long id){
+		return mDbHelper.deleteSomme(id);
 	}
 	
 	public boolean hasPersonWithSpecifiedMoney(Person person, Money money){

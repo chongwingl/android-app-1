@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 public class ListFragment extends Fragment implements OnPageChange{
@@ -38,6 +40,27 @@ public class ListFragment extends Fragment implements OnPageChange{
 
 		adapter = new PersonListAdapter(getActivity(), dataBaseApi.fetchAllPersonAndMoneyCursor(), false);
 		peopleListView.setAdapter(adapter);
+
+		peopleListView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                    long id) {
+             
+               Cursor c = (Cursor) adapter.getItem(position);
+               if(dataBaseApi.deleteSomme(c.getLong(1))){
+            	   	adapter.changeCursor(dataBaseApi.fetchAllPersonAndMoneyCursor());
+           			adapter.notifyDataSetChanged();
+               }
+//               Log.i(TAG, "_id: "+ c.getString(0));
+//               Log.i(TAG, "p_id: "+ c.getString(1));
+//               Log.i(TAG, "date: "+ c.getString(2));
+//               Log.i(TAG, "montant: "+ c.getString(3));
+//               Log.i(TAG, "type"+ c.getString(4));
+//               Log.i(TAG, "_id"+ c.getString(5));
+//               Log.i(TAG, "name"+ c.getString(5));
+//               Log.i(TAG, "surname"+ c.getString(5));
+            }
+        });
 		
 		return fragmentView;
 	}
