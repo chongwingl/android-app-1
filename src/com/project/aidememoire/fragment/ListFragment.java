@@ -32,13 +32,10 @@ public class ListFragment extends Fragment implements OnPageChange{
 		dataBaseApi = new DatabaseApi(getActivity());
 		
 		fragmentView = super.onCreateView(inflater, container, savedInstanceState);
-		
 		fragmentView = inflater.inflate(R.layout.list_layout, container, false);
 		
 		peopleListView = (ListView) fragmentView.findViewById(R.id.peopleListView);
 
-		// TODO le chargement de la liste des personnes entrées dans la BDD devrait se faire 
-		//dans l'adapter pour éviter de charger toute la BDD avant d'afficher les données
 		adapter = new PersonListAdapter(getActivity(), dataBaseApi.fetchAllPersonAndMoneyCursor(), false);
 		peopleListView.setAdapter(adapter);
 		
@@ -48,18 +45,20 @@ public class ListFragment extends Fragment implements OnPageChange{
 	@Override
 	public void onPageVisible() {
 		Log.i(TAG, "Page is visible");
-		adapter.notifyDataSetChanged();
 		
 		if(!dataBaseApi.isOpen()){
 			dataBaseApi.open();
 		}
+		
+		adapter.changeCursor(dataBaseApi.fetchAllPersonAndMoneyCursor());
+		adapter.notifyDataSetChanged();
+	
 	}
 
 	@Override
 	public void onPageChanged() {
 		Log.i(TAG, "Page has been left");
 		
-		adapter.changeCursor(dataBaseApi.fetchAllPersonAndMoneyCursor());
 		if(dataBaseApi.isOpen()){
 			dataBaseApi.close();
 		}
