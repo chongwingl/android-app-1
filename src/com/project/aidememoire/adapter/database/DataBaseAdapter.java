@@ -36,7 +36,7 @@ public class DataBaseAdapter {
     private static final String DATABASE_CREATE_T1 =
         "create table personne (_id integer primary key autoincrement, name text, surname text not null);";
     private static final String DATABASE_CREATE_T2 =
-        "create table somme (_id integer primary key autoincrement, p_id integer foreign_key, date integer not null, montant integer not null, type text not null);";
+        "create table somme (_id integer primary key autoincrement, p_id integer foreign_key, date text not null, montant integer not null, type text not null);";
 
     private static final String DATABASE_NAME = "data";
     private static final String DATABASE_TABLE_P = "personne";
@@ -50,7 +50,7 @@ public class DataBaseAdapter {
     		"select name, surname, montant, date, type from somme inner join personne on personne._id=somme.p_id "+
     		"where personne.name=\"{{name}}\" and personne.surname=\"{{surname}}\"";
     private static final String GET_SPECIFIED_MONEY_QUERY = "select name, surname, montant, date, type from somme inner join personne on personne._id=somme.p_id "+
-    		"where personne.name=\"{{name}}\" and personne.surname=\"{{surname}}\" and somme.montant={{somme}} and somme.date={{date}} " +
+    		"where personne.name=\"{{name}}\" and personne.surname=\"{{surname}}\" and somme.montant={{somme}} and somme.date=\"{{date}}\" " +
     		"and somme.type=\"{{type}}\"";
     private static final String GET_ALL = "select * from somme inner join personne on personne._id=somme.p_id";
     
@@ -93,7 +93,7 @@ public class DataBaseAdapter {
         dbHelper.close();
     }
     
-    public boolean addSommeLine(String name, String surname, int date, int sum, SumType type) {
+    public boolean addSommeLine(String name, String surname, String date, int sum, SumType type) {
     	long p_id;
     	String strType;
     	switch (type) {
@@ -140,7 +140,7 @@ public class DataBaseAdapter {
     	return db.insert(DATABASE_TABLE_P, null, initialValues);
     }
     
-    public long addSomme(long p_id, int date, int somme, String type){
+    public long addSomme(long p_id, String date, int somme, String type){
     	ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_P, p_id);
         initialValues.put(KEY_DATE, date);
@@ -164,7 +164,7 @@ public class DataBaseAdapter {
     		null);
     }
    
-    public Cursor fetchSpecifiedMoney(String name, String surname, int somme, int date, SumType type){
+    public Cursor fetchSpecifiedMoney(String name, String surname, int somme, String date, SumType type){
     	String strType;
     	switch (type) {
 			case DETTE:
@@ -181,7 +181,7 @@ public class DataBaseAdapter {
     			.replace("{{name}}", name.toLowerCase(Locale.FRANCE))
     			.replace("{{surname}}", surname.toLowerCase(Locale.FRANCE))
     			.replace("{{somme}}", String.valueOf(somme))
-    			.replace("{{date}}", String.valueOf(date))
+    			.replace("{{date}}", date)
     			.replace("{{type}}", String.valueOf(strType)), 
     		null);
     }

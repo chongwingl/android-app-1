@@ -100,9 +100,7 @@ public class AddFragment extends Fragment implements OnPageChange{
             		type = SumType.CREDIT;
             	}
             	
-            	String selectedDate = (String) dateEdit.getText();
-            	
-            	money = new Money(Integer.parseInt(sumEdit.getText().toString()), 123456, type);
+            	money = new Money(Integer.parseInt(sumEdit.getText().toString()), (String) dateEdit.getText(), type);
             	person = new Person(nameEdit.getText().toString(), surnameEdit.getText().toString(), money);
 
 

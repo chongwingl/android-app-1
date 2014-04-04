@@ -83,11 +83,14 @@ public class DatabaseApi {
 		return fromDataToPersons(c);
 	}
 	
+	public Cursor fetchSommeCursor(){
+		return mDbHelper.fetchAllMoney();
+	}
+	
 	public void addMoneyOfPerson(Person person, Money money){
 		mDbHelper.addSommeLine(person.getName(), 
 				person.getSurname(),
-				123456,
-//				money.getDate(),
+				money.getDate(),
 				money.getSomme(),
 				money.getType());
 	}
@@ -119,10 +122,10 @@ public class DatabaseApi {
 	public Money fromDataToMoney(Cursor c){
 		Money money;
 		if(c.getString(4) == "dette"){
-			money = new Money(c.getInt(2), c.getInt(3), SumType.DETTE);
+			money = new Money(c.getInt(2), c.getString(3), SumType.DETTE);
 		}
 		else {
-			money = new Money(c.getInt(2), c.getInt(3), SumType.CREDIT);
+			money = new Money(c.getInt(2), c.getString(3), SumType.CREDIT);
 		}
 		
 		return money;
