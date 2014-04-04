@@ -1,9 +1,12 @@
 package com.project.aidememoire.fragment;
 
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -61,7 +64,7 @@ public class AddFragment extends Fragment implements OnPageChange{
 			Bundle savedInstanceState) {
 		context = getActivity();
 		dataBaseApi = new DatabaseApi(getActivity());
-		Calendar date = Calendar.getInstance();
+		Calendar date = Calendar.getInstance(TimeZone.getDefault(), new Locale("fr"));
 
 		fragmentView = inflater.inflate(R.layout.add_layout, container, false);
 		
@@ -70,8 +73,8 @@ public class AddFragment extends Fragment implements OnPageChange{
 		nameEdit = (EditText) fragmentView.findViewById(R.id.name);
 		surnameEdit = (EditText) fragmentView.findViewById(R.id.surname);
 		sumEdit = (EditText) fragmentView.findViewById(R.id.sum);
-		dateEdit = (Button) fragmentView.findViewById(R.id.date);
-		dateEdit.setText(date.get(Calendar.YEAR) + "/" + date.get(Calendar.MONTH) + "/" + date.get(Calendar.DAY_OF_MONTH));
+		dateEdit = (Button) fragmentView.findViewById(R.id.date);     
+		dateEdit.setText(date.get(Calendar.DAY_OF_MONTH) + " " + getStringMonth(date.get(Calendar.MONTH)) + " " + date.get(Calendar.YEAR));
 		
 		sumSignsRadioGroup = (RadioGroup) fragmentView.findViewById(R.id.sumSign);
 		
@@ -97,7 +100,9 @@ public class AddFragment extends Fragment implements OnPageChange{
             		type = SumType.CREDIT;
             	}
             	
-            	money = new Money(Integer.parseInt(sumEdit.getText().toString()), 12356, type);
+            	String selectedDate = (String) dateEdit.getText();
+            	
+            	money = new Money(Integer.parseInt(sumEdit.getText().toString()), 123456, type);
             	person = new Person(nameEdit.getText().toString(), surnameEdit.getText().toString(), money);
 
 
@@ -110,6 +115,26 @@ public class AddFragment extends Fragment implements OnPageChange{
         });
 
 		return fragmentView;
+	}
+	
+	static String getStringMonth(int num){
+		String month = "";
+		DateFormatSymbols dfs = new DateFormatSymbols();
+        String[] months = dfs.getMonths();
+        if (num >= 0 && num <= 11 ) {
+            month = months[num];
+        }
+        return month;
+	}
+	
+	static int getIntMonth(String month){
+		int num = 0;
+		DateFormatSymbols dfs = new DateFormatSymbols();
+        String[] months = dfs.getMonths();
+        while (!months[num].equals(month) && num <= 11 ) {
+            num++;
+        }
+        return num;
 	}
 	
 	public void showFragment() {
@@ -136,23 +161,23 @@ public class AddFragment extends Fragment implements OnPageChange{
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 		
 			// Use the current date as the default date in the picker
-		
+			String [] selectedDate = ((String) dateEdit.getText()).split(" ");
 			final Calendar c = Calendar.getInstance();
-			int year = c.get(Calendar.YEAR);
-			int month = c.get(Calendar.MONTH);
-			int day = c.get(Calendar.DAY_OF_MONTH);
 		
 			// Create a new instance of DatePickerDialog and return it
-			return new DatePickerDialog(getActivity(), this, year, month, day);
+			return new DatePickerDialog(getActivity(), this, 
+					Integer.parseInt(selectedDate[2]), 
+					getIntMonth(selectedDate[1]), 
+					Integer.parseInt(selectedDate[0]));
 		}
 		
 		@Override
 		public void onDateSet(DatePicker view, int year, int monthOfYear,
 				int dayOfMonth) {
 		
-			dateEdit.setText(Calendar.getInstance().get(Calendar.YEAR) + "/" 
-					+ Calendar.getInstance().get(Calendar.MONTH) + "/" 
-					+ Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+			dateEdit.setText(dayOfMonth + " " 
+					+ getStringMonth(monthOfYear) + " " 
+					+ year);
 		}
 	
 	}
