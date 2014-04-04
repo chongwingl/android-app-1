@@ -69,28 +69,7 @@ public class DatabaseApi {
 	}
 	
 	public List<Money> fetchMoneyOfPerson(Person person){
-		List<Money> money = new ArrayList<Money>();
-		money.addAll(fetchCreditOfPerson(person));
-		money.addAll(fetchDetteOfPerson(person));
-		return money;
-	}
-	
-	public List<Money> fetchDetteOfPerson(Person person){
-		List<Money> money = new ArrayList<Money>();
-		Cursor c = mDbHelper.fetchMoneyOfPerson(person.getName(), person.getSurname(), SumType.DETTE);
-		while(c.moveToNext()){
-			money.add(fromDataToMoney(c, SumType.DETTE));
-		}
-		return money;
-	}
-	
-	public List<Money> fetchCreditOfPerson(Person person){
-		List<Money> money = new ArrayList<Money>();
-		Cursor c = mDbHelper.fetchMoneyOfPerson(person.getName(), person.getSurname(), SumType.CREDIT);
-		while(c.moveToNext()){
-			money.add(fromDataToMoney(c, SumType.CREDIT));
-		}
-		return money;
+		return fromDataToMoneys(mDbHelper.fetchMoneyOfPerson(person.getName(), person.getSurname()));
 	}
 	
 	public List<Person> fetchPersonWithSpecifiedMoney(Person person, Money money){
@@ -105,24 +84,12 @@ public class DatabaseApi {
 	}
 	
 	public void addMoneyOfPerson(Person person, Money money){
-		switch (money.getType()) {
-		case CREDIT:
-			mDbHelper.addCreditLine(person.getName(), 
-					person.getSurname(),
-					123456,
-//					money.getDate(),
-					money.getSomme());
-			break;
-		case DETTE:
-			mDbHelper.addDetteLine(person.getName(),
-					person.getSurname(),
-					123456,
-//					money.getDate(),
-					money.getSomme());
-			break;
-		default:
-			return;
-		}
+		mDbHelper.addSommeLine(person.getName(), 
+				person.getSurname(),
+				123456,
+//				money.getDate(),
+				money.getSomme(),
+				money.getType());
 	}
 	
 	public boolean hasPerson(){
@@ -134,14 +101,6 @@ public class DatabaseApi {
 			return true;
 		}
 		return false;
-	}
-	
-	public boolean hasPersonDebt(){
-		return true;
-	}
-	
-	public boolean hasPersonCredit(){
-		return true;
 	}
 	
 	public Person fromDataToPerson(Cursor c){
@@ -157,8 +116,23 @@ public class DatabaseApi {
 		return persons;
 	}
 	
-	public Money fromDataToMoney(Cursor c, SumType type){
-		Money money = new Money(c.getInt(2), c.getInt(3), type);
+	public Money fromDataToMoney(Cursor c){
+		Money money;
+		if(c.getString(4) == "dette"){
+			money = new Money(c.getInt(2), c.getInt(3), SumType.DETTE);
+		}
+		else {
+			money = new Money(c.getInt(2), c.getInt(3), SumType.CREDIT);
+		}
+		
+		return money;
+	}
+	
+	public List<Money> fromDataToMoneys(Cursor c){
+		List<Money> money = new ArrayList<Money>();
+		while(c.moveToNext()){
+			money.add(fromDataToMoney(c));
+		}
 		return money;
 	}
 

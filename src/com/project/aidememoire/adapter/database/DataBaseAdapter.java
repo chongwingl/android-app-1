@@ -19,12 +19,10 @@ public class DataBaseAdapter {
 	// table personne
 	public static final String KEY_NAME = "name";
 	public static final String KEY_SURNAME = "surname";
-	// table dette
-    public static final String KEY_DETTE = "dette";
+	// table somme
+    public static final String KEY_TYPE = "type";
     public static final String KEY_DATE = "date";
-    public static final String KEY_SOMME = "somme";
-    // table crédit
-    public static final String KEY_CREDIT = "credit";
+    public static final String KEY_MONTANT = "montant";
     // clé permettant de récupérer la personne concerné par l'opération
     public static final String KEY_P = "p_id";
 
@@ -38,36 +36,23 @@ public class DataBaseAdapter {
     private static final String DATABASE_CREATE_T1 =
         "create table personne (_id integer primary key autoincrement, name text, surname text not null);";
     private static final String DATABASE_CREATE_T2 =
-        "create table dette (_id integer primary key autoincrement, p_id integer foreign_key, date integer not null, somme integer not null);";
-    private static final String DATABASE_CREATE_T3 =
-    	"create table credit (_id integer primary key autoincrement, p_id integer foreign_key, date integer not null, somme integer not null);";
+        "create table somme (_id integer primary key autoincrement, p_id integer foreign_key, date integer not null, montant integer not null, type text not null);";
 
     private static final String DATABASE_NAME = "data";
     private static final String DATABASE_TABLE_P = "personne";
-    private static final String DATABASE_TABLE_C = "credit";
-    private static final String DATABASE_TABLE_D = "dette";
+    private static final String DATABASE_TABLE_S = "somme";
     private static final int DATABASE_VERSION = 2;
     
     // TODO n'utiliser que 2 tables: personne et argent où le type des sous sera un champ (1=dette, 2=credit)
     private static final String GET_PERSON_QUERY = 
-    		"select name, surname from personne where name=\"{{name}}\" and surname=\"{{surname}}\"";
+    		"select _id, name, surname from personne where name=\"{{name}}\" and surname=\"{{surname}}\"";
     private static final String GET_MONEY_OF_PERSON_QUERY = 
-    		"select name, surname, somme, date from {{table}} inner join personne on personne._id={{table}}.p_id "+
+    		"select name, surname, montant, date, type from somme inner join personne on personne._id=somme.p_id "+
     		"where personne.name=\"{{name}}\" and personne.surname=\"{{surname}}\"";
-    private static final String GET_ALL_MONEY_OF_PERSON_QUERY = 
-    		"select name, surname, somme, date from dette inner join personne on personne._id=dette.p_id "+
-    		"where personne.name=\"{{name}}\" and personne.surname=\"{{surname}}\" "+
-    		"union "+
-    		"select name, surname, somme, date from credit inner join personne on personne._id=credit.p_id "+
-    		"where personne.name=\"{{name}}\" and personne.surname=\"{{surname}}\" ";
-    private static final String GET_MONEY_QUERY = "select name, surname, somme, date from {{table}} inner join personne on personne._id={{table}}.p_id "+
-    		"where personne.name=\"{{name}}\" and personne.surname=\"{{surname}}\" and {{table}}.somme={{somme}} and {{table}}.date={{date}}";
-    private static final String GET_ALL_MONEY_QUERY = 
-    		"select name, surname, somme, date from dette inner join personne on personne._id=dette.p_id "+
-    		"where personne.name=\"{{name}}\" and personne.surname=\"{{surname}}\" and dette.somme={{somme}} and dette.date={{date}} "+
-    		"union "+
-    		"select name, surname, somme, date from credit inner join personne on personne._id=credit.p_id "+
-    		"where personne.name=\"{{name}}\" and personne.surname=\"{{surname}}\" and credit.somme={{somme}} and credit.date={{date}} ";
+    private static final String GET_SPECIFIED_MONEY_QUERY = "select name, surname, montant, date, type from somme inner join personne on personne._id=somme.p_id "+
+    		"where personne.name=\"{{name}}\" and personne.surname=\"{{surname}}\" and somme.montant={{somme}} and somme.date={{date}} " +
+    		"and somme.type=\"{{type}}\"";
+    private static final String GET_ALL = "select * from somme inner join personne on personne._id=somme.p_id";
     
     private final Context ctx;
     
@@ -82,7 +67,6 @@ public class DataBaseAdapter {
 
             db.execSQL(DATABASE_CREATE_T1);
             db.execSQL(DATABASE_CREATE_T2);
-            db.execSQL(DATABASE_CREATE_T3);
         }
 
         @Override
@@ -90,8 +74,7 @@ public class DataBaseAdapter {
             Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
                     + newVersion + ", which will destroy all old data");
             db.execSQL("DROP TABLE IF EXISTS personne;");
-            db.execSQL("DROP TABLE IF EXISTS dette;");
-            db.execSQL("DROP TABLE IF EXISTS credit;");
+            db.execSQL("DROP TABLE IF EXISTS somme;");
             onCreate(db);
         }
     }
@@ -110,36 +93,31 @@ public class DataBaseAdapter {
         dbHelper.close();
     }
     
-    public boolean addCreditLine(String name, String surname, int date, int sum) {
+    public boolean addSommeLine(String name, String surname, int date, int sum, SumType type) {
     	long p_id;
+    	String strType;
+    	switch (type) {
+			case DETTE:
+				strType = "dette";
+				break;
+			case CREDIT:
+				strType = "credit";
+				break;
+			default:
+				return false;
+		}
+    	
     	Cursor c = fetchPerson(name, surname);
     	if(c.moveToNext()){
+    		Log.i(TAG, c.getString(0));
     		p_id = c.getLong(0);
     	}
     	else {
     		p_id = this.addPerson(name, surname);
     	}
     	
-    	if(p_id >= 0){
-    		if(this.addCredit(p_id, date, sum) >= 0) {
-    			return true;
-    		}
-    	}
-    	return false;
-    }
-    
-    public boolean addDetteLine(String name, String surname, int date, int sum) {
-    	long p_id;
-    	Cursor c = fetchPerson(name, surname);
-    	if(c.moveToNext()){
-    		p_id = c.getLong(0);
-    	}
-    	else {
-    		p_id = this.addPerson(name, surname);
-    	}
-
-    	if(p_id >= 0){
-    		if(this.addDette(p_id, date, sum) >= 0) {
+    	if(p_id > 0){
+    		if(this.addSomme(p_id, date, sum, strType) > 0) {
     			return true;
     		}
     	}
@@ -162,20 +140,13 @@ public class DataBaseAdapter {
     	return db.insert(DATABASE_TABLE_P, null, initialValues);
     }
     
-    public long addCredit(long p_id, int date, int somme){
+    public long addSomme(long p_id, int date, int somme, String type){
     	ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_P, p_id);
         initialValues.put(KEY_DATE, date);
-        initialValues.put(KEY_SOMME, somme);
-    	return db.insert(DATABASE_TABLE_C, null, initialValues);
-    }
-    
-    public long addDette(long p_id, int date, int somme){
-    	ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_P, p_id);
-        initialValues.put(KEY_DATE, date);
-        initialValues.put(KEY_SOMME, somme);
-    	return db.insert(DATABASE_TABLE_D, null, initialValues);
+        initialValues.put(KEY_MONTANT, somme);
+        initialValues.put(KEY_TYPE, type);
+    	return db.insert(DATABASE_TABLE_S, null, initialValues);
     }
     
     public Cursor fetchPerson(String name, String surname){
@@ -186,62 +157,32 @@ public class DataBaseAdapter {
     		null);
     }
     
-    public Cursor fetchMoneyOfPerson(String name, String surname, SumType type){
-    	String table;
-    	switch (type) {
-			case DETTE:
-				table = "dette";
-				break;
-			case CREDIT:
-				table = "credit";
-				break;
-			default:
-				return null;
-		}
-    	
-    	return db.rawQuery(GET_MONEY_OF_PERSON_QUERY
-				.replace("{{table}}", table)
-    			.replace("{{name}}", name.toLowerCase(Locale.FRANCE))
-    			.replace("{{surname}}", surname.toLowerCase(Locale.FRANCE)), 
-    		null);
-    }
-    
     public Cursor fetchMoneyOfPerson(String name, String surname){
-    	return db.rawQuery(GET_ALL_MONEY_OF_PERSON_QUERY
+    	return db.rawQuery(GET_MONEY_OF_PERSON_QUERY
     			.replace("{{name}}", name.toLowerCase(Locale.FRANCE))
     			.replace("{{surname}}", surname.toLowerCase(Locale.FRANCE)), 
     		null);
     }
    
     public Cursor fetchSpecifiedMoney(String name, String surname, int somme, int date, SumType type){
-    	String table;
+    	String strType;
     	switch (type) {
 			case DETTE:
-				table = "dette";
+				strType = "dette";
 				break;
 			case CREDIT:
-				table = "credit";
+				strType = "credit";
 				break;
 			default:
 				return null;
 		}
     	
-    	return db.rawQuery(GET_MONEY_QUERY
-    			.replace("{{table}}", table)
+    	return db.rawQuery(GET_SPECIFIED_MONEY_QUERY
     			.replace("{{name}}", name.toLowerCase(Locale.FRANCE))
     			.replace("{{surname}}", surname.toLowerCase(Locale.FRANCE))
     			.replace("{{somme}}", String.valueOf(somme))
-    			.replace("{{date}}", String.valueOf(date)), 
-    		null);
-    }
-    
-    public Cursor fetchSpecifiedMoney(String name, String surname, int somme, int date){
-    	
-    	return db.rawQuery(GET_ALL_MONEY_QUERY
-    			.replace("{{name}}", name.toLowerCase(Locale.FRANCE))
-    			.replace("{{surname}}", surname.toLowerCase(Locale.FRANCE))
-    			.replace("{{somme}}", String.valueOf(somme))
-    			.replace("{{date}}", String.valueOf(date)), 
+    			.replace("{{date}}", String.valueOf(date))
+    			.replace("{{type}}", String.valueOf(strType)), 
     		null);
     }
     
@@ -256,16 +197,14 @@ public class DataBaseAdapter {
         		null, null, null, null, null);
     }
     
-    public Cursor fetchAllCredit() {
+    public Cursor fetchAllMoney() {
 
-        return db.query(DATABASE_TABLE_C, new String[] {KEY_ID, KEY_P, KEY_DATE, KEY_SOMME}, 
+        return db.query(DATABASE_TABLE_S, new String[] {KEY_ID, KEY_P, KEY_DATE, KEY_MONTANT, KEY_TYPE},
         		null, null, null, null, null);
     }
     
-    public Cursor fetchAllDette() {
-
-        return db.query(DATABASE_TABLE_D, new String[] {KEY_ID, KEY_P, KEY_DATE, KEY_SOMME}, 
-        		null, null, null, null, null);
+    public Cursor fetchAll(){
+    	return db.rawQuery(GET_ALL, null);
     }
     
     /**
@@ -280,12 +219,9 @@ public class DataBaseAdapter {
     }
     public boolean deleteCredit(long id) {
 
-        return db.delete(DATABASE_TABLE_C, KEY_ID + "=" + id, null) > 0;
+        return db.delete(DATABASE_TABLE_S, KEY_ID + "=" + id, null) > 0;
     }
-    public boolean deleteDette(long id) {
 
-        return db.delete(DATABASE_TABLE_D, KEY_ID + "=" + id, null) > 0;
-    }
 
 }
 

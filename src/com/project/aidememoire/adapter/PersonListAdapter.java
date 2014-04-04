@@ -41,10 +41,10 @@ public class PersonListAdapter extends CursorAdapter{
         sum = (TextView) view.findViewById(R.id.money_sum);
         date = (TextView) view.findViewById(R.id.money_date);
         
-        name.setText(cursor.getString(5));
-        surname.setText(cursor.getString(6));
-		sum.setText(String.valueOf(cursor.getInt(3)));
-		date.setText(String.valueOf(cursor.getInt(2)));
+        name.setText(cursor.getString(6));
+        surname.setText(cursor.getString(7));
+		sum.setText(cursor.getString(3));
+		date.setText(cursor.getString(2));
 	}
 
 	@Override
