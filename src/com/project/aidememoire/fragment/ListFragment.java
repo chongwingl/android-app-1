@@ -57,8 +57,8 @@ public class ListFragment extends Fragment{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                     long id) {
-	             if(view != footerView){
-	            	 	Cursor c = (Cursor) adapter.getItem(position);
+	             if(position != 0 && position != (adapter.getCount() + 1)){
+	            	 	Cursor c = (Cursor) adapter.getItem(position-1);
 	            	 	// 0: _id
 	            	 	// 1: p_id
 	            	 	// 2: date
@@ -78,7 +78,8 @@ public class ListFragment extends Fragment{
 	            			adapter.notifyDataSetChanged();       			
 		          	   	} 
 	             }
-	             else {
+	             
+	             else if(position == (adapter.getCount() + 1)) {
 	            	 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 	            	 fragmentTransaction.replace(R.id.main_container, new AddFragment());
 	            	 fragmentTransaction.addToBackStack(null);
