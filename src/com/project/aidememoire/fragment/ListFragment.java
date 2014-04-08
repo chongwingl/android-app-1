@@ -18,7 +18,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class ListFragment extends Fragment implements OnPageChange{
+public class ListFragment extends Fragment{
 
 	private final static String TAG = "ListFragment";
 	
@@ -63,34 +63,11 @@ public class ListFragment extends Fragment implements OnPageChange{
 	            	 fragmentTransaction.replace(R.id.main_container, new AddFragment());
 	            	 fragmentTransaction.addToBackStack(null);
 	            	 fragmentTransaction.commit();
-	            	 
 	             }
             }
         });
 		
 		return fragmentView;
 	}
-
-	@Override
-	public void onPageVisible() {
-		Log.i(TAG, "Page is visible");
 		
-		if(!dataBaseApi.isOpen()){
-			dataBaseApi.open();
-		}
-		
-		adapter.changeCursor(dataBaseApi.fetchAllPersonAndMoneyCursor());
-		adapter.notifyDataSetChanged();
-	}
-
-	@Override
-	public void onPageChanged() {
-		Log.i(TAG, "Page has been left");
-		
-		if(dataBaseApi.isOpen()){
-			dataBaseApi.close();
-		}
-	}
-	
-	
 }

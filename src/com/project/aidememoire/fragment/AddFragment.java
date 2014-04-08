@@ -42,7 +42,7 @@ import com.project.aidememoire.listener.OnPageChange;
 import com.project.aidememoire.model.Money;
 import com.project.aidememoire.model.Person;
 
-public class AddFragment extends Fragment implements OnPageChange{
+public class AddFragment extends Fragment{
 	
 	private final static String TAG = "AddFragment";
 	
@@ -164,7 +164,8 @@ public class AddFragment extends Fragment implements OnPageChange{
 		}
 		
 	}
-	
+
+
 	public static class DatePickerFragment extends DialogFragment implements
 		DatePickerDialog.OnDateSetListener {
 	
@@ -191,21 +192,5 @@ public class AddFragment extends Fragment implements OnPageChange{
 					+ year);
 		}
 	
-	}
-
-	@Override
-	public void onPageVisible() {
-		Log.i(TAG, "Page is visible");
-		if(dataBaseApi != null && !dataBaseApi.isOpen()){
-			dataBaseApi.open();
-		}
-	}
-
-	@Override
-	public void onPageChanged() {
-		Log.i(TAG, "Page has been left");
-		if(dataBaseApi.isOpen()){
-			dataBaseApi.close();
-		}
 	}
 }
