@@ -25,12 +25,15 @@ public class ListFragment extends Fragment implements OnPageChange{
 	
 	private ListView peopleListView;
 	private PersonListAdapter adapter;
+	private View footerView;
+	private Bundle state;
 	
 	private View fragmentView;
 	private DatabaseApi dataBaseApi;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		state = savedInstanceState;
 		dataBaseApi = new DatabaseApi(getActivity());
 		
 		fragmentView = super.onCreateView(inflater, container, savedInstanceState);
@@ -40,6 +43,9 @@ public class ListFragment extends Fragment implements OnPageChange{
 
 		adapter = new PersonListAdapter(getActivity(), dataBaseApi.fetchAllPersonAndMoneyCursor(), false);
 		peopleListView.setAdapter(adapter);
+		if(adapter.getCount() < 1){
+			setFooterView(state);
+		}
 
 		peopleListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -50,6 +56,11 @@ public class ListFragment extends Fragment implements OnPageChange{
         	   if(dataBaseApi.deleteSomme(c.getLong(1))){
            	   		adapter.changeCursor(dataBaseApi.fetchAllPersonAndMoneyCursor());
           			adapter.notifyDataSetChanged();
+          			
+          			if(adapter.getCount() < 1){
+          				setFooterView(state);
+          			}
+          			
         	   }
                if(dataBaseApi.deleteSomme(c.getLong(1))){
             	   	adapter.changeCursor(dataBaseApi.fetchAllPersonAndMoneyCursor());
@@ -68,6 +79,9 @@ public class ListFragment extends Fragment implements OnPageChange{
 		
 		return fragmentView;
 	}
+	public void setFooterView(Bundle state){
+		footerView = this.getLayoutInflater(state).inflate(R.layout.list_footer, null);
+		peopleListView.addFooterView(footerView);
 
 	@Override
 	public void onPageVisible() {
@@ -79,6 +93,9 @@ public class ListFragment extends Fragment implements OnPageChange{
 		
 		adapter.changeCursor(dataBaseApi.fetchAllPersonAndMoneyCursor());
 		adapter.notifyDataSetChanged();
+		if(footerView != null){
+    		peopleListView.removeFooterView(footerView);
+    		footerView = null;
 	
 	}
 

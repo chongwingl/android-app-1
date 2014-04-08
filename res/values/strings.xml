@@ -2,7 +2,16 @@
 <resources>
 
     <string name="app_name">AideMemoire</string>
-    <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
+    <string name="tab_add">Ajout</string>
+    <string name="tab_list">Liste</string>
+    <string name="form_name">Nom</string>
+    <string name="form_surname">Prénom</string>
+    <string name="form_sum">Somme</string>
+    <string name="form_plus">+</string>
+    <string name="form_minus">-</string>
+    <string name="form_date">Date</string>
+    <string name="form_button_add">Ajouter</string>
+    <string name="default_listview_content">Pas d\'élément disponible</string>
 
 </resources>

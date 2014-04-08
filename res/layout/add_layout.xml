@@ -4,111 +4,115 @@
     android:layout_height="match_parent" 
     android:orientation="vertical" >
     
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        
+		<TextView 
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/form_name" />
+		
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName" >
+            
+        </EditText>
+    </LinearLayout>
     
-	    <LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal" >
-	        
-			<TextView 
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:text="Nom" />
-			
-	        <EditText
-	            android:id="@+id/name"
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:inputType="textPersonName" >
-	            
-	        </EditText>
-	    </LinearLayout>
-	    
-	     <LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal" >
-	        
-			<TextView 
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:text="Prenom" />
-			
-	        <EditText
-	            android:id="@+id/surname"
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:inputType="textPersonName" >
-	
-	        </EditText>
-	    </LinearLayout>
-	
-	    <LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal" >
-	        
-	        <TextView 
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:text="Somme" />
-	        
-	        <RadioGroup
-                android:id="@+id/sumSign"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        
+		<TextView 
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/form_surname" />
+		
+        <EditText
+            android:id="@+id/surname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName" >
 
-                <RadioButton
-                    android:id="@+id/plus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="+" />
+        </EditText>
+    </LinearLayout>
 
-                <RadioButton
-                    android:id="@+id/minus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="-" />
-	        </RadioGroup>
-	
-	        <EditText
-	            android:id="@+id/sum"
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:inputType="numberDecimal" />
-	    </LinearLayout>
-	
-	    <LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal" >
-	        
-	         <TextView 
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:text="Date" />
-	
-	         <Button
-	             android:id="@+id/date"
-	             style="?android:attr/buttonStyleSmall"
-	             android:layout_width="wrap_content"
-	             android:layout_height="wrap_content"
-	             android:background="@android:color/transparent" />
-	
-	    </LinearLayout>
-	
-		<Button
-	        android:id="@+id/addElement"
-	        style="?android:attr/buttonStyleSmall"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="Ajouter" /> 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        
+        <TextView 
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/form_sum" />
+        
+        <RadioGroup
+               android:id="@+id/sumSign"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" >
+
+               <RadioButton
+                   android:id="@+id/plus"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:checked="true"
+                   android:text="@string/form_plus" />
+
+               <RadioButton
+                   android:id="@+id/minus"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/form_minus" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/sum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        
+         <TextView 
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/form_date" />
+
+         <Button
+             android:id="@+id/date"
+             style="?android:attr/buttonStyleSmall"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:background="@android:color/transparent" />
+
+    </LinearLayout>
+
+	<Button
+        android:id="@+id/addElement"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/form_button_add" /> 
+	<View
+	    android:layout_width="fill_parent"
+	    android:layout_height="1dp"
+	    android:background="@android:color/darker_gray"/>
     
     <LinearLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:orientation="horizontal" >
+	    android:orientation="horizontal"
+	    android:baselineAligned="false" >
 	
 		<ListView
 	        android:layout_width="0dip"

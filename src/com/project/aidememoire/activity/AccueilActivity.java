@@ -33,10 +33,10 @@ public class AccueilActivity extends FragmentActivity {
         bar.setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE);
         
         tabsAdapter = new TabsAdapter(this, fragmentManager, viewPager);
-        tabsAdapter.addTab(bar.newTab().setText("Ajout"),
-        		AddFragment.class, null);
-        tabsAdapter.addTab(bar.newTab().setText("Liste"),
+        tabsAdapter.addTab(bar.newTab().setText(R.string.tab_list),
         		ListFragment.class, null);
+        tabsAdapter.addTab(bar.newTab().setText(R.string.tab_add),
+        		AddFragment.class, null);
         
         if (savedInstanceState != null) {
             bar.setSelectedNavigationItem(savedInstanceState.getInt("tab", 0));
