@@ -9,5 +9,7 @@
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_centerHorizontal="true"
-	    android:text="@string/default_listview_content"/>
+	    android:text="@string/default_listview_content"
+	    android:padding="5dip"
+        android:layout_margin="5dip" />
 </RelativeLayout>

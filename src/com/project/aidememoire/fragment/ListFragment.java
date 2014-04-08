@@ -3,7 +3,10 @@ package com.project.aidememoire.fragment;
 import com.project.aidememoire.R;
 import com.project.aidememoire.adapter.PersonListAdapter;
 import com.project.aidememoire.adapter.database.api.DatabaseApi;
+import com.project.aidememoire.enumeration.SumType;
 import com.project.aidememoire.listener.OnPageChange;
+import com.project.aidememoire.model.Money;
+import com.project.aidememoire.model.Person;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -25,6 +28,7 @@ public class ListFragment extends Fragment{
 	private ListView peopleListView;
 	private PersonListAdapter adapter;
 	private View footerView;
+	private View headerView;
 	private Bundle state;
 	
 	private View fragmentView;
@@ -44,8 +48,10 @@ public class ListFragment extends Fragment{
 		adapter = new PersonListAdapter(getActivity(), dataBaseApi.fetchAllPersonAndMoneyCursor(), false);
 		peopleListView.setAdapter(adapter);
 		
-		footerView = this.getLayoutInflater(state).inflate(R.layout.list_footer, null);
+		footerView = getLayoutInflater(state).inflate(R.layout.list_footer, null);
+		headerView = getLayoutInflater(state).inflate(R.layout.list_header, null);
 		peopleListView.addFooterView(footerView);
+		peopleListView.addHeaderView(headerView);
 
 		peopleListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -53,7 +59,21 @@ public class ListFragment extends Fragment{
                     long id) {
 	             if(view != footerView){
 	            	 	Cursor c = (Cursor) adapter.getItem(position);
-		          	   	if(dataBaseApi.deleteSomme(c.getLong(1))){
+	            	 	// 0: _id
+	            	 	// 1: p_id
+	            	 	// 2: date
+	            	 	// 3: montant
+	            	 	// 4: type
+	            	 	// 5: _id
+	            	 	// 6: name
+	            	 	// 7: surname
+//	            	 	SumType type = SumType.DETTE;
+//	            	 	if(c.getString(4) == "credit"){
+//	            	 		type = SumType.CREDIT;
+//	            	 	}
+//	            	 	
+//	            	 	Person person = new Person(c.getString(6), c.getString(7), new Money(c.getInt(3), c.getString(2), type));
+		          	   	if(dataBaseApi.deleteSomme(c)){
 	             	   		adapter.changeCursor(dataBaseApi.fetchAllPersonAndMoneyCursor());
 	            			adapter.notifyDataSetChanged();       			
 		          	   	} 

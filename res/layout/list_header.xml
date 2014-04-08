@@ -1,39 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
-    android:stretchColumns="1" >
-    
+    android:layout_height="match_parent">
+
     <TableRow
         android:id="@+id/header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dip"
         android:layout_margin="5dip" >
-	    <TextView 
-	        android:id="@+id/person_name"
+        
+        <TextView 
+	        android:id="@+id/header_name"
 	        android:layout_height="match_parent"
-	        android:layout_width="0dp"
+	        android:layout_width="match_parent"
+	        android:text="@string/header_name"
 	        android:layout_weight="1"
 	        android:gravity="center" />
+        
 	    <TextView 
-	        android:id="@+id/person_surname"
+	        android:id="@+id/header_surname"
 	        android:layout_height="match_parent"
-	        android:layout_width="0dp"
+	        android:layout_width="match_parent"
+	        android:text="@string/header_surname"
 	        android:layout_weight="1"
 	        android:gravity="center" />
+	    
 	    <TextView 
-	        android:id="@+id/money_sum"
+	        android:id="@+id/header_sum"
 	        android:layout_height="match_parent"
-	        android:layout_width="0dp"
+	        android:layout_width="match_parent"
+	        android:text="@string/header_sum"
 	        android:layout_weight="1"
 	        android:gravity="center" />
+	    
 	    <TextView 
-	        android:id="@+id/money_date"
+	        android:id="@+id/header_date"
 	        android:layout_height="match_parent"
-	        android:layout_width="0dp"
+	        android:layout_width="match_parent"
+	        android:text="@string/header_date"
 	        android:layout_weight="1"
 	        android:gravity="center" />
-	</TableRow>
+	    
+    </TableRow>
 
 </TableLayout>
