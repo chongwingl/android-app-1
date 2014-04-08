@@ -52,6 +52,7 @@ public class AddFragment extends Fragment implements OnPageChange{
 	private DatabaseApi dataBaseApi;
 	
 	private Button addButton;
+	private Button cancelButton;
 	private EditText nameEdit;
 	private EditText surnameEdit;
 	private EditText sumEdit;
@@ -69,6 +70,7 @@ public class AddFragment extends Fragment implements OnPageChange{
 		fragmentView = inflater.inflate(R.layout.add_layout, container, false);
 		
 		addButton = (Button) fragmentView.findViewById(R.id.addElement);
+		cancelButton = (Button) fragmentView.findViewById(R.id.cancel);
 		
 		nameEdit = (EditText) fragmentView.findViewById(R.id.name);
 		surnameEdit = (EditText) fragmentView.findViewById(R.id.surname);
@@ -109,8 +111,19 @@ public class AddFragment extends Fragment implements OnPageChange{
             	Log.i(TAG, "name : " + nameEdit.getText());
             	Log.i(TAG, "surname : " + surnameEdit.getText());
             	Log.i(TAG, "sum : " + sumEdit.getText());
+            	
+            	getFragmentManager().popBackStack();
             }
         });
+		
+		cancelButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				getFragmentManager().popBackStack();
+				
+			}
+		});
 
 		return fragmentView;
 	}
