@@ -4,55 +4,56 @@
     android:layout_height="match_parent" 
     android:orientation="vertical" >
     
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-        
-		<TextView 
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:text="Nom" />
-		
-        <EditText
-            android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName" >
-            
-        </EditText>
-    </LinearLayout>
     
-     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-        
-		<TextView 
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:text="Prenom" />
-		
-        <EditText
-            android:id="@+id/surname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName" >
-
-        </EditText>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-        
-        <TextView 
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:text="Somme" />
-        
-        <RadioGroup
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+	        
+			<TextView 
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="Nom" />
+			
+	        <EditText
+	            android:id="@+id/name"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:inputType="textPersonName" >
+	            
+	        </EditText>
+	    </LinearLayout>
+	    
+	     <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+	        
+			<TextView 
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="Prenom" />
+			
+	        <EditText
+	            android:id="@+id/surname"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:inputType="textPersonName" >
+	
+	        </EditText>
+	    </LinearLayout>
+	
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+	        
+	        <TextView 
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="Somme" />
+	        
+	        <RadioGroup
                 android:id="@+id/sumSign"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
@@ -69,45 +70,51 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-" />
-            </RadioGroup>
-
-        <EditText
-            android:id="@+id/sum"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal" />
-    </LinearLayout>
-
+	        </RadioGroup>
+	
+	        <EditText
+	            android:id="@+id/sum"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:inputType="numberDecimal" />
+	    </LinearLayout>
+	
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+	        
+	         <TextView 
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="Date" />
+	
+	         <Button
+	             android:id="@+id/date"
+	             style="?android:attr/buttonStyleSmall"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:background="@android:color/transparent" />
+	
+	    </LinearLayout>
+	
+		<Button
+	        android:id="@+id/addElement"
+	        style="?android:attr/buttonStyleSmall"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Ajouter" /> 
+    
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-        
-         <TextView 
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:text="Date" />
-
-         <Button
-             android:id="@+id/date"
-             style="?android:attr/buttonStyleSmall"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:background="@android:color/transparent" />
-        
-        <!-- DatePicker
-            android:id="@+id/date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:calendarViewShown="false" /-->
-
-    </LinearLayout>
-
-	<Button
-        android:id="@+id/addElement"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ajouter" />    
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" >
+	
+		<ListView
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:id="@+id/personListView1" 
+	        android:layout_weight="1" />
+	</LinearLayout>
 
 </LinearLayout>

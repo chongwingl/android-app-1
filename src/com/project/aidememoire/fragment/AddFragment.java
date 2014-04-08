@@ -59,6 +59,9 @@ public class AddFragment extends Fragment implements OnPageChange{
 	private RadioGroup sumSignsRadioGroup;
 	private Context context;
 	
+	private ListView peopleListView;
+	private PersonListAdapter adapter;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -77,6 +80,10 @@ public class AddFragment extends Fragment implements OnPageChange{
 		dateEdit.setText(date.get(Calendar.DAY_OF_MONTH) + " " + getStringMonth(date.get(Calendar.MONTH)) + " " + date.get(Calendar.YEAR));
 		
 		sumSignsRadioGroup = (RadioGroup) fragmentView.findViewById(R.id.sumSign);
+		
+		peopleListView = (ListView) fragmentView.findViewById(R.id.personListView1);
+		adapter = new PersonListAdapter(getActivity(), dataBaseApi.fetchAllPersonAndMoneyCursor(), false);
+		peopleListView.setAdapter(adapter);
 		
 		dateEdit.setOnClickListener(new View.OnClickListener() {
 			
@@ -105,7 +112,9 @@ public class AddFragment extends Fragment implements OnPageChange{
 
 
             	addPerson(person);
-            	
+            	adapter.changeCursor(dataBaseApi.fetchAllPersonAndMoneyCursor());
+        		adapter.notifyDataSetChanged();
+        		
             	Log.i(TAG, "name : " + nameEdit.getText());
             	Log.i(TAG, "surname : " + surnameEdit.getText());
             	Log.i(TAG, "sum : " + sumEdit.getText());

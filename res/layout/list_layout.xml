@@ -7,6 +7,6 @@
 	<ListView
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:id="@+id/peopleListView" 
+        android:id="@+id/personListView2" 
         android:layout_weight="1" />
 </LinearLayout>

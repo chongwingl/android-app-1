@@ -36,7 +36,7 @@ public class ListFragment extends Fragment implements OnPageChange{
 		fragmentView = super.onCreateView(inflater, container, savedInstanceState);
 		fragmentView = inflater.inflate(R.layout.list_layout, container, false);
 		
-		peopleListView = (ListView) fragmentView.findViewById(R.id.peopleListView);
+		peopleListView = (ListView) fragmentView.findViewById(R.id.personListView2);
 
 		adapter = new PersonListAdapter(getActivity(), dataBaseApi.fetchAllPersonAndMoneyCursor(), false);
 		peopleListView.setAdapter(adapter);
