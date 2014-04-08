@@ -6,6 +6,7 @@ import com.project.aidememoire.adapter.database.api.DatabaseApi;
 import com.project.aidememoire.listener.OnPageChange;
 
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -58,7 +59,10 @@ public class ListFragment extends Fragment implements OnPageChange{
 		          	   	} 
 	             }
 	             else {
-	            	 FragmentManager fragmentManager = getFragmentManager();
+	            	 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+	            	 fragmentTransaction.replace(R.id.main_container, new AddFragment());
+	            	 fragmentTransaction.addToBackStack(null);
+	            	 fragmentTransaction.commit();
 	            	 
 	             }
             }
