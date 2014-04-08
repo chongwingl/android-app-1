@@ -1,13 +1,11 @@
 package com.project.aidememoire.fragment;
 
-import java.util.List;
-
 import com.project.aidememoire.R;
 import com.project.aidememoire.adapter.PersonListAdapter;
 import com.project.aidememoire.adapter.database.api.DatabaseApi;
 import com.project.aidememoire.listener.OnPageChange;
-import com.project.aidememoire.model.Person;
 
+import android.support.v4.app.FragmentManager;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -30,6 +28,7 @@ public class ListFragment extends Fragment implements OnPageChange{
 	
 	private View fragmentView;
 	private DatabaseApi dataBaseApi;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -43,45 +42,30 @@ public class ListFragment extends Fragment implements OnPageChange{
 
 		adapter = new PersonListAdapter(getActivity(), dataBaseApi.fetchAllPersonAndMoneyCursor(), false);
 		peopleListView.setAdapter(adapter);
-		if(adapter.getCount() < 1){
-			setFooterView(state);
-		}
+		
+		footerView = this.getLayoutInflater(state).inflate(R.layout.list_footer, null);
+		peopleListView.addFooterView(footerView);
 
 		peopleListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                     long id) {
-             
-               Cursor c = (Cursor) adapter.getItem(position);
-        	   if(dataBaseApi.deleteSomme(c.getLong(1))){
-           	   		adapter.changeCursor(dataBaseApi.fetchAllPersonAndMoneyCursor());
-          			adapter.notifyDataSetChanged();
-          			
-          			if(adapter.getCount() < 1){
-          				setFooterView(state);
-          			}
-          			
-        	   }
-               if(dataBaseApi.deleteSomme(c.getLong(1))){
-            	   	adapter.changeCursor(dataBaseApi.fetchAllPersonAndMoneyCursor());
-           			adapter.notifyDataSetChanged();
-               }
-//               Log.i(TAG, "_id: "+ c.getString(0));
-//               Log.i(TAG, "p_id: "+ c.getString(1));
-//               Log.i(TAG, "date: "+ c.getString(2));
-//               Log.i(TAG, "montant: "+ c.getString(3));
-//               Log.i(TAG, "type"+ c.getString(4));
-//               Log.i(TAG, "_id"+ c.getString(5));
-//               Log.i(TAG, "name"+ c.getString(5));
-//               Log.i(TAG, "surname"+ c.getString(5));
+	             if(view != footerView){
+	            	 	Cursor c = (Cursor) adapter.getItem(position);
+		          	   	if(dataBaseApi.deleteSomme(c.getLong(1))){
+	             	   		adapter.changeCursor(dataBaseApi.fetchAllPersonAndMoneyCursor());
+	            			adapter.notifyDataSetChanged();       			
+		          	   	} 
+	             }
+	             else {
+	            	 FragmentManager fragmentManager = getFragmentManager();
+	            	 
+	             }
             }
         });
 		
 		return fragmentView;
 	}
-	public void setFooterView(Bundle state){
-		footerView = this.getLayoutInflater(state).inflate(R.layout.list_footer, null);
-		peopleListView.addFooterView(footerView);
 
 	@Override
 	public void onPageVisible() {
@@ -93,10 +77,6 @@ public class ListFragment extends Fragment implements OnPageChange{
 		
 		adapter.changeCursor(dataBaseApi.fetchAllPersonAndMoneyCursor());
 		adapter.notifyDataSetChanged();
-		if(footerView != null){
-    		peopleListView.removeFooterView(footerView);
-    		footerView = null;
-	
 	}
 
 	@Override
