@@ -12,6 +12,6 @@
     <string name="form_minus">-</string>
     <string name="form_date">Date</string>
     <string name="form_button_add">Ajouter</string>
-    <string name="default_listview_content">Pas d\'élément disponible</string>
+    <string name="default_listview_content">Ajouter un champ</string>
 
 </resources>
