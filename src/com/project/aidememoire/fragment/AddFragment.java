@@ -59,15 +59,9 @@ public class AddFragment extends Fragment implements OnPageChange{
 	private RadioGroup sumSignsRadioGroup;
 	private Context context;
 	
-	private ListView peopleListView;
-	private PersonListAdapter adapter;
-	private View footerView;
-	private Bundle state;
-	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		state = savedInstanceState;
 		context = getActivity();
 		dataBaseApi = new DatabaseApi(getActivity());
 		Calendar date = Calendar.getInstance(TimeZone.getDefault(), new Locale("fr"));
@@ -83,14 +77,6 @@ public class AddFragment extends Fragment implements OnPageChange{
 		dateEdit.setText(date.get(Calendar.DAY_OF_MONTH) + " " + getStringMonth(date.get(Calendar.MONTH)) + " " + date.get(Calendar.YEAR));
 
 		sumSignsRadioGroup = (RadioGroup) fragmentView.findViewById(R.id.sumSign);
-		
-		peopleListView = (ListView) fragmentView.findViewById(R.id.personListView1);
-		adapter = new PersonListAdapter(getActivity(), dataBaseApi.fetchAllPersonAndMoneyCursor(), false);
-		peopleListView.setAdapter(adapter);
-		
-		if(adapter.getCount() < 1){
-			setFooterView(state);
-		}
 		
 		dateEdit.setOnClickListener(new View.OnClickListener() {
 			
@@ -119,14 +105,6 @@ public class AddFragment extends Fragment implements OnPageChange{
 
 
             	addPerson(person);
-            	
-            	if(footerView != null){
-            		peopleListView.removeFooterView(footerView);
-            		footerView = null;
-            	}
-            	
-            	adapter.changeCursor(dataBaseApi.fetchAllPersonAndMoneyCursor());
-        		adapter.notifyDataSetChanged();
         		
             	Log.i(TAG, "name : " + nameEdit.getText());
             	Log.i(TAG, "surname : " + surnameEdit.getText());
@@ -135,11 +113,6 @@ public class AddFragment extends Fragment implements OnPageChange{
         });
 
 		return fragmentView;
-	}
-	
-	public void setFooterView(Bundle savedInstanceState){
-		footerView = this.getLayoutInflater(savedInstanceState).inflate(R.layout.list_footer, null);
-		peopleListView.addFooterView(footerView);
 	}
 	
 	static String getStringMonth(int num){
@@ -170,7 +143,6 @@ public class AddFragment extends Fragment implements OnPageChange{
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		state = outState;
 	}
 	
 	public void addPerson(Person person) {
@@ -214,14 +186,6 @@ public class AddFragment extends Fragment implements OnPageChange{
 		if(dataBaseApi != null && !dataBaseApi.isOpen()){
 			dataBaseApi.open();
 		}
-		
-		if(adapter != null && adapter.getCount() < 1 && footerView == null){
-			setFooterView(state);
-		}
-		else if(footerView != null){
-    		peopleListView.removeFooterView(footerView);
-    		footerView = null;
-    	}
 	}
 
 	@Override

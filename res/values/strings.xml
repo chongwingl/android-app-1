@@ -3,8 +3,6 @@
 
     <string name="app_name">AideMemoire</string>
     <string name="menu_settings">Settings</string>
-    <string name="tab_add">Ajout</string>
-    <string name="tab_list">Liste</string>
     <string name="form_name">Nom</string>
     <string name="form_surname">Prénom</string>
     <string name="form_sum">Somme</string>
@@ -12,6 +10,7 @@
     <string name="form_minus">-</string>
     <string name="form_date">Date</string>
     <string name="form_button_add">Ajouter</string>
+    <string name="form_button_cancel">Annuler</string>
     <string name="default_listview_content">Ajouter un champ</string>
 
 </resources>

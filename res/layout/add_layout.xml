@@ -103,22 +103,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/form_button_add" /> 
-	<View
-	    android:layout_width="fill_parent"
-	    android:layout_height="1dp"
-	    android:background="@android:color/darker_gray"/>
-    
-    <LinearLayout
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:orientation="horizontal"
-	    android:baselineAligned="false" >
-	
-		<ListView
-	        android:layout_width="0dip"
-	        android:layout_height="match_parent"
-	        android:id="@+id/personListView1" 
-	        android:layout_weight="1" />
-	</LinearLayout>
+    <Button
+        android:id="@+id/cancel"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/form_button_cancel" /> 
 
 </LinearLayout>
