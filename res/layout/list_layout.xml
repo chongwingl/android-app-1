@@ -76,7 +76,6 @@
 	    android:layout_above="@id/personListView"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:orientation="vertical"
 	    android:layout_alignParentLeft="true"
 	    android:background="@android:color/black" >
 	    
@@ -89,5 +88,6 @@
 		    android:paddingTop="12dip" 
 		    android:background="@android:color/transparent" 
 		    android:textColor="@android:color/white"/>
+		
 	</LinearLayout>
 </RelativeLayout>

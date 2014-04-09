@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
+import android.view.Window;
 
 import com.project.aidememoire.R;
 import com.project.aidememoire.fragment.ListFragment;
@@ -18,7 +19,7 @@ public class AccueilActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
         
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
