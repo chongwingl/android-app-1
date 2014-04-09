@@ -27,9 +27,6 @@ public class ListFragment extends Fragment{
 	
 	private ListView peopleListView;
 	private PersonListAdapter adapter;
-	private View footerView;
-	private View headerView;
-	private Bundle state;
 	
 	private View fragmentView;
 	private DatabaseApi dataBaseApi;
@@ -37,21 +34,15 @@ public class ListFragment extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		state = savedInstanceState;
 		dataBaseApi = new DatabaseApi(getActivity());
 		
 		fragmentView = super.onCreateView(inflater, container, savedInstanceState);
 		fragmentView = inflater.inflate(R.layout.list_layout, container, false);
 		
-		peopleListView = (ListView) fragmentView.findViewById(R.id.personListView2);
+		peopleListView = (ListView) fragmentView.findViewById(R.id.personListView);
 
 		adapter = new PersonListAdapter(getActivity(), dataBaseApi.fetchAllPersonAndMoneyCursor(), false);
 		peopleListView.setAdapter(adapter);
-		
-		footerView = getLayoutInflater(state).inflate(R.layout.list_footer, null);
-		headerView = getLayoutInflater(state).inflate(R.layout.list_header, null);
-		peopleListView.addFooterView(footerView);
-		peopleListView.addHeaderView(headerView);
 
 		peopleListView.setOnItemClickListener(new OnItemClickListener() {
             @Override

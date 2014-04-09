@@ -12,9 +12,9 @@
     <string name="form_button_add">Ajouter</string>
     <string name="form_button_cancel">Annuler</string>
     <string name="default_listview_content">Ajouter un champ</string>
-    <string name="header_name">Nom</string>
-    <string name="header_surname">Prénom</string>
-    <string name="header_sum">Somme</string>
-    <string name="header_date">Date</string>
+    <string name="header_name">NOM</string>
+    <string name="header_surname">PRENOM</string>
+    <string name="header_sum">SOMME</string>
+    <string name="header_date">DATE</string>
 
 </resources>

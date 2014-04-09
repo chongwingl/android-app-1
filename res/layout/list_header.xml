@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" 
+    android:background="@android:color/darker_gray"
+     >
 
     <TableRow
         android:id="@+id/header"
@@ -16,7 +18,9 @@
 	        android:layout_width="match_parent"
 	        android:text="@string/header_name"
 	        android:layout_weight="1"
-	        android:gravity="center" />
+	        android:gravity="center"
+	        android:textColor="@android:color/white"
+	        android:textStyle="bold" />
         
 	    <TextView 
 	        android:id="@+id/header_surname"
@@ -24,7 +28,9 @@
 	        android:layout_width="match_parent"
 	        android:text="@string/header_surname"
 	        android:layout_weight="1"
-	        android:gravity="center" />
+	        android:gravity="center"
+	        android:textColor="@android:color/white"
+	        android:textStyle="bold" />
 	    
 	    <TextView 
 	        android:id="@+id/header_sum"
@@ -32,7 +38,9 @@
 	        android:layout_width="match_parent"
 	        android:text="@string/header_sum"
 	        android:layout_weight="1"
-	        android:gravity="center" />
+	        android:gravity="center"
+	        android:textColor="@android:color/white"
+	        android:textStyle="bold" />
 	    
 	    <TextView 
 	        android:id="@+id/header_date"
@@ -40,7 +48,9 @@
 	        android:layout_width="match_parent"
 	        android:text="@string/header_date"
 	        android:layout_weight="1"
-	        android:gravity="center" />
+	        android:gravity="center"
+	        android:textColor="@android:color/white"
+	        android:textStyle="bold" />
 	    
     </TableRow>
 

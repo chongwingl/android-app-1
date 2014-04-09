@@ -2,7 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:layout_margin="5dip"
+    android:padding="5dip" >
     
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,7 +14,9 @@
 		<TextView 
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:text="@string/form_name" />
+		    android:text="@string/form_name"
+		    android:layout_margin="3dip"
+		    android:padding="3dip" />
 		
         <EditText
             android:id="@+id/name"
@@ -31,7 +35,9 @@
 		<TextView 
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:text="@string/form_surname" />
+		    android:text="@string/form_surname"
+		    android:layout_margin="3dip"
+		    android:padding="3dip" />
 		
         <EditText
             android:id="@+id/surname"
@@ -50,7 +56,12 @@
         <TextView 
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:text="@string/form_sum" />
+		    android:text="@string/form_sum"
+		    android:layout_marginTop="10dip"
+		    android:layout_marginLeft="3dip"
+		    android:layout_marginRight="3dip"
+		    android:layout_marginBottom="3dip"
+		    android:padding="3dip" />
         
         <RadioGroup
                android:id="@+id/sumSign"
@@ -86,28 +97,39 @@
          <TextView 
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:text="@string/form_date" />
+		    android:text="@string/form_date"
+		    android:layout_margin="3dip"
+		    android:padding="3dip" />
 
          <Button
              android:id="@+id/date"
              style="?android:attr/buttonStyleSmall"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:background="@android:color/transparent" />
+             android:background="@android:color/transparent"
+             android:layout_margin="3dip"
+		     android:padding="3dip" />
 
     </LinearLayout>
+    
+     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center" >
 
-	<Button
-        android:id="@+id/addElement"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/form_button_add" /> 
-    <Button
-        android:id="@+id/cancel"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+		<Button
+	        android:id="@+id/addElement"
+	        style="?android:attr/buttonStyleSmall"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/form_button_add" /> 
+	    <Button
+	        android:id="@+id/cancel"
+	        style="?android:attr/buttonStyleSmall"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
         android:text="@string/form_button_cancel" /> 
+        </LinearLayout>
 
 </LinearLayout>
