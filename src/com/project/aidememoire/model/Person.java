@@ -54,7 +54,7 @@ public class Person {
 	public int allDette(){
 		int dette = 0;
 		for(Money m : this.money){
-			if(m.getType() == SumType.DETTE){
+			if(m.getType() == "dette"){
 				dette += m.getSomme();
 			}
 		}
@@ -65,7 +65,7 @@ public class Person {
 	public int allCredit(){
 		int credit = 0;
 		for(Money m : this.money){
-			if(m.getType() == SumType.CREDIT){
+			if(m.getType() == "credit"){
 				credit += m.getSomme();
 			}
 		}

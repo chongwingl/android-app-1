@@ -7,9 +7,9 @@ import com.project.aidememoire.enumeration.SumType;
 public class Money {
 	private int somme;
 	private String date;
-	private SumType type;
+	private String type;
 
-	public Money(int somme, String date, SumType type) {
+	public Money(int somme, String date, String type) {
 		this.somme = somme;
 		this.date = date;
 		this.type = type;
@@ -35,11 +35,11 @@ public class Money {
 		this.date = date;
 	}
 
-	public SumType getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(SumType type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 	

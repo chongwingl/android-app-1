@@ -93,13 +93,11 @@ public class AddFragment extends Fragment{
             	
             	Person person;
             	Money money;
-            	SumType type;
+            	String type;
             	
+            	type = "credit";
             	if(sumSignsRadioGroup.getCheckedRadioButtonId() == R.id.minus){
-            		type = SumType.DETTE;
-            	}
-            	else {
-            		type = SumType.CREDIT;
+            		type = "dette";
             	}
             	
             	money = new Money(Integer.parseInt(sumEdit.getText().toString()), (String) dateEdit.getText(), type);
@@ -150,7 +148,7 @@ public class AddFragment extends Fragment{
 	
 	public void showFragment() {
 		DialogFragment newFragment = new DatePickerFragment();
-		newFragment.show(getFragmentManager(), "Choisissez une date");
+		newFragment.show(getFragmentManager(), null);
 	}
 
 	@Override

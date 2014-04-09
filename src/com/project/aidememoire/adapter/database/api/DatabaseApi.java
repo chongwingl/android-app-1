@@ -95,12 +95,24 @@ public class DatabaseApi {
 		return true;
 	}
 	
-	public boolean deleteSomme(long id){
-		return mDbHelper.deleteSomme(id);
+	public boolean deleteSomme(Cursor c){
+		boolean deleted =  mDbHelper.deleteSomme(c.getLong(1));
+		return deleted;
+	}
+	
+	public boolean deletePerson(Cursor c){
+		return mDbHelper.deletePerson(c.getLong(5));
 	}
 	
 	public boolean hasPersonWithSpecifiedMoney(Person person, Money money){
 		if(fetchPersonWithSpecifiedMoney(person, money).size() > 0){
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean hasPersonWithMoney(Person person){
+		if(fetchMoneyOfPerson(person).size() > 0){
 			return true;
 		}
 		return false;
@@ -120,14 +132,7 @@ public class DatabaseApi {
 	}
 	
 	public Money fromDataToMoney(Cursor c){
-		Money money;
-		if(c.getString(4) == "dette"){
-			money = new Money(c.getInt(2), c.getString(3), SumType.DETTE);
-		}
-		else {
-			money = new Money(c.getInt(2), c.getString(3), SumType.CREDIT);
-		}
-		
+		Money money = new Money(c.getInt(2), c.getString(3), c.getString(4));
 		return money;
 	}
 	

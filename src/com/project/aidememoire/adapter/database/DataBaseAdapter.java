@@ -93,19 +93,8 @@ public class DataBaseAdapter {
         dbHelper.close();
     }
     
-    public boolean addSommeLine(String name, String surname, String date, int sum, SumType type) {
+    public boolean addSommeLine(String name, String surname, String date, int sum, String type) {
     	long p_id;
-    	String strType;
-    	switch (type) {
-			case DETTE:
-				strType = "dette";
-				break;
-			case CREDIT:
-				strType = "credit";
-				break;
-			default:
-				return false;
-		}
     	
     	Cursor c = fetchPerson(name, surname);
     	if(c.moveToNext()){
@@ -117,7 +106,7 @@ public class DataBaseAdapter {
     	}
     	
     	if(p_id > 0){
-    		if(this.addSomme(p_id, date, sum, strType) > 0) {
+    		if(this.addSomme(p_id, date, sum, type) > 0) {
     			return true;
     		}
     	}
@@ -164,25 +153,14 @@ public class DataBaseAdapter {
     		null);
     }
    
-    public Cursor fetchSpecifiedMoney(String name, String surname, int somme, String date, SumType type){
-    	String strType;
-    	switch (type) {
-			case DETTE:
-				strType = "dette";
-				break;
-			case CREDIT:
-				strType = "credit";
-				break;
-			default:
-				return null;
-		}
+    public Cursor fetchSpecifiedMoney(String name, String surname, int somme, String date, String type){
     	
     	return db.rawQuery(GET_SPECIFIED_MONEY_QUERY
     			.replace("{{name}}", name.toLowerCase(Locale.FRANCE))
     			.replace("{{surname}}", surname.toLowerCase(Locale.FRANCE))
     			.replace("{{somme}}", String.valueOf(somme))
     			.replace("{{date}}", date)
-    			.replace("{{type}}", String.valueOf(strType)), 
+    			.replace("{{type}}", String.valueOf(type)), 
     		null);
     }
     

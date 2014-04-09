@@ -67,12 +67,9 @@ public class ListFragment extends Fragment{
 	            	 	// 5: _id
 	            	 	// 6: name
 	            	 	// 7: surname
-//	            	 	SumType type = SumType.DETTE;
-//	            	 	if(c.getString(4) == "credit"){
-//	            	 		type = SumType.CREDIT;
-//	            	 	}
-//	            	 	
-//	            	 	Person person = new Person(c.getString(6), c.getString(7), new Money(c.getInt(3), c.getString(2), type));
+	            	 	
+	            	 	Person person = new Person(c.getString(6), c.getString(7), new Money(c.getInt(3), c.getString(2), c.getString(4)));
+
 		          	   	if(dataBaseApi.deleteSomme(c)){
 	             	   		adapter.changeCursor(dataBaseApi.fetchAllPersonAndMoneyCursor());
 	            			adapter.notifyDataSetChanged();       			
