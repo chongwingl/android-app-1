@@ -20,6 +20,9 @@
     <string name="header_surname">PRENOM</string>
     <string name="header_sum">SOMME</string>
     <string name="header_date">DATE</string>
+    
+    <string name="menu_edit">Editer</string>
+    <string name="menu_delete">Supprimer</string>
    
 
 </resources>

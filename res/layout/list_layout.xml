@@ -10,7 +10,7 @@
 	    android:background="@android:color/black"
 	    android:layout_alignParentTop="true"
 	    android:layout_alignParentLeft="true"
-	     >
+		android:stretchColumns="1" >
 	
 	    <TableRow
 	        android:id="@+id/header"
@@ -22,17 +22,17 @@
 	        <TextView 
 		        android:id="@+id/header_name"
 		        android:layout_height="match_parent"
-		        android:layout_width="match_parent"
 		        android:text="@string/header_name"
-		        android:layout_weight="1"
+		        android:layout_width="0dp"
 		        android:gravity="center"
+	        	android:layout_weight="1"
 		        android:textColor="@android:color/white"
 		        android:textStyle="bold" />
 	        
 		    <TextView 
 		        android:id="@+id/header_surname"
 		        android:layout_height="match_parent"
-		        android:layout_width="match_parent"
+		        android:layout_width="0dp"
 		        android:text="@string/header_surname"
 		        android:layout_weight="1"
 		        android:gravity="center"
@@ -42,7 +42,7 @@
 		    <TextView 
 		        android:id="@+id/header_sum"
 		        android:layout_height="match_parent"
-		        android:layout_width="match_parent"
+		        android:layout_width="0dp"
 		        android:text="@string/header_sum"
 		        android:layout_weight="1"
 		        android:gravity="center"
@@ -52,7 +52,7 @@
 		    <TextView 
 		        android:id="@+id/header_date"
 		        android:layout_height="match_parent"
-		        android:layout_width="match_parent"
+		        android:layout_width="0dp"
 		        android:text="@string/header_date"
 		        android:layout_weight="1"
 		        android:gravity="center"
