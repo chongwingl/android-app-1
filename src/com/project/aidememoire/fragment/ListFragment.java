@@ -3,17 +3,13 @@ package com.project.aidememoire.fragment;
 import com.project.aidememoire.R;
 import com.project.aidememoire.adapter.PersonListAdapter;
 import com.project.aidememoire.adapter.database.api.DatabaseApi;
-import com.project.aidememoire.enumeration.SumType;
-import com.project.aidememoire.listener.OnPageChange;
 import com.project.aidememoire.model.Money;
 import com.project.aidememoire.model.Person;
 
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +41,7 @@ public class ListFragment extends Fragment{
 		peopleListView = (ListView) fragmentView.findViewById(R.id.personListView);
 		addButton = (Button) fragmentView.findViewById(R.id.footer_button);
 
-		adapter = new PersonListAdapter(getActivity(), dataBaseApi.fetchAllPersonAndMoneyCursor(), false);
+		adapter = new PersonListAdapter(getActivity(), getLoaderManager());
 		peopleListView.setAdapter(adapter);
 
 

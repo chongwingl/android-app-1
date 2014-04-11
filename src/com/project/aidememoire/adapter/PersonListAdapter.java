@@ -1,7 +1,11 @@
 package com.project.aidememoire.adapter;
 
+import android.support.v4.app.LoaderManager;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.Loader;
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +13,10 @@ import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 import com.project.aidememoire.R;
+import com.project.aidememoire.adapter.database.DataBaseAdapter;
+import com.project.aidememoire.adapter.database.loader.DataBaseLoader;
 
-public class PersonListAdapter extends CursorAdapter{
+public class PersonListAdapter extends CursorAdapter implements LoaderCallbacks<Cursor>{
 
 	private final String TAG = "PersonListAdapter";
 	
@@ -21,11 +27,13 @@ public class PersonListAdapter extends CursorAdapter{
 	private TextView date;
 	private LayoutInflater layoutInflater;
 	private Context context;
+	private DataBaseAdapter mDBHelper;
 	
-	public PersonListAdapter(Context context, Cursor cursor, boolean autoRequery) {
-		super(context, cursor, autoRequery);
-		// TODO Utiliser un loader
+	public PersonListAdapter(Context context, LoaderManager loaderManager) {
+		super(context, null, false);
 		this.context = context;
+		mDBHelper = new DataBaseAdapter(context);
+		loaderManager.initLoader(0, null, this).forceLoad();
 	}
 	
 
@@ -52,5 +60,26 @@ public class PersonListAdapter extends CursorAdapter{
 		return view;
 	}
 
+
+
+	@Override
+	public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
+		mDBHelper.open();
+		return new DataBaseLoader(context, mDBHelper);
+	}
+
+
+
+	@Override
+	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+		swapCursor(cursor);
+		mDBHelper.close();
+	}
+
+
+
+	@Override
+	public void onLoaderReset(Loader<Cursor> arg0) {
+	}
 
 }
