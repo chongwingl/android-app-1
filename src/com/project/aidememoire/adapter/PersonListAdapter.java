@@ -19,6 +19,7 @@ import com.project.aidememoire.adapter.database.loader.DataBaseLoader;
 public class PersonListAdapter extends CursorAdapter implements LoaderCallbacks<Cursor>{
 
 	private final String TAG = "PersonListAdapter";
+	private final int LOADER_ID = 0;
 	
 	private View view;
 	private TextView name;
@@ -28,12 +29,14 @@ public class PersonListAdapter extends CursorAdapter implements LoaderCallbacks<
 	private LayoutInflater layoutInflater;
 	private Context context;
 	private DataBaseAdapter mDBHelper;
+	private Cursor cursor;
+	private LoaderManager loaderManager;
 	
 	public PersonListAdapter(Context context, LoaderManager loaderManager) {
 		super(context, null, false);
 		this.context = context;
 		mDBHelper = new DataBaseAdapter(context);
-		loaderManager.initLoader(0, null, this).forceLoad();
+		loaderManager.initLoader(LOADER_ID, null, this).forceLoad();
 	}
 	
 
@@ -64,7 +67,9 @@ public class PersonListAdapter extends CursorAdapter implements LoaderCallbacks<
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
-		mDBHelper.open();
+		if(!mDBHelper.isOpen()){
+			mDBHelper.open();
+		}
 		return new DataBaseLoader(context, mDBHelper);
 	}
 
@@ -72,14 +77,15 @@ public class PersonListAdapter extends CursorAdapter implements LoaderCallbacks<
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+		this.cursor = cursor;
 		swapCursor(cursor);
-		mDBHelper.close();
 	}
 
 
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> arg0) {
+		swapCursor(null);
 	}
 
 }

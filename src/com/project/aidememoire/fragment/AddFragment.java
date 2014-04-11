@@ -96,12 +96,15 @@ public class AddFragment extends Fragment{
             	money = new Money(Integer.parseInt(sumEdit.getText().toString()), date, type);
             	person = new Person(nameEdit.getText().toString(), surnameEdit.getText().toString(), money);
 
-
             	addPerson(person);
         		
             	Log.i(TAG, "name : " + nameEdit.getText());
             	Log.i(TAG, "surname : " + surnameEdit.getText());
             	Log.i(TAG, "sum : " + sumEdit.getText());
+            	
+            	if(dataBaseApi.isOpen()){
+            		dataBaseApi.close();
+            	}
             	
             	getFragmentManager().popBackStack();
             }

@@ -29,6 +29,7 @@ public class DataBaseAdapter {
     private static final String TAG = "DBAdapter";
     private DatabaseHelper dbHelper;
     private SQLiteDatabase db;
+    private boolean isOpen = false;
     
     /**
      * Database creation sql statement
@@ -86,11 +87,17 @@ public class DataBaseAdapter {
     public DataBaseAdapter open() throws SQLException {
         dbHelper = new DatabaseHelper(ctx);
         db = dbHelper.getWritableDatabase();
+        isOpen = true;
         return this;
     }
 
     public void close() {
         dbHelper.close();
+        isOpen = false;
+    }
+    
+    public boolean isOpen(){
+    	return isOpen;
     }
     
     public boolean addSommeLine(String name, String surname, String date, int sum, String type) {
