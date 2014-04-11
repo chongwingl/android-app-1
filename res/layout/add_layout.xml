@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
+    android:layout_height="wrap_content" 
     android:orientation="vertical"
     android:layout_margin="5dip"
     android:padding="5dip" >
@@ -88,8 +88,13 @@
             android:layout_height="wrap_content"
             android:inputType="numberDecimal" />
     </LinearLayout>
+    
+    <DatePicker 
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-    <LinearLayout
+    <!-- <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
@@ -110,7 +115,7 @@
              android:layout_margin="3dip"
 		     android:padding="3dip" />
 
-    </LinearLayout>
+    </LinearLayout> -->
     
      <LinearLayout
         android:layout_width="match_parent"
@@ -119,17 +124,27 @@
         android:gravity="center" >
 
 		<Button
-	        android:id="@+id/addElement"
-	        style="?android:attr/buttonStyleSmall"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/form_button_add" /> 
+		    android:id="@+id/addElement"
+		    style="?android:attr/buttonStyleSmall"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_margin="2dip"
+		    android:background="@android:color/black"
+		    android:text="@string/form_button_add"
+		    android:textColor="@android:color/white"
+		    android:layout_weight="2" />
+ 
 	    <Button
 	        android:id="@+id/cancel"
 	        style="?android:attr/buttonStyleSmall"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-        android:text="@string/form_button_cancel" /> 
+	        android:layout_margin="2dip"
+	        android:background="@android:color/black"
+	        android:text="@string/form_button_cancel"
+	        android:textColor="@android:color/white"
+		    android:layout_weight="2" />
+ 
         </LinearLayout>
 
 </LinearLayout>

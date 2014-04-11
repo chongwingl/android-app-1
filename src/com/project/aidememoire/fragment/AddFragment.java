@@ -47,8 +47,7 @@ public class AddFragment extends Fragment{
 	private final static String TAG = "AddFragment";
 	
 	private View fragmentView;
-	
-	private DataBaseAdapter mDbHelper;
+
 	private DatabaseApi dataBaseApi;
 	
 	private Button addButton;
@@ -58,6 +57,7 @@ public class AddFragment extends Fragment{
 	private EditText sumEdit;
 	private static Button dateEdit;
 	private RadioGroup sumSignsRadioGroup;
+	private DatePicker datePicker;
 	private Context context;
 	
 	@Override
@@ -65,7 +65,6 @@ public class AddFragment extends Fragment{
 			Bundle savedInstanceState) {
 		context = getActivity();
 		dataBaseApi = new DatabaseApi(getActivity());
-		Calendar date = Calendar.getInstance(TimeZone.getDefault(), new Locale("fr"));
 
 		fragmentView = inflater.inflate(R.layout.add_layout, container, false);
 		
@@ -75,18 +74,10 @@ public class AddFragment extends Fragment{
 		nameEdit = (EditText) fragmentView.findViewById(R.id.name);
 		surnameEdit = (EditText) fragmentView.findViewById(R.id.surname);
 		sumEdit = (EditText) fragmentView.findViewById(R.id.sum);
-		dateEdit = (Button) fragmentView.findViewById(R.id.date);     
-		dateEdit.setText(date.get(Calendar.DAY_OF_MONTH) + " " + getStringMonth(date.get(Calendar.MONTH)) + " " + date.get(Calendar.YEAR));
-
+		datePicker = (DatePicker) fragmentView.findViewById(R.id.date);
 		sumSignsRadioGroup = (RadioGroup) fragmentView.findViewById(R.id.sumSign);
 		
-		dateEdit.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				showFragment();
-			}
-		});
+		datePicker.setCalendarViewShown(false);
 		
 		addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -99,8 +90,10 @@ public class AddFragment extends Fragment{
             	if(sumSignsRadioGroup.getCheckedRadioButtonId() == R.id.minus){
             		type = "dette";
             	}
-            	
-            	money = new Money(Integer.parseInt(sumEdit.getText().toString()), (String) dateEdit.getText(), type);
+            	String date = String.valueOf(datePicker.getDayOfMonth()) + " " + 
+            			getStringMonth(datePicker.getMonth()) + " " + 
+            			String.valueOf(datePicker.getYear());
+            	money = new Money(Integer.parseInt(sumEdit.getText().toString()), date, type);
             	person = new Person(nameEdit.getText().toString(), surnameEdit.getText().toString(), money);
 
 
@@ -145,11 +138,6 @@ public class AddFragment extends Fragment{
         }
         return num;
 	}
-	
-	public void showFragment() {
-		DialogFragment newFragment = new DatePickerFragment();
-		newFragment.show(getFragmentManager(), null);
-	}
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
@@ -163,32 +151,4 @@ public class AddFragment extends Fragment{
 		
 	}
 
-
-	public static class DatePickerFragment extends DialogFragment implements
-		DatePickerDialog.OnDateSetListener {
-	
-		@Override
-		public Dialog onCreateDialog(Bundle savedInstanceState) {
-		
-			// Use the current date as the default date in the picker
-			String [] selectedDate = ((String) dateEdit.getText()).split(" ");
-			final Calendar c = Calendar.getInstance();
-		
-			// Create a new instance of DatePickerDialog and return it
-			return new DatePickerDialog(getActivity(), this, 
-					Integer.parseInt(selectedDate[2]), 
-					getIntMonth(selectedDate[1]), 
-					Integer.parseInt(selectedDate[0]));
-		}
-		
-		@Override
-		public void onDateSet(DatePicker view, int year, int monthOfYear,
-				int dayOfMonth) {
-		
-			dateEdit.setText(dayOfMonth + " " 
-					+ getStringMonth(monthOfYear) + " " 
-					+ year);
-		}
-	
-	}
 }
