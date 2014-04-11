@@ -94,20 +94,34 @@ public class AddFragment extends Fragment{
             	String date = String.valueOf(datePicker.getDayOfMonth()) + " " + 
             			getStringMonth(datePicker.getMonth()) + " " + 
             			String.valueOf(datePicker.getYear());
-            	money = new Money(Integer.parseInt(sumEdit.getText().toString()), date, type);
-            	person = new Person(nameEdit.getText().toString(), surnameEdit.getText().toString(), money);
+            	
+            	if(!sumEdit.getText().toString().equals("") && !surnameEdit.getText().toString().equals("") && !nameEdit.getText().toString().equals("")){
+            		money = new Money(Integer.parseInt(sumEdit.getText().toString()), date, type);
+                	person = new Person(nameEdit.getText().toString(), surnameEdit.getText().toString(), money);
 
-            	addPerson(person);
-        		
-            	Log.i(TAG, "name : " + nameEdit.getText());
-            	Log.i(TAG, "surname : " + surnameEdit.getText());
-            	Log.i(TAG, "sum : " + sumEdit.getText());
-            	
-            	if(dataBaseApi.isOpen()){
-            		dataBaseApi.close();
+                	addPerson(person);
+            		
+                	Log.i(TAG, "name : " + nameEdit.getText());
+                	Log.i(TAG, "surname : " + surnameEdit.getText());
+                	Log.i(TAG, "sum : " + sumEdit.getText());
+                	
+                	if(dataBaseApi.isOpen()){
+                		dataBaseApi.close();
+                	}
+                	
+                	getFragmentManager().popBackStack();
             	}
-            	
-            	getFragmentManager().popBackStack();
+            	else {
+            		if(sumEdit.getText().toString().equals("")){
+            			sumEdit.setHint(R.string.error_placeholder);
+            		}
+            		if(nameEdit.getText().toString().equals("")){
+            			nameEdit.setHint(R.string.error_placeholder);
+            		}
+            		if(surnameEdit.getText().toString().equals("")){
+            			surnameEdit.setHint(R.string.error_placeholder);
+            		}
+            	}
             }
         });
 		
