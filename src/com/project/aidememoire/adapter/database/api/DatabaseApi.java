@@ -17,13 +17,21 @@ import com.project.aidememoire.model.Person;
 
 public class DatabaseApi {
 	
+	private static DatabaseApi instance;
 	private static final String TAG = "DataBaseApi";
 	private DataBaseAdapter mDbHelper;
 	private boolean isOpen;
 	
-	public DatabaseApi(Context context){
+	private DatabaseApi(Context context){
 		mDbHelper = new DataBaseAdapter(context);
 		open();
+	}
+	
+	public static DatabaseApi getInstance(Context context){
+		if(DatabaseApi.instance == null){
+			DatabaseApi.instance = new DatabaseApi(context);
+		}
+		return DatabaseApi.instance;
 	}
 	
 	public boolean isOpen() {

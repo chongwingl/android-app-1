@@ -64,7 +64,7 @@ public class AddFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		context = getActivity();
-		dataBaseApi = new DatabaseApi(getActivity());
+		dataBaseApi =  DatabaseApi.getInstance(getActivity());
 
 		fragmentView = inflater.inflate(R.layout.add_layout, container, false);
 		
@@ -155,11 +155,6 @@ public class AddFragment extends Fragment{
             num++;
         }
         return num;
-	}
-
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
 	}
 	
 	public void addPerson(Person person) {

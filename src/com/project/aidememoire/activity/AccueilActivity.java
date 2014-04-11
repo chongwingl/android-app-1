@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.Window;
 
 import com.project.aidememoire.R;
+import com.project.aidememoire.adapter.database.api.DatabaseApi;
 import com.project.aidememoire.fragment.ListFragment;
 
 public class AccueilActivity extends FragmentActivity {
@@ -16,12 +17,14 @@ public class AccueilActivity extends FragmentActivity {
 
 	private FragmentManager fragmentManager = getSupportFragmentManager();
 
+	private DatabaseApi dataBaseApi;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
-        
+        dataBaseApi = DatabaseApi.getInstance(this);
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         
         ListFragment fragment = new ListFragment();
@@ -31,6 +34,14 @@ public class AccueilActivity extends FragmentActivity {
     }
     
     @Override
+	protected void onDestroy() {
+    	if(dataBaseApi.isOpen()){
+    		dataBaseApi.close();
+    	}
+		super.onDestroy();
+	}
+
+	@Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
     }

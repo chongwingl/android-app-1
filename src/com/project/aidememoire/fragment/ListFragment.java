@@ -35,7 +35,7 @@ public class ListFragment extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		dataBaseApi = new DatabaseApi(getActivity());
+		dataBaseApi = DatabaseApi.getInstance(getActivity());
 		
 		fragmentView = super.onCreateView(inflater, container, savedInstanceState);
 		fragmentView = inflater.inflate(R.layout.list_layout, container, false);
