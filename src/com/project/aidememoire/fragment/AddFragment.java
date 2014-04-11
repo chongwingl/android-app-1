@@ -78,6 +78,7 @@ public class AddFragment extends Fragment{
 		sumSignsRadioGroup = (RadioGroup) fragmentView.findViewById(R.id.sumSign);
 		
 		datePicker.setCalendarViewShown(false);
+		datePicker.setMaxDate(Calendar.getInstance().getTimeInMillis());
 		
 		addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
