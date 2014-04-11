@@ -7,9 +7,11 @@ import com.project.aidememoire.model.Money;
 import com.project.aidememoire.model.Person;
 
 import android.support.v4.app.FragmentTransaction;
+import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +51,7 @@ public class ListFragment extends Fragment{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                     long id) {
-        	 	Cursor c = (Cursor) adapter.getItem(position-1);
+        	 	Cursor c = (Cursor) adapter.getItem(position);
         	 	// 0: _id
         	 	// 1: p_id
         	 	// 2: date
@@ -58,11 +60,9 @@ public class ListFragment extends Fragment{
         	 	// 5: _id
         	 	// 6: name
         	 	// 7: surname
-        	 	
-        	 	Person person = new Person(c.getString(6), c.getString(7), new Money(c.getInt(3), c.getString(2), c.getString(4)));
-
+      
           	   	if(dataBaseApi.deleteSomme(c)){
-         	   		adapter.changeCursor(dataBaseApi.fetchAllPersonAndMoneyCursor());
+          	   		getLoaderManager().restartLoader(PersonListAdapter.LOADER_ID, null, adapter).forceLoad();
         			adapter.notifyDataSetChanged();       			
           	   	}      
             }

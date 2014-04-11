@@ -19,7 +19,7 @@ import com.project.aidememoire.adapter.database.loader.DataBaseLoader;
 public class PersonListAdapter extends CursorAdapter implements LoaderCallbacks<Cursor>{
 
 	private final String TAG = "PersonListAdapter";
-	private final int LOADER_ID = 0;
+	public static final int LOADER_ID = 0;
 	
 	private View view;
 	private TextView name;
