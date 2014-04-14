@@ -29,6 +29,12 @@ public class ListFragment extends Fragment{
 
 	private final static String TAG = "ListFragment";
 	
+	public final static String NAME = "name";
+	public final static String SURNAME = "surname";
+	public final static String SUM = "sum";
+	public final static String DATE = "date";
+	public final static String TYPE = "type";
+	
 	private ListView peopleListView;
 	private PersonListAdapter adapter;
 	
@@ -74,7 +80,7 @@ public class ListFragment extends Fragment{
 	        case R.id.menu_delete:
 	        	return delete(info.position);
 	        case R.id.menu_edit:
-	            return true;
+	        	return edit(info.position);
 	        default:
 	            return super.onContextItemSelected(item);
 	    }
@@ -107,6 +113,27 @@ public class ListFragment extends Fragment{
 			return true;
   	   	}
   	   	return false;
+	}
+	
+	private boolean edit(int position){
+		FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+       	EditFragment editFragment = new EditFragment();
+       	Bundle bundle = new Bundle();
+       	Cursor c = (Cursor) adapter.getItem(position);
+    	
+       	bundle.putString(NAME, c.getString(6));
+       	bundle.putString(SURNAME, c.getString(7));
+       	bundle.putString(SUM, c.getString(3));
+       	bundle.putString(DATE, c.getString(2));
+       	bundle.putString(TYPE, c.getString(4));
+       	
+       	editFragment.setArguments(bundle);
+       	
+       	fragmentTransaction.replace(R.id.main_container, editFragment);
+       	fragmentTransaction.addToBackStack(null);
+       	fragmentTransaction.commit();
+        
+       	return true;
 	}
 		
 }
