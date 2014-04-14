@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">AideMemoire</string>
-    <string name="menu_settings">Settings</string>
     
     <string name="form_name">Nom</string>
     <string name="form_surname">Prénom</string>
@@ -22,8 +21,15 @@
     <string name="header_sum">SOMME</string>
     <string name="header_date">DATE</string>
     
-    <string name="menu_edit">Editer</string>
-    <string name="menu_delete">Supprimer</string>
+    <string name="menu_filter">Filtrer par</string>
+    
+    <string name="submenu_filter_name">Nom</string>
+    <string name="submenu_filter_surname">Prenom</string>
+    <string name="submenu_filter_date">Date</string>
+    <string name="submenu_filter_sum">Montant</string>
+    
+    <string name="context_menu_edit">Editer</string>
+    <string name="context_menu_delete">Supprimer</string>
    
 
 </resources>

@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,6 +50,7 @@ public class ListFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		dataBaseApi = DatabaseApi.getInstance(getActivity());
+		setHasOptionsMenu(true);
 		
 		fragmentView = super.onCreateView(inflater, container, savedInstanceState);
 		fragmentView = inflater.inflate(R.layout.list_layout, container, false);
@@ -79,9 +81,9 @@ public class ListFragment extends Fragment{
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 	    switch (item.getItemId()) {
-	        case R.id.menu_delete:
+	        case R.id.context_menu_delete:
 	        	return delete(info.position);
-	        case R.id.menu_edit:
+	        case R.id.context_menu_edit:
 	        	return edit(info.position);
 	        default:
 	            return super.onContextItemSelected(item);
@@ -150,5 +152,11 @@ public class ListFragment extends Fragment{
         
        	return true;
 	}
+	
+	 @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+        getActivity().getMenuInflater().inflate(R.menu.main_menu, menu);
+    }
 		
 }
