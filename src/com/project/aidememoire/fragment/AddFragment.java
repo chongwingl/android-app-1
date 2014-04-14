@@ -69,7 +69,7 @@ public class AddFragment extends Fragment{
             		type = "dette";
             	}
             	String date = String.valueOf(datePicker.getDayOfMonth()) + " " + 
-            			getStringMonth(datePicker.getMonth()) + " " + 
+            			MonthConversion.getStringMonth(datePicker.getMonth()) + " " + 
             			String.valueOf(datePicker.getYear());
             	
             	if(!sumEdit.getText().toString().equals("") && !surnameEdit.getText().toString().equals("") && !nameEdit.getText().toString().equals("")){
@@ -114,24 +114,26 @@ public class AddFragment extends Fragment{
 		return fragmentView;
 	}
 	
-	static String getStringMonth(int num){
-		String month = "";
-		DateFormatSymbols dfs = new DateFormatSymbols();
-        String[] months = dfs.getMonths();
-        if (num >= 0 && num <= 11 ) {
-            month = months[num];
-        }
-        return month;
-	}
-	
-	static int getIntMonth(String month){
-		int num = 0;
-		DateFormatSymbols dfs = new DateFormatSymbols();
-        String[] months = dfs.getMonths();
-        while (!months[num].equals(month) && num <= 11 ) {
-            num++;
-        }
-        return num;
+	public static class MonthConversion {
+		public static String getStringMonth(int num){
+			String month = "";
+			DateFormatSymbols dfs = new DateFormatSymbols();
+	        String[] months = dfs.getMonths();
+	        if (num >= 0 && num <= 11 ) {
+	            month = months[num];
+	        }
+	        return month;
+		}
+		
+		public static int getIntMonth(String month){
+			int num = 0;
+			DateFormatSymbols dfs = new DateFormatSymbols();
+	        String[] months = dfs.getMonths();
+	        while (!months[num].equals(month) && num <= 11 ) {
+	            num++;
+	        }
+	        return num;
+		}
 	}
 	
 	public void addPerson(Person person) {
