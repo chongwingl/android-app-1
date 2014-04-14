@@ -11,6 +11,7 @@
     <string name="form_minus">-</string>
     <string name="form_date">Date</string>
     <string name="form_button_add">Ajouter</string>
+    <string name="form_button_edit">Editer</string>
     <string name="form_button_cancel">Annuler</string>
     <string name="error_placeholder">Ce champ est obligatoire</string>
     

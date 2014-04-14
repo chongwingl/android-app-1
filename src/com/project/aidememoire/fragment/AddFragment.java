@@ -43,9 +43,9 @@ public class AddFragment extends Fragment{
 		context = getActivity();
 		dataBaseApi =  DatabaseApi.getInstance(getActivity());
 
-		fragmentView = inflater.inflate(R.layout.add_layout, container, false);
+		fragmentView = inflater.inflate(R.layout.set_layout, container, false);
 		
-		addButton = (Button) fragmentView.findViewById(R.id.addElement);
+		addButton = (Button) fragmentView.findViewById(R.id.validate);
 		cancelButton = (Button) fragmentView.findViewById(R.id.cancel);
 		
 		nameEdit = (EditText) fragmentView.findViewById(R.id.name);

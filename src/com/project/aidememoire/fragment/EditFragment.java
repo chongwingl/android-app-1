@@ -46,9 +46,10 @@ private final static String TAG = "EditFragment";
 		dataBaseApi =  DatabaseApi.getInstance(getActivity());
 		Bundle bundle = getArguments();
 	
-		fragmentView = inflater.inflate(R.layout.add_layout, container, false);
+		fragmentView = inflater.inflate(R.layout.set_layout, container, false);
 		
-		editButton = (Button) fragmentView.findViewById(R.id.addElement);
+		editButton = (Button) fragmentView.findViewById(R.id.validate);
+		editButton.setText(R.string.form_button_edit);
 		cancelButton = (Button) fragmentView.findViewById(R.id.cancel);
 		
 		nameEdit = (EditText) fragmentView.findViewById(R.id.name);
