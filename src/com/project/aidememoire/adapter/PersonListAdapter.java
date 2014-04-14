@@ -6,6 +6,7 @@ import android.support.v4.content.Loader;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,7 @@ import android.widget.TextView;
 
 import com.project.aidememoire.R;
 import com.project.aidememoire.adapter.database.DataBaseAdapter;
-import com.project.aidememoire.adapter.database.loader.DataBaseLoader;
+import com.project.aidememoire.database.loader.DataBaseLoader;
 
 public class PersonListAdapter extends CursorAdapter implements LoaderCallbacks<Cursor>{
 
@@ -29,7 +30,6 @@ public class PersonListAdapter extends CursorAdapter implements LoaderCallbacks<
 	private LayoutInflater layoutInflater;
 	private Context context;
 	private DataBaseAdapter mDBHelper;
-	private Cursor cursor;
 	private LoaderManager loaderManager;
 	
 	public PersonListAdapter(Context context, LoaderManager loaderManager) {
@@ -77,7 +77,6 @@ public class PersonListAdapter extends CursorAdapter implements LoaderCallbacks<
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-		this.cursor = cursor;
 		swapCursor(cursor);
 	}
 

@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.Window;
 
 import com.project.aidememoire.R;
-import com.project.aidememoire.adapter.database.api.DatabaseApi;
+import com.project.aidememoire.database.api.DatabaseApi;
 import com.project.aidememoire.fragment.ListFragment;
 
 public class AccueilActivity extends FragmentActivity {

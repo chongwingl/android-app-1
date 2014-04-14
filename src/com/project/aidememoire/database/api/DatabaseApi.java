@@ -1,4 +1,4 @@
-package com.project.aidememoire.adapter.database.api;
+package com.project.aidememoire.database.api;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -121,6 +121,20 @@ public class DatabaseApi {
 	public boolean hasPersonWithMoney(Person person){
 		if(fetchMoneyOfPerson(person).size() > 0){
 			return true;
+		}
+		return false;
+	}
+	
+	public boolean updatePerson(Person person){
+		if(person.getId() != -1){
+			return mDbHelper.updatePerson(person.getId(), person.getName(), person.getSurname());
+		}
+		return false;
+	}
+	
+	public boolean updateMoney(Money money){
+		if(money.getId() != -1){
+			return mDbHelper.updateSomme(money.getId(), money.getSomme(), money.getType(), money.getDate());
 		}
 		return false;
 	}

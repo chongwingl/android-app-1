@@ -1,4 +1,4 @@
-package com.project.aidememoire.adapter.database.loader;
+package com.project.aidememoire.database.loader;
 
 import com.project.aidememoire.adapter.database.DataBaseAdapter;
 

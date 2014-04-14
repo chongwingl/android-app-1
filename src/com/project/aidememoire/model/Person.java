@@ -8,10 +8,12 @@ public class Person {
 	private String name;
 	private String surname;
 	private List<Money> money = new ArrayList<Money>();
+	private long id;
 	
 	public Person(String name, String surname){
 		this.name = name;
 		this.surname = surname;
+		this.id = -1;
 	}
 	
 	public Person(String name, String surname, Money money){
@@ -69,6 +71,14 @@ public class Person {
 		}
 		
 		return credit;
+	}
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	@Override

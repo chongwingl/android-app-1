@@ -6,11 +6,13 @@ public class Money {
 	private int somme;
 	private String date;
 	private String type;
+	private long id;
 
 	public Money(int somme, String date, String type) {
 		this.somme = somme;
 		this.date = date;
 		this.type = type;
+		this.id = -1;
 	}
 	
 	public double addSomme(int sommeToAdd) {
@@ -39,6 +41,14 @@ public class Money {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 	@Override

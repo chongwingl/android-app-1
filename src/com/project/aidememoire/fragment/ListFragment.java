@@ -2,7 +2,7 @@ package com.project.aidememoire.fragment;
 
 import com.project.aidememoire.R;
 import com.project.aidememoire.adapter.PersonListAdapter;
-import com.project.aidememoire.adapter.database.api.DatabaseApi;
+import com.project.aidememoire.database.api.DatabaseApi;
 import com.project.aidememoire.model.Money;
 import com.project.aidememoire.model.Person;
 
@@ -34,6 +34,8 @@ public class ListFragment extends Fragment{
 	public final static String SUM = "sum";
 	public final static String DATE = "date";
 	public final static String TYPE = "type";
+	public final static String P_ID = "person_id";
+	public final static String S_ID = "sum_id";
 	
 	private ListView peopleListView;
 	private PersonListAdapter adapter;
@@ -126,6 +128,8 @@ public class ListFragment extends Fragment{
        	bundle.putString(SUM, c.getString(3));
        	bundle.putString(DATE, c.getString(2));
        	bundle.putString(TYPE, c.getString(4));
+       	bundle.putLong(P_ID, c.getLong(1));
+       	bundle.putLong(S_ID, c.getLong(0));
        	
        	editFragment.setArguments(bundle);
        	

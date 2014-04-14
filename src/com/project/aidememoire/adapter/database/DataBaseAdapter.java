@@ -42,16 +42,20 @@ public class DataBaseAdapter {
     private static final String DATABASE_TABLE_S = "somme";
     private static final int DATABASE_VERSION = 2;
     
-    // TODO n'utiliser que 2 tables: personne et argent où le type des sous sera un champ (1=dette, 2=credit)
+    // Obtenir toutes les personnes
     private static final String GET_PERSON_QUERY = 
     		"select _id, name, surname from personne where name=\"{{name}}\" and surname=\"{{surname}}\"";
+    // Obtenir tous les crédits et dettes d'une personne
     private static final String GET_MONEY_OF_PERSON_QUERY = 
     		"select name, surname, montant, date, type from somme inner join personne on personne._id=somme.p_id "+
     		"where personne.name=\"{{name}}\" and personne.surname=\"{{surname}}\"";
+    // Obtenir une dette ou un crédit d'un personne
     private static final String GET_SPECIFIED_MONEY_QUERY = "select name, surname, montant, date, type from somme inner join personne on personne._id=somme.p_id "+
     		"where personne.name=\"{{name}}\" and personne.surname=\"{{surname}}\" and somme.montant={{somme}} and somme.date=\"{{date}}\" " +
     		"and somme.type=\"{{type}}\"";
+    // Obtenir tout le contenu des tables
     private static final String GET_ALL = "select * from somme inner join personne on personne._id=somme.p_id";
+    
     
     private final Context ctx;
     
@@ -203,6 +207,32 @@ public class DataBaseAdapter {
     public boolean deleteSomme(long id) {
   
         return db.delete(DATABASE_TABLE_S, KEY_ID + "=?", new String [] {String.valueOf(id)}) > 0;
+    }
+    
+    public boolean updatePerson(long id, String name, String surname){
+	
+		ContentValues values = new ContentValues();
+		values.put(KEY_NAME, name);
+		values.put(KEY_SURNAME, surname);
+		int val = db.update(DATABASE_TABLE_P, values, KEY_ID + "=" + id, null);
+    	if(val > 0) {
+    		return true;
+    	}
+		return false;
+    }
+    
+    public boolean updateSomme(long id, int montant, String type, String date){
+    	
+    	ContentValues values = new ContentValues();
+		values.put(KEY_DATE, date);
+		values.put(KEY_TYPE, type);
+		values.put(KEY_MONTANT, montant);
+		int val = db.update(DATABASE_TABLE_S, values, KEY_ID + "=?", new String [] {String.valueOf(id)});
+		if(val > 0) {
+    		return true;
+    	}
+    	
+    	return false;
     }
 
 

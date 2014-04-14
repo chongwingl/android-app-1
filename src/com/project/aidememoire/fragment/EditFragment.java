@@ -4,7 +4,7 @@ import java.text.DateFormatSymbols;
 import java.util.Calendar;
 
 import com.project.aidememoire.R;
-import com.project.aidememoire.adapter.database.api.DatabaseApi;
+import com.project.aidememoire.database.api.DatabaseApi;
 import com.project.aidememoire.fragment.AddFragment.MonthConversion;
 import com.project.aidememoire.model.Money;
 import com.project.aidememoire.model.Person;
@@ -43,8 +43,8 @@ private final static String TAG = "EditFragment";
 			Bundle savedInstanceState) {
 	
 		context = getActivity();
-		dataBaseApi =  DatabaseApi.getInstance(getActivity());
-		Bundle bundle = getArguments();
+		dataBaseApi =  DatabaseApi.getInstance(context);
+		final Bundle bundle = getArguments();
 	
 		fragmentView = inflater.inflate(R.layout.set_layout, container, false);
 		
@@ -96,10 +96,15 @@ private final static String TAG = "EditFragment";
             	
             	if(!sumEdit.getText().toString().equals("") && !surnameEdit.getText().toString().equals("") && !nameEdit.getText().toString().equals("")){
             		money = new Money(Integer.parseInt(sumEdit.getText().toString()), date, type);
-                	person = new Person(nameEdit.getText().toString(), surnameEdit.getText().toString(), money);
+                	money.setId(bundle.getLong(ListFragment.S_ID));
+            		person = new Person(nameEdit.getText().toString(), surnameEdit.getText().toString(), money);
+                	person.setId(bundle.getLong(ListFragment.P_ID));
                 	
-                	// TODO use an updatePerson method
-//                	addPerson(person);
+                	if(!dataBaseApi.isOpen()){
+                		dataBaseApi.open();
+                	}
+                	
+                	update(person);
                 	
                 	if(dataBaseApi.isOpen()){
                 		dataBaseApi.close();
@@ -131,6 +136,11 @@ private final static String TAG = "EditFragment";
 		});
 		
 		return fragmentView;
+	}
+
+	private void update(Person person) {
+		dataBaseApi.updatePerson(person);
+		dataBaseApi.updateMoney(person.getMoney().get(0));
 	}
 
 }

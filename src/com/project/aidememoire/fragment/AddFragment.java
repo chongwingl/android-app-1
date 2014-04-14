@@ -16,7 +16,7 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 
 import com.project.aidememoire.R;
-import com.project.aidememoire.adapter.database.api.DatabaseApi;
+import com.project.aidememoire.database.api.DatabaseApi;
 import com.project.aidememoire.model.Money;
 import com.project.aidememoire.model.Person;
 
@@ -75,7 +75,11 @@ public class AddFragment extends Fragment{
             	if(!sumEdit.getText().toString().equals("") && !surnameEdit.getText().toString().equals("") && !nameEdit.getText().toString().equals("")){
             		money = new Money(Integer.parseInt(sumEdit.getText().toString()), date, type);
                 	person = new Person(nameEdit.getText().toString(), surnameEdit.getText().toString(), money);
-
+                	
+                	if(!dataBaseApi.isOpen()){
+                		dataBaseApi.open();
+                	}
+                	
                 	addPerson(person);
             		
                 	Log.i(TAG, "name : " + nameEdit.getText());
@@ -136,7 +140,7 @@ public class AddFragment extends Fragment{
 		}
 	}
 	
-	public void addPerson(Person person) {
+	private void addPerson(Person person) {
 		if(!dataBaseApi.hasPersonWithSpecifiedMoney(person, person.getMoney().get(0))){
 			dataBaseApi.addMoneyOfPerson(person, person.getMoney().get(0));
 		}
