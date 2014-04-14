@@ -2,8 +2,6 @@ package com.project.aidememoire.adapter.database;
 
 import java.util.Locale;
 
-import com.project.aidememoire.enumeration.SumType;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;

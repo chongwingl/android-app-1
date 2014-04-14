@@ -3,8 +3,6 @@ package com.project.aidememoire.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.project.aidememoire.enumeration.SumType;
-
 public class Person {
 	
 	private String name;

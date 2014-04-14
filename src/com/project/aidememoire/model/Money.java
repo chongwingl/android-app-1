@@ -2,8 +2,6 @@ package com.project.aidememoire.model;
 
 import java.util.Date;
 
-import com.project.aidememoire.enumeration.SumType;
-
 public class Money {
 	private int somme;
 	private String date;
