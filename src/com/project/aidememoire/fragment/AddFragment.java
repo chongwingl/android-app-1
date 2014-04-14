@@ -1,25 +1,11 @@
 package com.project.aidememoire.fragment;
 
 import java.text.DateFormatSymbols;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.app.DatePickerDialog;
 import android.content.Context;
-import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.CallLog.Calls;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,18 +13,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.RadioGroup;
-import android.widget.TimePicker;
 
 import com.project.aidememoire.R;
-import com.project.aidememoire.adapter.PersonListAdapter;
-import com.project.aidememoire.adapter.database.DataBaseAdapter;
 import com.project.aidememoire.adapter.database.api.DatabaseApi;
-import com.project.aidememoire.enumeration.SumType;
-import com.project.aidememoire.enumeration.TextType;
-import com.project.aidememoire.listener.OnPageChange;
 import com.project.aidememoire.model.Money;
 import com.project.aidememoire.model.Person;
 
@@ -55,7 +33,6 @@ public class AddFragment extends Fragment{
 	private EditText nameEdit;
 	private EditText surnameEdit;
 	private EditText sumEdit;
-	private static Button dateEdit;
 	private RadioGroup sumSignsRadioGroup;
 	private DatePicker datePicker;
 	private Context context;
