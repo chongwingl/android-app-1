@@ -51,6 +51,13 @@ public class Money {
 		this.id = id;
 	}
 	
+	public boolean hasId(){
+		if(this.id == -1){
+			return false;
+		}
+		return true;
+	}
+	
 	@Override
 	public boolean equals(Object otherMoney) {
 	    if (!(otherMoney instanceof Money)) {

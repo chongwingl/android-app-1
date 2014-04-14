@@ -86,10 +86,6 @@ public class DatabaseApi {
 		return fromDataToPersons(c);
 	}
 	
-	public Cursor fetchSommeCursor(){
-		return mDbHelper.fetchAllMoney();
-	}
-	
 	public void addMoneyOfPerson(Person person, Money money){
 		mDbHelper.addSommeLine(person.getName(), 
 				person.getSurname(),
@@ -102,13 +98,15 @@ public class DatabaseApi {
 		return true;
 	}
 	
-	public boolean deleteSomme(Cursor c){
-		boolean deleted =  mDbHelper.deleteSomme(c.getLong(1));
-		return deleted;
+	public boolean deleteSomme(Money money){
+		if(money.getId() != -1){
+			return  mDbHelper.deleteSomme(money.getId());
+		}
+		return false;
 	}
 	
-	public boolean deletePerson(Cursor c){
-		return mDbHelper.deletePerson(c.getLong(5));
+	public boolean deletePerson(Person person){
+		return mDbHelper.deletePerson(person.getId());
 	}
 	
 	public boolean hasPersonWithSpecifiedMoney(Person person, Money money){
@@ -126,14 +124,14 @@ public class DatabaseApi {
 	}
 	
 	public boolean updatePerson(Person person){
-		if(person.getId() != -1){
+		if(person.hasId()){
 			return mDbHelper.updatePerson(person.getId(), person.getName(), person.getSurname());
 		}
 		return false;
 	}
 	
 	public boolean updateMoney(Money money){
-		if(money.getId() != -1){
+		if(money.hasId()){
 			return mDbHelper.updateSomme(money.getId(), money.getSomme(), money.getType(), money.getDate());
 		}
 		return false;

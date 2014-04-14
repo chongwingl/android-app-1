@@ -109,7 +109,18 @@ public class ListFragment extends Fragment{
 		if(!dataBaseApi.isOpen()){
 			dataBaseApi.open();
 		}
-  	   	if(dataBaseApi.deleteSomme(c)){
+		
+		Money money = new Money(c.getInt(3), c.getString(2), c.getString(4));
+		money.setId(c.getLong(0));
+  	   	
+		if(dataBaseApi.deleteSomme(money)){
+  	   		Person person = new Person(c.getString(6), c.getString(7));
+  	   		person.setId(c.getLong(1));
+  	   		
+  	   		if(dataBaseApi.hasPersonWithMoney(person)){
+  	   			dataBaseApi.deletePerson(person);
+  	   		}
+  	   		
   	   		getLoaderManager().restartLoader(PersonListAdapter.LOADER_ID, null, adapter).forceLoad();
 			adapter.notifyDataSetChanged();  
 			return true;

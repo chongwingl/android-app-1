@@ -20,6 +20,7 @@ public class Person {
 		this.name = name;
 		this.surname = surname;
 		this.money.add(money);
+		this.id = -1;
 	}
 
 	public String getName() {
@@ -79,6 +80,13 @@ public class Person {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+	
+	public boolean hasId(){
+		if(this.id == -1){
+			return false;
+		}
+		return true;
 	}
 
 	@Override
