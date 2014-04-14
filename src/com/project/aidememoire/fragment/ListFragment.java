@@ -56,7 +56,7 @@ public class ListFragment extends Fragment{
 		peopleListView = (ListView) fragmentView.findViewById(R.id.personListView);
 		addButton = (Button) fragmentView.findViewById(R.id.footer_button);
 
-		adapter = new PersonListAdapter(getActivity(), getLoaderManager());
+		adapter = new PersonListAdapter(getActivity(), getLoaderManager(), getResources());
 		peopleListView.setAdapter(adapter);
 
 		registerForContextMenu(peopleListView);

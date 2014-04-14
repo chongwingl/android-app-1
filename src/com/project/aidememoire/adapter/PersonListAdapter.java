@@ -4,7 +4,9 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,10 +33,12 @@ public class PersonListAdapter extends CursorAdapter implements LoaderCallbacks<
 	private Context context;
 	private DataBaseAdapter mDBHelper;
 	private LoaderManager loaderManager;
+	private Resources resources;
 	
-	public PersonListAdapter(Context context, LoaderManager loaderManager) {
+	public PersonListAdapter(Context context, LoaderManager loaderManager, Resources resources) {
 		super(context, null, false);
 		this.context = context;
+		this.resources = resources;
 		mDBHelper = new DataBaseAdapter(context);
 		loaderManager.initLoader(LOADER_ID, null, this).forceLoad();
 	}
@@ -52,13 +56,20 @@ public class PersonListAdapter extends CursorAdapter implements LoaderCallbacks<
         surname.setText(cursor.getString(7));
 		sum.setText(cursor.getString(3));
 		date.setText(cursor.getString(2));
+		Log.i(TAG, cursor.getString(4));
+		if(cursor.getString(4).equals("credit")){
+			sum.setTextColor(resources.getColor(R.color.darkgreen));
+		}
+		else {
+			sum.setTextColor(Color.RED);
+		}
 	}
 
 	@Override
 	public View newView(Context context, Cursor cursor, ViewGroup parent) {
 
 		layoutInflater = LayoutInflater.from(context);
-		view = layoutInflater.inflate(R.layout.person_list, null);
+		view = layoutInflater.inflate(R.layout.item_list, null);
 		
 		return view;
 	}
