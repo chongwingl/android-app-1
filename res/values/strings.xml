@@ -22,11 +22,12 @@
     <string name="header_date">DATE</string>
     
     <string name="menu_filter">Filtrer par</string>
+    <string name="menu_order">Trier par</string>
     
-    <string name="submenu_filter_name">Nom</string>
-    <string name="submenu_filter_surname">Prenom</string>
-    <string name="submenu_filter_date">Date</string>
-    <string name="submenu_filter_sum">Montant</string>
+    <string name="submenu_name">Nom</string>
+    <string name="submenu_surname">Prenom</string>
+    <string name="submenu_date">Date</string>
+    <string name="submenu_sum">Montant</string>
     
     <string name="context_menu_edit">Editer</string>
     <string name="context_menu_delete">Supprimer</string>
