@@ -9,9 +9,11 @@ import com.project.aidememoire.model.Person;
 
 import android.support.v4.app.FragmentTransaction;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -25,7 +27,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class ListFragment extends Fragment{
 
@@ -168,26 +172,63 @@ public class ListFragment extends Fragment{
 		switch(item.getItemId()){
 			case R.id.submenu_sort_name:
 				bundle.putString(SORT_FILTER, DataBaseAdapter.ORDER_BY_NAME);
+				getLoaderManager().restartLoader(PersonListAdapter.LOADER_ID, bundle, adapter).forceLoad();
+				adapter.notifyDataSetChanged();  
 				break;
 		
 			case R.id.submenu_sort_date:
 				bundle.putString(SORT_FILTER, DataBaseAdapter.ORDER_BY_DATE); 
+				getLoaderManager().restartLoader(PersonListAdapter.LOADER_ID, bundle, adapter).forceLoad();
+				adapter.notifyDataSetChanged();  
 				break;
 				
 			case R.id.submenu_sort_sum:
 				bundle.putString(SORT_FILTER, DataBaseAdapter.ORDER_BY_SUM);
+				getLoaderManager().restartLoader(PersonListAdapter.LOADER_ID, bundle, adapter).forceLoad();
+				adapter.notifyDataSetChanged();  
 				break;
 				
 			case R.id.submenu_sort_surname:
 				bundle.putString(SORT_FILTER, DataBaseAdapter.ORDER_BY_SURNAME); 
+				getLoaderManager().restartLoader(PersonListAdapter.LOADER_ID, bundle, adapter).forceLoad();
+				adapter.notifyDataSetChanged();  
+				break;
+				
+			case R.id.submenu_filter_date:
+			case R.id.submenu_filter_name:
+			case R.id.submenu_filter_sum:
+			case R.id.submenu_filter_surname:
+				showDialog(item.getItemId());
 				break;
 				
 			default:
 				break;
 		}
-		getLoaderManager().restartLoader(PersonListAdapter.LOADER_ID, bundle, adapter).forceLoad();
-		adapter.notifyDataSetChanged();  
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void showDialog(int itemId) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_filter, null);
+		TextView textView = (TextView) dialogView.findViewById(R.id.dialog_textview);
+		switch(itemId){
+			case R.id.submenu_filter_date:
+				textView.setText(R.string.submenu_date);
+				break;
+			case R.id.submenu_filter_name:
+				textView.setText(R.string.submenu_name);
+				break;
+			case R.id.submenu_filter_sum:
+				textView.setText(R.string.submenu_sum);
+				break;
+			case R.id.submenu_filter_surname:
+				textView.setText(R.string.submenu_surname);
+				break;
+		
+		}
+		builder.setTitle(R.string.filter_dialog_title);
+		builder.setView(dialogView);
+		builder.show();
 	}
 	 
 	 
