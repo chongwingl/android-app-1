@@ -177,6 +177,10 @@ public class ListFragment extends Fragment{
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Bundle bundle = new Bundle();
 		switch(item.getItemId()){
+			case R.id.menu_reset:
+				getLoaderManager().restartLoader(PersonListAdapter.LOADER_ID, null, adapter).forceLoad();
+				adapter.notifyDataSetChanged();  
+				break;
 			case R.id.submenu_sort_name:
 				bundle.putString(SORT_FILTER, DataBaseAdapter.ORDER_BY_NAME);
 				getLoaderManager().restartLoader(PersonListAdapter.LOADER_ID, bundle, adapter).forceLoad();

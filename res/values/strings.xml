@@ -23,6 +23,7 @@
     
     <string name="menu_filter">Filtrer par</string>
     <string name="menu_sort">Trier par</string>
+    <string name="menu_reset">Reset</string>
     
     <string name="filter_dialog_title">Filtrer par</string>
     <string name="filter_dialog_OK">OK</string>
