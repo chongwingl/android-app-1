@@ -25,6 +25,8 @@
     <string name="menu_sort">Trier par</string>
     
     <string name="filter_dialog_title">Filtrer par</string>
+    <string name="filter_dialog_OK">OK</string>
+    <string name="filter_dialog_cancel">Annuler</string>
     
     <string name="submenu_name">Nom</string>
     <string name="submenu_surname">Prenom</string>

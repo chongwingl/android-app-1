@@ -61,6 +61,11 @@ public class DataBaseAdapter {
     public static final String ORDER_BY_SUM = " order by montant";
     public static final String ORDER_BY_DATE = "order by date";
     
+    public static final String FILTER_BY_NAME = "where personne.name=\"{{arg}}\"";
+    public static final String FILTER_BY_SURNAME = "where personne.surname=\"{{arg}}\"";
+    public static final String FILTER_BY_SUM = "where somme.montant=\"{{arg}}\"";
+    public static final String FILTER_BY_DATE = "where somme.date=\"{{arg}}\"";
+    
     private final Context ctx;
     
     private static class DatabaseHelper extends SQLiteOpenHelper {
@@ -198,8 +203,11 @@ public class DataBaseAdapter {
     	return db.rawQuery(GET_ALL, null);
     }
     
-    public Cursor fetchAll(String orderBy){
-    	return db.rawQuery(GET_ALL + " " + orderBy, null);
+    public Cursor fetchAll(String orderByFilterBy, String whereArg){
+    	if(whereArg != null){
+    		orderByFilterBy = orderByFilterBy.replace("{{arg}}", whereArg);
+    	}
+    	return db.rawQuery(GET_ALL + " " + orderByFilterBy, null);
     }
     /**
      * Delete the person with the given id

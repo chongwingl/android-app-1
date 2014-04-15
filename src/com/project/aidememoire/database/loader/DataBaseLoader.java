@@ -29,7 +29,14 @@ public class DataBaseLoader extends AsyncTaskLoader<Cursor> {
 					|| action == DataBaseAdapter.ORDER_BY_NAME
 					|| action == DataBaseAdapter.ORDER_BY_SUM
 					|| action == DataBaseAdapter.ORDER_BY_SURNAME){
-				return mDBHelper.fetchAll(action);
+				return mDBHelper.fetchAll(action, null);
+			}
+			else if(action == DataBaseAdapter.FILTER_BY_DATE
+					|| action == DataBaseAdapter.FILTER_BY_NAME
+					|| action == DataBaseAdapter.FILTER_BY_SUM
+					|| action == DataBaseAdapter.FILTER_BY_SURNAME){
+				String filter = bundle.getString(ListFragment.FILTER_DATA);
+				return mDBHelper.fetchAll(action, filter);
 			}
 		}
 		return mDBHelper.fetchAll();

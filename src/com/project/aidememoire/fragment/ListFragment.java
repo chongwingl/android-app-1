@@ -10,6 +10,7 @@ import com.project.aidememoire.model.Person;
 import android.support.v4.app.FragmentTransaction;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -44,6 +45,7 @@ public class ListFragment extends Fragment{
 	public final static String S_ID = "sum_id";
 	
 	public final static String SORT_FILTER = "sort_filter";
+	public final static String FILTER_DATA = "filter_data";
 	
 	private ListView peopleListView;
 	private PersonListAdapter adapter;
@@ -208,26 +210,61 @@ public class ListFragment extends Fragment{
 	}
 
 	private void showDialog(int itemId) {
+		String action = "";
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_filter, null);
 		TextView textView = (TextView) dialogView.findViewById(R.id.dialog_textview);
+		final EditText input = (EditText) dialogView.findViewById(R.id.dialog_input);
 		switch(itemId){
 			case R.id.submenu_filter_date:
+				action = DataBaseAdapter.FILTER_BY_DATE;
 				textView.setText(R.string.submenu_date);
 				break;
 			case R.id.submenu_filter_name:
+				action = DataBaseAdapter.FILTER_BY_NAME;
 				textView.setText(R.string.submenu_name);
 				break;
 			case R.id.submenu_filter_sum:
+				action = DataBaseAdapter.FILTER_BY_SUM;
 				textView.setText(R.string.submenu_sum);
 				break;
 			case R.id.submenu_filter_surname:
+				action = DataBaseAdapter.FILTER_BY_SURNAME;
 				textView.setText(R.string.submenu_surname);
 				break;
 		
 		}
+		final String actionToTransmitToDialog = action;
 		builder.setTitle(R.string.filter_dialog_title);
 		builder.setView(dialogView);
+		
+		builder.setPositiveButton(R.string.filter_dialog_OK, new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				Bundle bundle = new Bundle();
+				bundle.putString(SORT_FILTER, actionToTransmitToDialog); 
+				
+				String filter = input.getText().toString();
+				if(filter.equals("")){
+					dialog.cancel();
+				}
+				else{
+					bundle.putString(FILTER_DATA, filter);
+					getLoaderManager().restartLoader(PersonListAdapter.LOADER_ID, bundle, adapter).forceLoad();
+					adapter.notifyDataSetChanged();
+				}
+			}
+		});
+		
+		builder.setNegativeButton(R.string.filter_dialog_cancel, new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.cancel();
+			}
+		});
+		
 		builder.show();
 	}
 	 
