@@ -22,7 +22,7 @@
     <string name="header_date">DATE</string>
     
     <string name="menu_filter">Filtrer par</string>
-    <string name="menu_order">Trier par</string>
+    <string name="menu_sort">Trier par</string>
     
     <string name="submenu_name">Nom</string>
     <string name="submenu_surname">Prenom</string>

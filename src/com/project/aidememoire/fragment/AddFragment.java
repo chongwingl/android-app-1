@@ -81,10 +81,6 @@ public class AddFragment extends Fragment{
                 	}
                 	
                 	addPerson(person);
-            		
-                	Log.i(TAG, "name : " + nameEdit.getText());
-                	Log.i(TAG, "surname : " + surnameEdit.getText());
-                	Log.i(TAG, "sum : " + sumEdit.getText());
                 	
                 	if(dataBaseApi.isOpen()){
                 		dataBaseApi.close();

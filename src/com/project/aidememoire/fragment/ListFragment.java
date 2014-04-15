@@ -2,6 +2,7 @@ package com.project.aidememoire.fragment;
 
 import com.project.aidememoire.R;
 import com.project.aidememoire.adapter.PersonListAdapter;
+import com.project.aidememoire.adapter.database.DataBaseAdapter;
 import com.project.aidememoire.database.api.DatabaseApi;
 import com.project.aidememoire.model.Money;
 import com.project.aidememoire.model.Person;
@@ -37,6 +38,8 @@ public class ListFragment extends Fragment{
 	public final static String TYPE = "type";
 	public final static String P_ID = "person_id";
 	public final static String S_ID = "sum_id";
+	
+	public final static String SORT_FILTER = "sort_filter";
 	
 	private ListView peopleListView;
 	private PersonListAdapter adapter;
@@ -158,5 +161,35 @@ public class ListFragment extends Fragment{
 		super.onCreateOptionsMenu(menu, inflater);
         getActivity().getMenuInflater().inflate(R.menu.main_menu, menu);
     }
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Bundle bundle = new Bundle();
+		switch(item.getItemId()){
+			case R.id.submenu_sort_name:
+				bundle.putString(SORT_FILTER, DataBaseAdapter.ORDER_BY_NAME);
+				break;
+		
+			case R.id.submenu_sort_date:
+				bundle.putString(SORT_FILTER, DataBaseAdapter.ORDER_BY_DATE); 
+				break;
+				
+			case R.id.submenu_sort_sum:
+				bundle.putString(SORT_FILTER, DataBaseAdapter.ORDER_BY_SUM);
+				break;
+				
+			case R.id.submenu_sort_surname:
+				bundle.putString(SORT_FILTER, DataBaseAdapter.ORDER_BY_SURNAME); 
+				break;
+				
+			default:
+				break;
+		}
+		getLoaderManager().restartLoader(PersonListAdapter.LOADER_ID, bundle, adapter).forceLoad();
+		adapter.notifyDataSetChanged();  
+		return super.onOptionsItemSelected(item);
+	}
+	 
+	 
 		
 }

@@ -20,20 +20,20 @@
     </item>
     
     <item
-        android:id="@+id/menu_order"
-        android:title="@string/menu_order">
+        android:id="@+id/menu_sort"
+        android:title="@string/menu_sort">
         <menu>
             <item
-		        android:id="@+id/submenu_order_name"
+		        android:id="@+id/submenu_sort_name"
 		        android:title="@string/submenu_name" />
             <item
-		        android:id="@+id/submenu_order_surname"
+		        android:id="@+id/submenu_sort_surname"
 		        android:title="@string/submenu_surname" />
             <item
-		        android:id="@+id/submenu_order_date"
+		        android:id="@+id/submenu_sort_date"
 		        android:title="@string/submenu_date" />
             <item
-		        android:id="@+id/submenu_order_sum"
+		        android:id="@+id/submenu_sort_sum"
 		        android:title="@string/submenu_sum" />
         </menu>
     </item>

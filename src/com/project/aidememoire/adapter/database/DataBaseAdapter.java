@@ -56,6 +56,10 @@ public class DataBaseAdapter {
     // Obtenir tout le contenu des tables
     private static final String GET_ALL = "select * from somme inner join personne on personne._id=somme.p_id";
     
+    public static final String ORDER_BY_NAME = "order by name";
+    public static final String ORDER_BY_SURNAME = "order by surname";
+    public static final String ORDER_BY_SUM = " order by montant";
+    public static final String ORDER_BY_DATE = "order by date";
     
     private final Context ctx;
     
@@ -194,6 +198,9 @@ public class DataBaseAdapter {
     	return db.rawQuery(GET_ALL, null);
     }
     
+    public Cursor fetchAll(String orderBy){
+    	return db.rawQuery(GET_ALL + " " + orderBy, null);
+    }
     /**
      * Delete the person with the given id
      * 

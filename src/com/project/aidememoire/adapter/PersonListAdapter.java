@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.project.aidememoire.R;
 import com.project.aidememoire.adapter.database.DataBaseAdapter;
 import com.project.aidememoire.database.loader.DataBaseLoader;
+import com.project.aidememoire.fragment.ListFragment;
 
 public class PersonListAdapter extends CursorAdapter implements LoaderCallbacks<Cursor>{
 
@@ -56,7 +57,7 @@ public class PersonListAdapter extends CursorAdapter implements LoaderCallbacks<
         surname.setText(cursor.getString(7));
 		sum.setText(cursor.getString(3));
 		date.setText(cursor.getString(2));
-		Log.i(TAG, cursor.getString(4));
+		
 		if(cursor.getString(4).equals("credit")){
 			sum.setTextColor(resources.getColor(R.color.darkgreen));
 		}
@@ -77,11 +78,11 @@ public class PersonListAdapter extends CursorAdapter implements LoaderCallbacks<
 
 
 	@Override
-	public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
+	public Loader<Cursor> onCreateLoader(int arg0, Bundle bundle) {
 		if(!mDBHelper.isOpen()){
 			mDBHelper.open();
 		}
-		return new DataBaseLoader(context, mDBHelper);
+		return new DataBaseLoader(context, mDBHelper, bundle);
 	}
 
 
