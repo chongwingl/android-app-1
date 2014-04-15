@@ -1,9 +1,12 @@
 package com.project.aidememoire.fragment;
 
+import java.util.Calendar;
+
 import com.project.aidememoire.R;
 import com.project.aidememoire.adapter.PersonListAdapter;
 import com.project.aidememoire.adapter.database.DataBaseAdapter;
 import com.project.aidememoire.database.api.DatabaseApi;
+import com.project.aidememoire.fragment.AddFragment.MonthConversion;
 import com.project.aidememoire.model.Money;
 import com.project.aidememoire.model.Person;
 
@@ -24,10 +27,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -212,51 +217,72 @@ public class ListFragment extends Fragment{
 	private void showDialog(int itemId) {
 		String action = "";
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_filter, null);
-		TextView textView = (TextView) dialogView.findViewById(R.id.dialog_textview);
-		final EditText input = (EditText) dialogView.findViewById(R.id.dialog_input);
-		switch(itemId){
-			case R.id.submenu_filter_date:
-				action = DataBaseAdapter.FILTER_BY_DATE;
-				textView.setText(R.string.submenu_date);
-				break;
-			case R.id.submenu_filter_name:
-				action = DataBaseAdapter.FILTER_BY_NAME;
-				textView.setText(R.string.submenu_name);
-				break;
-			case R.id.submenu_filter_sum:
-				action = DataBaseAdapter.FILTER_BY_SUM;
-				textView.setText(R.string.submenu_sum);
-				break;
-			case R.id.submenu_filter_surname:
-				action = DataBaseAdapter.FILTER_BY_SURNAME;
-				textView.setText(R.string.submenu_surname);
-				break;
-		
-		}
-		final String actionToTransmitToDialog = action;
-		builder.setTitle(R.string.filter_dialog_title);
-		builder.setView(dialogView);
-		
-		builder.setPositiveButton(R.string.filter_dialog_OK, new DialogInterface.OnClickListener() {
+		if(itemId != R.id.submenu_filter_date){
 			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				Bundle bundle = new Bundle();
-				bundle.putString(SORT_FILTER, actionToTransmitToDialog); 
+			View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_filter, null);
+			TextView textView = (TextView) dialogView.findViewById(R.id.dialog_textview);
+			final EditText input = (EditText) dialogView.findViewById(R.id.dialog_input);
+			switch(itemId){
+				case R.id.submenu_filter_name:
+					action = DataBaseAdapter.FILTER_BY_NAME;
+					textView.setText(R.string.submenu_name);
+					break;
+				case R.id.submenu_filter_sum:
+					action = DataBaseAdapter.FILTER_BY_SUM;
+					textView.setText(R.string.submenu_sum);
+					break;
+				case R.id.submenu_filter_surname:
+					action = DataBaseAdapter.FILTER_BY_SURNAME;
+					textView.setText(R.string.submenu_surname);
+					break;
+			}
+			
+			builder.setView(dialogView);
+			final String actionToTransmitToDialog = action;
+			
+			builder.setPositiveButton(R.string.filter_dialog_OK, new DialogInterface.OnClickListener() {
 				
-				String filter = input.getText().toString();
-				if(filter.equals("")){
-					dialog.cancel();
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Bundle bundle = new Bundle();
+					bundle.putString(SORT_FILTER, actionToTransmitToDialog); 
+					
+					String filter = input.getText().toString();
+					if(filter.equals("")){
+						dialog.cancel();
+					}
+					else{
+						bundle.putString(FILTER_DATA, filter);
+						getLoaderManager().restartLoader(PersonListAdapter.LOADER_ID, bundle, adapter).forceLoad();
+						adapter.notifyDataSetChanged();
+					}
 				}
-				else{
-					bundle.putString(FILTER_DATA, filter);
+			});
+		} else {
+			View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_datepicker, null);
+			final DatePicker datePicker = (DatePicker) dialogView.findViewById(R.id.dialog_date);
+			datePicker.setCalendarViewShown(false);
+			datePicker.setMaxDate(Calendar.getInstance().getTimeInMillis());
+			builder.setView(dialogView);
+			builder.setPositiveButton(R.string.filter_dialog_OK, new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Bundle bundle = new Bundle();
+					bundle.putString(SORT_FILTER, DataBaseAdapter.FILTER_BY_DATE); 
+					
+					String date = String.valueOf(datePicker.getDayOfMonth()) + " " + 
+	        			MonthConversion.getStringMonth(datePicker.getMonth()) + " " + 
+	        			String.valueOf(datePicker.getYear());
+					
+					bundle.putString(FILTER_DATA, date);
 					getLoaderManager().restartLoader(PersonListAdapter.LOADER_ID, bundle, adapter).forceLoad();
 					adapter.notifyDataSetChanged();
 				}
-			}
-		});
+			});
+		}
 		
+		builder.setTitle(R.string.filter_dialog_title);
 		builder.setNegativeButton(R.string.filter_dialog_cancel, new DialogInterface.OnClickListener() {
 			
 			@Override

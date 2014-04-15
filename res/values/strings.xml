@@ -27,6 +27,7 @@
     <string name="filter_dialog_title">Filtrer par</string>
     <string name="filter_dialog_OK">OK</string>
     <string name="filter_dialog_cancel">Annuler</string>
+    <string name="dialog_date_picker_text">Choisissez une date</string>
     
     <string name="submenu_name">Nom</string>
     <string name="submenu_surname">Prenom</string>
