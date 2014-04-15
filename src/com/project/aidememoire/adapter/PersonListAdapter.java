@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.project.aidememoire.R;
 import com.project.aidememoire.adapter.database.DataBaseAdapter;
+import com.project.aidememoire.database.api.DatabaseApi;
 import com.project.aidememoire.database.loader.DataBaseLoader;
 import com.project.aidememoire.fragment.ListFragment;
 
@@ -32,7 +33,7 @@ public class PersonListAdapter extends CursorAdapter implements LoaderCallbacks<
 	private TextView date;
 	private LayoutInflater layoutInflater;
 	private Context context;
-	private DataBaseAdapter mDBHelper;
+	private DatabaseApi databaseApi;
 	private LoaderManager loaderManager;
 	private Resources resources;
 	
@@ -40,7 +41,7 @@ public class PersonListAdapter extends CursorAdapter implements LoaderCallbacks<
 		super(context, null, false);
 		this.context = context;
 		this.resources = resources;
-		mDBHelper = new DataBaseAdapter(context);
+		databaseApi = DatabaseApi.getInstance(context);
 		loaderManager.initLoader(LOADER_ID, null, this).forceLoad();
 	}
 	
@@ -79,10 +80,10 @@ public class PersonListAdapter extends CursorAdapter implements LoaderCallbacks<
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int arg0, Bundle bundle) {
-		if(!mDBHelper.isOpen()){
-			mDBHelper.open();
+		if(!databaseApi.isOpen()){
+			databaseApi.open();
 		}
-		return new DataBaseLoader(context, mDBHelper, bundle);
+		return new DataBaseLoader(context, databaseApi, bundle);
 	}
 
 

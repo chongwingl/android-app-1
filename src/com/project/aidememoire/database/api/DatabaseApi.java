@@ -71,6 +71,10 @@ public class DatabaseApi {
 		return mDbHelper.fetchAll();
 	}
 	
+	public Cursor fetchAllPersonAndMoneyCursor(String orderByFilterBy, String whereArg){
+		return mDbHelper.fetchAll(orderByFilterBy, whereArg);
+	}
+	
 	public List<Money> fetchMoneyOfPerson(Person person){
 		return fromDataToMoneys(mDbHelper.fetchMoneyOfPerson(person.getName(), person.getSurname()));
 	}
