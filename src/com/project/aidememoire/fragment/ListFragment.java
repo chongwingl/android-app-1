@@ -88,6 +88,29 @@ public class ListFragment extends Fragment{
 			}
 		});
 		
+		peopleListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position,
+					long id) {
+				FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+				InfosFragment infosFragment = new InfosFragment();
+		       	Bundle bundle = new Bundle();
+		       	Cursor c = (Cursor) adapter.getItem(position);
+		       	
+		       	Money money = new Money(c.getInt(3), c.getString(2), c.getString(4));
+		       	money.setId(c.getLong(0));
+		       	Person person = new Person(c.getString(6), c.getString(7));
+		       	person.setId(c.getLong(1));
+		       	
+		       	infosFragment.setArguments(bundle);
+		       	
+		       	fragmentTransaction.replace(R.id.main_container, infosFragment);
+		       	fragmentTransaction.addToBackStack(null);
+		       	fragmentTransaction.commit();
+			}
+		});
+		
 		return fragmentView;
 	}
 
