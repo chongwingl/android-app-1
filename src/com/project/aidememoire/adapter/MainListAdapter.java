@@ -21,7 +21,7 @@ import com.project.aidememoire.database.api.DatabaseApi;
 import com.project.aidememoire.database.loader.DataBaseLoader;
 import com.project.aidememoire.fragment.ListFragment;
 
-public class PersonListAdapter extends CursorAdapter implements LoaderCallbacks<Cursor>{
+public class MainListAdapter extends CursorAdapter implements LoaderCallbacks<Cursor>{
 
 	private final String TAG = "PersonListAdapter";
 	public static final int LOADER_ID = 0;
@@ -35,12 +35,10 @@ public class PersonListAdapter extends CursorAdapter implements LoaderCallbacks<
 	private Context context;
 	private DatabaseApi databaseApi;
 	private LoaderManager loaderManager;
-	private Resources resources;
 	
-	public PersonListAdapter(Context context, LoaderManager loaderManager, Resources resources) {
+	public MainListAdapter(Context context, LoaderManager loaderManager) {
 		super(context, null, false);
 		this.context = context;
-		this.resources = resources;
 		databaseApi = DatabaseApi.getInstance(context);
 		loaderManager.initLoader(LOADER_ID, null, this).forceLoad();
 	}
@@ -71,7 +69,7 @@ public class PersonListAdapter extends CursorAdapter implements LoaderCallbacks<
 	public View newView(Context context, Cursor cursor, ViewGroup parent) {
 
 		layoutInflater = LayoutInflater.from(context);
-		view = layoutInflater.inflate(R.layout.item_list, null);
+		view = layoutInflater.inflate(R.layout.main_item_list, null);
 		
 		return view;
 	}

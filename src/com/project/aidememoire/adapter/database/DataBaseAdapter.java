@@ -47,10 +47,10 @@ public class DataBaseAdapter {
     		"select _id, name, surname from personne where name=\"{{name}}\" and surname=\"{{surname}}\"";
     // Obtenir tous les crédits et dettes d'une personne
     private static final String GET_MONEY_OF_PERSON_QUERY = 
-    		"select name, surname, montant, date, type from somme inner join personne on personne._id=somme.p_id "+
+    		"select * from somme inner join personne on personne._id=somme.p_id "+
     		"where personne.name=\"{{name}}\" and personne.surname=\"{{surname}}\"";
     // Obtenir une dette ou un crédit d'un personne
-    private static final String GET_SPECIFIED_MONEY_QUERY = "select name, surname, montant, date, type from somme inner join personne on personne._id=somme.p_id "+
+    private static final String GET_SPECIFIED_MONEY_QUERY = "select * from somme inner join personne on personne._id=somme.p_id "+
     		"where personne.name=\"{{name}}\" and personne.surname=\"{{surname}}\" and somme.montant={{somme}} and somme.date=\"{{date}}\" " +
     		"and somme.type=\"{{type}}\"";
     // Obtenir tout le contenu des tables

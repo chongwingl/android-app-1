@@ -3,7 +3,7 @@ package com.project.aidememoire.fragment;
 import java.util.Calendar;
 
 import com.project.aidememoire.R;
-import com.project.aidememoire.adapter.PersonListAdapter;
+import com.project.aidememoire.adapter.MainListAdapter;
 import com.project.aidememoire.adapter.database.DataBaseAdapter;
 import com.project.aidememoire.database.api.DatabaseApi;
 import com.project.aidememoire.fragment.AddFragment.MonthConversion;
@@ -51,9 +51,10 @@ public class ListFragment extends Fragment{
 	
 	public final static String SORT_FILTER = "sort_filter";
 	public final static String FILTER_DATA = "filter_data";
+	public final static String PERSON = "person";
 	
 	private ListView peopleListView;
-	private PersonListAdapter adapter;
+	private MainListAdapter adapter;
 	
 	private Button addButton;
 	
@@ -72,7 +73,7 @@ public class ListFragment extends Fragment{
 		peopleListView = (ListView) fragmentView.findViewById(R.id.personListView);
 		addButton = (Button) fragmentView.findViewById(R.id.footer_button);
 
-		adapter = new PersonListAdapter(getActivity(), getLoaderManager(), getResources());
+		adapter = new MainListAdapter(getActivity(), getLoaderManager());
 		peopleListView.setAdapter(adapter);
 
 		registerForContextMenu(peopleListView);
@@ -100,9 +101,10 @@ public class ListFragment extends Fragment{
 		       	
 		       	Money money = new Money(c.getInt(3), c.getString(2), c.getString(4));
 		       	money.setId(c.getLong(0));
-		       	Person person = new Person(c.getString(6), c.getString(7));
+		       	Person person = new Person(c.getString(6), c.getString(7), money);
 		       	person.setId(c.getLong(1));
 		       	
+		       	bundle.putParcelable(PERSON, person);
 		       	infosFragment.setArguments(bundle);
 		       	
 		       	fragmentTransaction.replace(R.id.main_container, infosFragment);
@@ -160,7 +162,7 @@ public class ListFragment extends Fragment{
   	   			dataBaseApi.deletePerson(person);
   	   		}
   	   		
-  	   		getLoaderManager().restartLoader(PersonListAdapter.LOADER_ID, null, adapter).forceLoad();
+  	   		getLoaderManager().restartLoader(MainListAdapter.LOADER_ID, null, adapter).forceLoad();
 			adapter.notifyDataSetChanged();  
 			return true;
   	   	}
@@ -201,30 +203,30 @@ public class ListFragment extends Fragment{
 		Bundle bundle = new Bundle();
 		switch(item.getItemId()){
 			case R.id.menu_reset:
-				getLoaderManager().restartLoader(PersonListAdapter.LOADER_ID, null, adapter).forceLoad();
+				getLoaderManager().restartLoader(MainListAdapter.LOADER_ID, null, adapter).forceLoad();
 				adapter.notifyDataSetChanged();  
 				break;
 			case R.id.submenu_sort_name:
 				bundle.putString(SORT_FILTER, DataBaseAdapter.ORDER_BY_NAME);
-				getLoaderManager().restartLoader(PersonListAdapter.LOADER_ID, bundle, adapter).forceLoad();
+				getLoaderManager().restartLoader(MainListAdapter.LOADER_ID, bundle, adapter).forceLoad();
 				adapter.notifyDataSetChanged();  
 				break;
 		
 			case R.id.submenu_sort_date:
 				bundle.putString(SORT_FILTER, DataBaseAdapter.ORDER_BY_DATE); 
-				getLoaderManager().restartLoader(PersonListAdapter.LOADER_ID, bundle, adapter).forceLoad();
+				getLoaderManager().restartLoader(MainListAdapter.LOADER_ID, bundle, adapter).forceLoad();
 				adapter.notifyDataSetChanged();  
 				break;
 				
 			case R.id.submenu_sort_sum:
 				bundle.putString(SORT_FILTER, DataBaseAdapter.ORDER_BY_SUM);
-				getLoaderManager().restartLoader(PersonListAdapter.LOADER_ID, bundle, adapter).forceLoad();
+				getLoaderManager().restartLoader(MainListAdapter.LOADER_ID, bundle, adapter).forceLoad();
 				adapter.notifyDataSetChanged();  
 				break;
 				
 			case R.id.submenu_sort_surname:
 				bundle.putString(SORT_FILTER, DataBaseAdapter.ORDER_BY_SURNAME); 
-				getLoaderManager().restartLoader(PersonListAdapter.LOADER_ID, bundle, adapter).forceLoad();
+				getLoaderManager().restartLoader(MainListAdapter.LOADER_ID, bundle, adapter).forceLoad();
 				adapter.notifyDataSetChanged();  
 				break;
 				
@@ -280,7 +282,7 @@ public class ListFragment extends Fragment{
 					}
 					else{
 						bundle.putString(FILTER_DATA, filter);
-						getLoaderManager().restartLoader(PersonListAdapter.LOADER_ID, bundle, adapter).forceLoad();
+						getLoaderManager().restartLoader(MainListAdapter.LOADER_ID, bundle, adapter).forceLoad();
 						adapter.notifyDataSetChanged();
 					}
 				}
@@ -303,7 +305,7 @@ public class ListFragment extends Fragment{
 	        			String.valueOf(datePicker.getYear());
 					
 					bundle.putString(FILTER_DATA, date);
-					getLoaderManager().restartLoader(PersonListAdapter.LOADER_ID, bundle, adapter).forceLoad();
+					getLoaderManager().restartLoader(MainListAdapter.LOADER_ID, bundle, adapter).forceLoad();
 					adapter.notifyDataSetChanged();
 				}
 			});

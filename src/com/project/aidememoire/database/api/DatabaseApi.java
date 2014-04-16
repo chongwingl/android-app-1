@@ -76,7 +76,11 @@ public class DatabaseApi {
 	}
 	
 	public List<Money> fetchMoneyOfPerson(Person person){
-		return fromDataToMoneys(mDbHelper.fetchMoneyOfPerson(person.getName(), person.getSurname()));
+		return fromDataToMoneys(fetchMoneyOfPersonCursor(person));
+	}
+	
+	public Cursor fetchMoneyOfPersonCursor(Person person){
+		return mDbHelper.fetchMoneyOfPerson(person.getName(), person.getSurname());
 	}
 	
 	public List<Person> fetchPersonWithSpecifiedMoney(Person person, Money money){
@@ -155,7 +159,7 @@ public class DatabaseApi {
 	}
 	
 	public Money fromDataToMoney(Cursor c){
-		Money money = new Money(c.getInt(2), c.getString(3), c.getString(4));
+		Money money = new Money(c.getInt(3), c.getString(2), c.getString(4));
 		return money;
 	}
 	

@@ -2,7 +2,9 @@ package com.project.aidememoire.database.loader;
 
 import com.project.aidememoire.adapter.database.DataBaseAdapter;
 import com.project.aidememoire.database.api.DatabaseApi;
+import com.project.aidememoire.fragment.InfosFragment;
 import com.project.aidememoire.fragment.ListFragment;
+import com.project.aidememoire.model.Person;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -38,6 +40,9 @@ public class DataBaseLoader extends AsyncTaskLoader<Cursor> {
 					|| action == DataBaseAdapter.FILTER_BY_SURNAME){
 				String filter = bundle.getString(ListFragment.FILTER_DATA);
 				return databaseApi.fetchAllPersonAndMoneyCursor(action, filter);
+			}
+			else if(bundle.containsKey(InfosFragment.PERSON_MONEY)){
+				databaseApi.fetchMoneyOfPerson(((Person)bundle.getParcelable(InfosFragment.PERSON_MONEY)));
 			}
 		}
 		return databaseApi.fetchAllPersonAndMoneyCursor();

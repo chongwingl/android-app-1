@@ -3,7 +3,10 @@ package com.project.aidememoire.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Person {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Person implements Parcelable{
 	
 	private String name;
 	private String surname;
@@ -52,10 +55,10 @@ public class Person {
 		this.money.addAll(money);
 	}
 	
-	public int allDette(){
+	public int getAllDette(){
 		int dette = 0;
 		for(Money m : this.money){
-			if(m.getType() == "dette"){
+			if(m.getType().equals("dette")){
 				dette += m.getSomme();
 			}
 		}
@@ -63,10 +66,10 @@ public class Person {
 		return dette;
 	}
 	
-	public int allCredit(){
+	public int getAllCredit(){
 		int credit = 0;
 		for(Money m : this.money){
-			if(m.getType() == "credit"){
+			if(m.getType().equals("credit")){
 				credit += m.getSomme();
 			}
 		}
@@ -105,6 +108,18 @@ public class Person {
 	    isEqual = isEqual && (this.money.containsAll(person.money));
 	    
 	    return isEqual;
+	}
+
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
