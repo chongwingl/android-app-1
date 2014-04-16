@@ -12,11 +12,8 @@
         android:orientation="horizontal" >
         
 		<TextView 
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:text="@string/form_name"
-		    android:layout_margin="3dip"
-		    android:padding="3dip" />
+		    style="@style/LabelBaseStyle"
+		    android:text="@string/form_name" />
 		
         <EditText
             android:id="@+id/name"
@@ -33,11 +30,8 @@
         android:orientation="horizontal" >
         
 		<TextView 
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:text="@string/form_surname"
-		    android:layout_margin="3dip"
-		    android:padding="3dip" />
+		    style="@style/LabelBaseStyle"
+		    android:text="@string/form_surname" />
 		
         <EditText
             android:id="@+id/surname"
@@ -61,7 +55,8 @@
 		    android:layout_marginLeft="3dip"
 		    android:layout_marginRight="3dip"
 		    android:layout_marginBottom="3dip"
-		    android:padding="3dip" />
+		    android:padding="3dip"
+		    android:textSize="18sp" />
         
         <RadioGroup
                android:id="@+id/sumSign"
@@ -102,25 +97,21 @@
 
 		<Button
 		    android:id="@+id/validate"
-		    style="?android:attr/buttonStyleSmall"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_margin="2dip"
-		    android:background="@android:color/black"
 		    android:text="@string/form_button_add"
-		    android:textColor="@android:color/white"
-		    android:layout_weight="2" />
+		    android:layout_weight="2"
+		    style="@style/ButtonFontStyle" />
  
 	    <Button
 	        android:id="@+id/cancel"
-	        style="?android:attr/buttonStyleSmall"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_margin="2dip"
-	        android:background="@android:color/black"
 	        android:text="@string/form_button_cancel"
-	        android:textColor="@android:color/white"
-		    android:layout_weight="2" />
+		    android:layout_weight="2"
+		    style="@style/ButtonFontStyle" />
  
         </LinearLayout>
 

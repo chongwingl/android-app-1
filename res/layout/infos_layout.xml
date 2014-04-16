@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="5dip"
+    android:padding="5dip" >
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="10dip" >
+    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+	        
+			<TextView
+			    style="@style/LabelBaseStyle"
+			    android:text="@string/infos_name" />
+			
+	        <TextView
+	            android:id="@+id/infos_name"
+	           	style="@style/TextBaseStyle" />
+	            
+	    </LinearLayout>
+	    
+	     <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+	        
+			<TextView 
+			    style="@style/LabelBaseStyle"
+			    android:text="@string/infos_surname" />
+			
+	        <TextView
+	            android:id="@+id/infos_surname"
+	           	style="@style/TextBaseStyle" />
+	
+	    </LinearLayout>
+	    
+	     <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+	        
+	        <TextView 
+			    style="@style/LabelBaseStyle"
+			    android:text="@string/infos_credit" />
+	        
+	        <TextView
+	            android:id="@+id/infos_credit"
+	           	style="@style/TextBaseStyle" />
+	    </LinearLayout>
+	    
+	     <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+	        
+	        <TextView 
+			    style="@style/LabelBaseStyle"
+			    android:text="@string/infos_dette" />
+	        
+	        <TextView
+	            android:id="@+id/infos_dette"
+	           	style="@style/TextBaseStyle" />
+	    </LinearLayout>
+     </LinearLayout>
+     
+     <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dip">
+    
+	     <TableLayout
+	        android:id="@+id/infos_listview_header"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content" 
+		    android:background="@android:color/black"
+		    android:layout_alignParentTop="true"
+		    android:layout_alignParentLeft="true"
+			android:stretchColumns="1" >
+		
+		    <TableRow
+		        android:id="@+id/header"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:padding="5dip"
+		        android:layout_margin="5dip" >
+			    
+			    <TextView 
+			        android:id="@+id/header_sum"
+			        android:text="@string/header_sum"
+		    		style="@style/HeaderTableCaseStyle" />
+			    
+			    <TextView 
+			        android:id="@+id/header_date"
+			        android:text="@string/header_date"
+		    		style="@style/HeaderTableCaseStyle" />
+			    
+		    </TableRow>
+		
+		</TableLayout>
+		
+		<ListView
+	        android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:layout_below="@id/infos_listview_header"
+	        android:id="@+id/infosListView" />
+		
+	 </RelativeLayout>
+
+</LinearLayout>

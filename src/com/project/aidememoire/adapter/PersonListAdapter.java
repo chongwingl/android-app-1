@@ -60,10 +60,10 @@ public class PersonListAdapter extends CursorAdapter implements LoaderCallbacks<
 		date.setText(cursor.getString(2));
 		
 		if(cursor.getString(4).equals("credit")){
-			sum.setTextColor(resources.getColor(R.color.darkgreen));
+			sum.setTextAppearance(context, R.style.GreenFontStyle);
 		}
 		else {
-			sum.setTextColor(Color.RED);
+			sum.setTextAppearance(context, R.style.RedFontStyle);
 		}
 	}
 

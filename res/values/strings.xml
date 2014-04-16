@@ -37,6 +37,11 @@
     
     <string name="context_menu_edit">Editer</string>
     <string name="context_menu_delete">Supprimer</string>
+    
+    <string name="infos_name">Nom : </string>
+    <string name="infos_surname">Prénom : </string>
+    <string name="infos_credit">Crédit : </string>
+    <string name="infos_dette">Dette : </string>
    
 
 </resources>
