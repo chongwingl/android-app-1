@@ -41,9 +41,4 @@ public class AccueilActivity extends FragmentActivity {
 		super.onDestroy();
 	}
 
-	@Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
-    
 }

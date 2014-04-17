@@ -53,9 +53,12 @@ public class DatabaseApi {
 		isOpen = false;
 	}
 	
+	public Cursor fetchAllPersonCursor(){
+		return mDbHelper.fetchAllPersons();
+	}
+	
 	public List<Person> fetchAllPerson(){
-		Cursor c = mDbHelper.fetchAllPersons();
-		return fromDataToPersons(c);
+		return fromDataToPersons(fetchAllPersonCursor());
 	}
 	
 	public List<Person> fetchAllPersonAndMoney(){

@@ -1,15 +1,21 @@
 package com.project.aidememoire.fragment;
 
 import java.text.DateFormatSymbols;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -17,12 +23,16 @@ import android.widget.RadioGroup;
 
 import com.project.aidememoire.R;
 import com.project.aidememoire.database.api.DatabaseApi;
+import com.project.aidememoire.database.loader.DataBaseLoader;
 import com.project.aidememoire.model.Money;
 import com.project.aidememoire.model.Person;
 
-public class AddFragment extends Fragment{
+public class AddFragment extends Fragment implements LoaderCallbacks<Cursor>{
 	
 	private final static String TAG = "AddFragment";
+	private final static int LOADER_ID = 10;
+	
+	public final static String AUTOCOMPLETE = "autocomplete";
 	
 	private View fragmentView;
 
@@ -30,8 +40,8 @@ public class AddFragment extends Fragment{
 	
 	private Button addButton;
 	private Button cancelButton;
-	private EditText nameEdit;
-	private EditText surnameEdit;
+	private AutoCompleteTextView  nameEdit;
+	private AutoCompleteTextView surnameEdit;
 	private EditText sumEdit;
 	private RadioGroup sumSignsRadioGroup;
 	private DatePicker datePicker;
@@ -41,15 +51,19 @@ public class AddFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		context = getActivity();
+		
 		dataBaseApi =  DatabaseApi.getInstance(getActivity());
+		Bundle bundle = new Bundle();
+		bundle.putString(AUTOCOMPLETE, AUTOCOMPLETE);
+		getLoaderManager().initLoader(LOADER_ID, bundle, this).forceLoad();
 
 		fragmentView = inflater.inflate(R.layout.set_layout, container, false);
 		
 		addButton = (Button) fragmentView.findViewById(R.id.validate);
 		cancelButton = (Button) fragmentView.findViewById(R.id.cancel);
 		
-		nameEdit = (EditText) fragmentView.findViewById(R.id.name);
-		surnameEdit = (EditText) fragmentView.findViewById(R.id.surname);
+		nameEdit = (AutoCompleteTextView) fragmentView.findViewById(R.id.name);
+		surnameEdit = (AutoCompleteTextView) fragmentView.findViewById(R.id.surname);
 		sumEdit = (EditText) fragmentView.findViewById(R.id.sum);
 		datePicker = (DatePicker) fragmentView.findViewById(R.id.date);
 		sumSignsRadioGroup = (RadioGroup) fragmentView.findViewById(R.id.sumSign);
@@ -81,10 +95,6 @@ public class AddFragment extends Fragment{
                 	}
                 	
                 	addPerson(person);
-                	
-                	if(dataBaseApi.isOpen()){
-                		dataBaseApi.close();
-                	}
                 	
                 	getFragmentManager().popBackStack();
             	}
@@ -140,6 +150,41 @@ public class AddFragment extends Fragment{
 		if(!dataBaseApi.hasPersonWithSpecifiedMoney(person, person.getMoney().get(0))){
 			dataBaseApi.addMoneyOfPerson(person, person.getMoney().get(0));
 		}
+		
+	}
+
+	@Override
+	public Loader<Cursor> onCreateLoader(int arg0, Bundle bundle) {
+		if(!dataBaseApi.isOpen()){
+			dataBaseApi.open();
+		}
+		return new DataBaseLoader(context, dataBaseApi, bundle);
+	}
+
+	@Override
+	public void onLoadFinished(Loader<Cursor> arg0, Cursor cursor) {
+		List<String> names = new ArrayList<String>();
+		List<String> surnames = new ArrayList<String>();
+		while(cursor.moveToNext()){
+			if(!names.contains(cursor.getString(1))){
+				names.add(cursor.getString(1));
+			}
+			if(!surnames.contains(cursor.getString(2))){
+				surnames.add(cursor.getString(2));
+			}
+		}
+		ArrayAdapter<String> nameAdapter= new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, names);
+		nameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		nameEdit.setThreshold(1);
+		nameEdit.setAdapter(nameAdapter);
+		ArrayAdapter<String> surnameAdapter= new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, surnames);
+		surnameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		surnameEdit.setThreshold(1);
+		surnameEdit.setAdapter(surnameAdapter);
+	}
+
+	@Override
+	public void onLoaderReset(Loader<Cursor> arg0) {
 		
 	}
 

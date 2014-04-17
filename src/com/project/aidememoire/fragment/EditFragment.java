@@ -1,6 +1,5 @@
 package com.project.aidememoire.fragment;
 
-import java.text.DateFormatSymbols;
 import java.util.Calendar;
 
 import com.project.aidememoire.R;
