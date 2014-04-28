@@ -78,9 +78,6 @@ public class MainListAdapter extends CursorAdapter implements LoaderCallbacks<Cu
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int arg0, Bundle bundle) {
-		if(!databaseApi.isOpen()){
-			databaseApi.open();
-		}
 		return new DataBaseLoader(context, databaseApi, bundle);
 	}
 

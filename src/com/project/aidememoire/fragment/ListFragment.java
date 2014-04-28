@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -71,23 +72,28 @@ public class ListFragment extends Fragment{
 		fragmentView = inflater.inflate(R.layout.list_layout, container, false);
 		
 		peopleListView = (ListView) fragmentView.findViewById(R.id.personListView);
-		addButton = (Button) fragmentView.findViewById(R.id.footer_button);
 
 		adapter = new MainListAdapter(getActivity(), getLoaderManager());
 		peopleListView.setAdapter(adapter);
 
 		registerForContextMenu(peopleListView);
 		
-		addButton.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-	           	fragmentTransaction.replace(R.id.main_container, new AddFragment());
-	           	fragmentTransaction.addToBackStack(null);
-	           	fragmentTransaction.commit();
-			}
-		});
+		if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+			fragmentView.findViewById(R.id.layout_footer).setVisibility(View.GONE);
+		}
+		else {
+			addButton = (Button) fragmentView.findViewById(R.id.footer_button);
+			addButton.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+		           	fragmentTransaction.replace(R.id.main_container, new AddFragment());
+		           	fragmentTransaction.addToBackStack(null);
+		           	fragmentTransaction.commit();
+				}
+			});
+		}
 		
 		peopleListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -114,6 +120,12 @@ public class ListFragment extends Fragment{
 		});
 		
 		return fragmentView;
+	}
+	
+	@Override
+	public void onDestroy() {
+		dataBaseApi.close();
+		super.onDestroy();
 	}
 
 	@Override
@@ -147,28 +159,26 @@ public class ListFragment extends Fragment{
 	 	// 6: name
 	 	// 7: surname
 
-		if(!dataBaseApi.isOpen()){
-			dataBaseApi.open();
+		if(dataBaseApi.open()){
+			Money money = new Money(c.getInt(3), c.getString(2), c.getString(4));
+			money.setId(c.getLong(0));
+	  	   	
+			if(dataBaseApi.deleteSomme(money)){
+	  	   		Person person = new Person(c.getString(6), c.getString(7));
+	  	   		person.setId(c.getLong(1));
+	  	   		
+	  	   		if(dataBaseApi.hasPersonWithMoney(person)){
+	  	   			dataBaseApi.deletePerson(person);
+	  	   		}
+	  	   		
+	  	   		getLoaderManager().restartLoader(MainListAdapter.LOADER_ID, null, adapter).forceLoad();
+				adapter.notifyDataSetChanged();  
+				return true;
+	  	   	}
 		}
-		
-		Money money = new Money(c.getInt(3), c.getString(2), c.getString(4));
-		money.setId(c.getLong(0));
-  	   	
-		if(dataBaseApi.deleteSomme(money)){
-  	   		Person person = new Person(c.getString(6), c.getString(7));
-  	   		person.setId(c.getLong(1));
-  	   		
-  	   		if(dataBaseApi.hasPersonWithMoney(person)){
-  	   			dataBaseApi.deletePerson(person);
-  	   		}
-  	   		
-  	   		getLoaderManager().restartLoader(MainListAdapter.LOADER_ID, null, adapter).forceLoad();
-			adapter.notifyDataSetChanged();  
-			return true;
-  	   	}
   	   	return false;
 	}
-	
+
 	private boolean edit(int position){
 		FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
        	EditFragment editFragment = new EditFragment();

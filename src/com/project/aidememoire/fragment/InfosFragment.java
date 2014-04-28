@@ -48,20 +48,18 @@ public class InfosFragment extends Fragment{
 		adapter = new PartialListAdapter(context);
 		partialListView.setAdapter(adapter);
 		
-		if(databaseApi.isOpen()){
-			databaseApi.open();
+		if(databaseApi.open()){
+			Cursor cursor = databaseApi.fetchMoneyOfPersonCursor(person);
+			List<Money> money = databaseApi.fromDataToMoneys(cursor);
+			
+			person.getMoney().clear();
+			person.addMoneys(money);
+			
+			((TextView) fragmentView.findViewById(R.id.infos_credit)).setText(String.valueOf(person.getAllCredit()));
+			((TextView) fragmentView.findViewById(R.id.infos_dette)).setText(String.valueOf(person.getAllDette()));
+			
+			adapter.swapCursor(cursor);
 		}
-		
-		Cursor cursor = databaseApi.fetchMoneyOfPersonCursor(person);
-		List<Money> money = databaseApi.fromDataToMoneys(cursor);
-		
-		person.getMoney().clear();
-		person.addMoneys(money);
-		
-		((TextView) fragmentView.findViewById(R.id.infos_credit)).setText(String.valueOf(person.getAllCredit()));
-		((TextView) fragmentView.findViewById(R.id.infos_dette)).setText(String.valueOf(person.getAllDette()));
-		
-		adapter.swapCursor(cursor);
 		
 		return fragmentView;
 	}

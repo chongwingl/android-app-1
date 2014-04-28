@@ -28,7 +28,7 @@ import com.project.aidememoire.model.Money;
 import com.project.aidememoire.model.Person;
 
 public class AddFragment extends Fragment implements LoaderCallbacks<Cursor>{
-	
+
 	private final static String TAG = "AddFragment";
 	private final static int LOADER_ID = 10;
 	
@@ -90,11 +90,9 @@ public class AddFragment extends Fragment implements LoaderCallbacks<Cursor>{
             		money = new Money(Integer.parseInt(sumEdit.getText().toString()), date, type);
                 	person = new Person(nameEdit.getText().toString(), surnameEdit.getText().toString(), money);
                 	
-                	if(!dataBaseApi.isOpen()){
-                		dataBaseApi.open();
+                	if(dataBaseApi.open()){
+                		addPerson(person);
                 	}
-                	
-                	addPerson(person);
                 	
                 	getFragmentManager().popBackStack();
             	}
@@ -155,9 +153,7 @@ public class AddFragment extends Fragment implements LoaderCallbacks<Cursor>{
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int arg0, Bundle bundle) {
-		if(!dataBaseApi.isOpen()){
-			dataBaseApi.open();
-		}
+		dataBaseApi.open();
 		return new DataBaseLoader(context, dataBaseApi, bundle);
 	}
 
@@ -185,7 +181,7 @@ public class AddFragment extends Fragment implements LoaderCallbacks<Cursor>{
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> arg0) {
-		
+		dataBaseApi.close();
 	}
 
 }

@@ -99,14 +99,9 @@ private final static String TAG = "EditFragment";
             		person = new Person(nameEdit.getText().toString(), surnameEdit.getText().toString(), money);
                 	person.setId(bundle.getLong(ListFragment.P_ID));
                 	
-                	if(!dataBaseApi.isOpen()){
-                		dataBaseApi.open();
-                	}
                 	
-                	update(person);
-                	
-                	if(dataBaseApi.isOpen()){
-                		dataBaseApi.close();
+                	if(dataBaseApi.open()){
+                		update(person);
                 	}
                 	
                 	getFragmentManager().popBackStack();

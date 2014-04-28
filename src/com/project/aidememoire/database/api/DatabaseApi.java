@@ -38,19 +38,24 @@ public class DatabaseApi {
 	}
 	
 	public boolean open(){
-		try{
-			mDbHelper.open();
-		} catch(SQLException exception){
-			isOpen = false;
-			return false;
+		if(!isOpen){
+			try{
+				mDbHelper.open();
+			} catch(SQLException exception){
+				isOpen = false;
+				return false;
+			}
+			
 		}
 		isOpen = true;
 		return true;
 	}
 	
 	public void close(){
-		mDbHelper.close();
-		isOpen = false;
+		if(isOpen){
+			mDbHelper.close();
+			isOpen = false;
+		}
 	}
 	
 	public Cursor fetchAllPersonCursor(){
