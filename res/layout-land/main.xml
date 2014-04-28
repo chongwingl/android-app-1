@@ -5,14 +5,20 @@
     android:baselineAligned="false">
     
     <LinearLayout 
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_width="wrap_content"
     	android:id="@+id/main_container"
     	android:orientation="horizontal"
     	android:layout_weight="1" >
     </LinearLayout>
+    
+    <View
+    android:layout_width="1dp"
+    android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"/>
+    
     <LinearLayout 
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_width="wrap_content"
     	android:id="@+id/second_container"
     	android:orientation="horizontal"

@@ -34,6 +34,14 @@
    	    <item name="android:textColor">@android:color/white</item>
    	</style>
    	
+   	<style name="MediumWhiteFontStyle" parent="WhiteFontStyle">
+   	    <item name="android:textSize">16sp</item>
+   	</style>
+   	
+   	<style name="BigWhiteFontStyle" parent="WhiteFontStyle">
+   	    <item name="android:textSize">20sp</item>
+   	</style>
+   	
    	<style name="ButtonFontStyle" parent="WhiteFontStyle">
    	    <item name="android:textSize">20sp</item>
    	    <item name="android:background">@android:color/black</item>
@@ -53,11 +61,24 @@
    	</style>
    	
    	<style name="TextBaseStyle" parent="BaseFontStyle">
-   	      <item name="android:textSize">18sp</item>
-   	      <item name="android:layout_width">match_parent</item>
-          <item name="android:layout_height">wrap_content</item>
-		  <item name="android:layout_margin">3dip</item>
-		  <item name="android:padding">3dip</item>
+   	    <item name="android:textSize">18sp</item>
+	 	<item name="android:layout_width">match_parent</item>
+	    <item name="android:layout_height">wrap_content</item>
+	    <item name="android:layout_margin">3dip</item>
+	    <item name="android:padding">3dip</item>
+   	</style>
+   	
+   	<style name="MenuBaseStyle" parent="TextBaseStyle">
+   	    <item name="android:textSize">18sp</item>
+   	    <item name="android:textColor">@android:color/white</item>
+   	    <item name="android:background">@android:color/black</item>
+   	</style>
+   	
+   	<style name="MenuStyleBigFont" parent="MenuBaseStyle">
+   	    <item name="android:textSize">20sp</item>
+   	    <item name="android:textStyle">bold</item>
+	    <item name="android:layout_margin">5dip</item>
+	    <item name="android:padding">5dip</item>
    	</style>
    	
    	<style name="LabelBaseStyle" parent="TextBaseStyle">
