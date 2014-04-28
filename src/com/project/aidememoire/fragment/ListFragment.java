@@ -101,7 +101,6 @@ public class ListFragment extends Fragment{
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long id) {
 				FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-				InfosFragment infosFragment = new InfosFragment();
 		       	Bundle bundle = new Bundle();
 		       	Cursor c = (Cursor) adapter.getItem(position);
 		       	
@@ -110,10 +109,17 @@ public class ListFragment extends Fragment{
 		       	Person person = new Person(c.getString(6), c.getString(7), money);
 		       	person.setId(c.getLong(1));
 		       	
+		       	InfosFragment infosFragment = new InfosFragment();
 		       	bundle.putParcelable(PERSON, person);
 		       	infosFragment.setArguments(bundle);
 		       	
-		       	fragmentTransaction.replace(R.id.main_container, infosFragment);
+		       	if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){            
+		       		fragmentTransaction.replace(R.id.second_container, infosFragment);
+		    	}
+		       	else {
+		       		fragmentTransaction.replace(R.id.main_container, infosFragment);
+		       	}
+		       	
 		       	fragmentTransaction.addToBackStack(null);
 		       	fragmentTransaction.commit();
 			}
