@@ -62,7 +62,10 @@ public class ListFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		dataBaseApi = DatabaseApi.getInstance(getActivity());
-		setHasOptionsMenu(true);
+		
+		if(getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE){
+			setHasOptionsMenu(true);
+		}
 		
 		fragmentView = super.onCreateView(inflater, container, savedInstanceState);
 		fragmentView = inflater.inflate(R.layout.list_layout, container, false);
@@ -76,6 +79,7 @@ public class ListFragment extends Fragment{
 		
 		if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
 			fragmentView.findViewById(R.id.layout_footer).setVisibility(View.GONE);
+			
 		}
 		else {
 			addButton = (Button) fragmentView.findViewById(R.id.footer_button);
@@ -148,6 +152,7 @@ public class ListFragment extends Fragment{
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		getActivity().getMenuInflater().inflate(R.menu.item_contextual_menu, menu);
+		
 	}
 	
 	private boolean delete(int position){
@@ -207,7 +212,9 @@ public class ListFragment extends Fragment{
 	 @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
-        getActivity().getMenuInflater().inflate(R.menu.main_menu, menu);
+		if(menu.size() == 0){
+	        inflater.inflate(R.menu.main_menu, menu);
+		}
     }
 
 	@Override
