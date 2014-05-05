@@ -1,8 +1,5 @@
 package com.project.aidememoire.fragment;
 
-import com.project.aidememoire.R;
-import com.project.aidememoire.adapter.ExpandableListAdapter;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+
+import com.project.aidememoire.R;
+import com.project.aidememoire.adapter.ExpandableListAdapter;
 
 public class MenuFragment extends Fragment {
 	

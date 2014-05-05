@@ -1,10 +1,11 @@
 package com.project.aidememoire.activity;
 
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Window;
 
 import com.project.aidememoire.R;
@@ -18,7 +19,8 @@ public class AccueilActivity extends FragmentActivity {
 
 	private FragmentManager fragmentManager = getSupportFragmentManager();
 	private MenuFragment menuFragment;
-
+	private ListFragment listFragment;
+	
 	private DatabaseApi dataBaseApi;
 
     @Override
@@ -29,8 +31,8 @@ public class AccueilActivity extends FragmentActivity {
         dataBaseApi = DatabaseApi.getInstance(this);
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         
-        ListFragment fragment = new ListFragment();
-        fragmentTransaction.add(R.id.main_container, fragment);
+        listFragment = new ListFragment();
+        fragmentTransaction.add(R.id.main_container, listFragment);
         
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){            
             menuFragment = new MenuFragment();
@@ -39,15 +41,6 @@ public class AccueilActivity extends FragmentActivity {
         
         fragmentTransaction.commit();
     }
-    
-    
-    
-    @Override
-	protected void onResume() {
-		super.onResume();
-	}
-
-
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
@@ -60,13 +53,4 @@ public class AccueilActivity extends FragmentActivity {
 		
 		super.onSaveInstanceState(outState);
 	}
-
-
-
-	@Override
-	protected void onDestroy() {
-
-		super.onDestroy();
-	}
-
 }

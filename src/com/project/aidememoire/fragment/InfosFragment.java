@@ -1,12 +1,7 @@
 package com.project.aidememoire.fragment;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import com.project.aidememoire.R;
-import com.project.aidememoire.adapter.PartialListAdapter;
-import com.project.aidememoire.database.api.DatabaseApi;
-import com.project.aidememoire.model.Money;
-import com.project.aidememoire.model.Person;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -18,7 +13,13 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class InfosFragment extends Fragment{
+import com.project.aidememoire.R;
+import com.project.aidememoire.adapter.PartialListAdapter;
+import com.project.aidememoire.database.api.DatabaseApi;
+import com.project.aidememoire.model.Money;
+import com.project.aidememoire.model.Person;
+
+public class InfosFragment extends Fragment {
 	
 	private View fragmentView;
 	private Context context;

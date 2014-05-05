@@ -2,16 +2,9 @@ package com.project.aidememoire.fragment;
 
 import java.util.Calendar;
 
-import com.project.aidememoire.R;
-import com.project.aidememoire.database.api.DatabaseApi;
-import com.project.aidememoire.fragment.AddFragment.MonthConversion;
-import com.project.aidememoire.model.Money;
-import com.project.aidememoire.model.Person;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +12,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+
+import com.project.aidememoire.R;
+import com.project.aidememoire.database.api.DatabaseApi;
+import com.project.aidememoire.fragment.AddFragment.MonthConversion;
+import com.project.aidememoire.model.Money;
+import com.project.aidememoire.model.Person;
 
 public class EditFragment extends Fragment {
 	

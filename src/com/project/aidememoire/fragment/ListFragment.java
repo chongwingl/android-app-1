@@ -2,24 +2,13 @@ package com.project.aidememoire.fragment;
 
 import java.util.Calendar;
 
-import com.project.aidememoire.R;
-import com.project.aidememoire.adapter.MainListAdapter;
-import com.project.aidememoire.adapter.database.DataBaseAdapter;
-import com.project.aidememoire.database.api.DatabaseApi;
-import com.project.aidememoire.fragment.AddFragment.MonthConversion;
-import com.project.aidememoire.model.Money;
-import com.project.aidememoire.model.Person;
-
-import android.support.v4.app.FragmentTransaction;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.InputType;
-import android.util.Log;
+import android.support.v4.app.FragmentTransaction;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -28,7 +17,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
@@ -37,6 +25,14 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.project.aidememoire.R;
+import com.project.aidememoire.adapter.MainListAdapter;
+import com.project.aidememoire.adapter.database.DataBaseAdapter;
+import com.project.aidememoire.database.api.DatabaseApi;
+import com.project.aidememoire.fragment.AddFragment.MonthConversion;
+import com.project.aidememoire.model.Money;
+import com.project.aidememoire.model.Person;
 
 public class ListFragment extends Fragment{
 
@@ -118,8 +114,8 @@ public class ListFragment extends Fragment{
 		    	}
 		       	else {
 		       		fragmentTransaction.replace(R.id.main_container, infosFragment);
+			       	
 		       	}
-		       	
 		       	fragmentTransaction.addToBackStack(null);
 		       	fragmentTransaction.commit();
 			}
@@ -338,7 +334,5 @@ public class ListFragment extends Fragment{
 		
 		builder.show();
 	}
-	 
-	 
-		
+
 }
