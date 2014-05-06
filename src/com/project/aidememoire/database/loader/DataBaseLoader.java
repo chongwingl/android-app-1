@@ -1,18 +1,16 @@
 package com.project.aidememoire.database.loader;
 
-import com.project.aidememoire.adapter.database.DataBaseAdapter;
-import com.project.aidememoire.database.api.DatabaseApi;
-import com.project.aidememoire.fragment.AddFragment;
-import com.project.aidememoire.fragment.EditFragment;
-import com.project.aidememoire.fragment.InfosFragment;
-import com.project.aidememoire.fragment.ListFragment;
-import com.project.aidememoire.model.Person;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.content.AsyncTaskLoader;
-import android.util.Log;
+
+import com.project.aidememoire.adapter.database.DataBaseAdapter;
+import com.project.aidememoire.database.api.DatabaseApi;
+import com.project.aidememoire.fragment.AddFragment;
+import com.project.aidememoire.fragment.InfosFragment;
+import com.project.aidememoire.fragment.ListFragment;
+import com.project.aidememoire.model.Person;
 
 public class DataBaseLoader extends AsyncTaskLoader<Cursor> {
 	

@@ -1,13 +1,10 @@
 package com.project.aidememoire.database.api;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
-
 import android.database.SQLException;
 
 import com.project.aidememoire.adapter.database.DataBaseAdapter;

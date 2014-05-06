@@ -42,6 +42,11 @@
     <string name="infos_surname">Prénom : </string>
     <string name="infos_credit">Crédit : </string>
     <string name="infos_dette">Dette : </string>
+    
+    <string name="horizontal_addfragment_placeholder_name">Nom</string>
+    <string name="horizontal_addfragment_placeholder_surname">Prenom</string>
+    <string name="horizontal_addfragment_placeholder_date">Date</string>
+    <string name="horizontal_addfragment_placeholder_sum">Montant</string>
    
 
 </resources>

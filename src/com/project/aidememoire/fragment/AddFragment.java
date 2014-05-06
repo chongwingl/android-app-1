@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -55,6 +56,7 @@ public class AddFragment extends Fragment implements LoaderCallbacks<Cursor>{
 		dataBaseApi =  DatabaseApi.getInstance(getActivity());
 		Bundle bundle = new Bundle();
 		bundle.putString(AUTOCOMPLETE, AUTOCOMPLETE);
+		// to set the autocompletion
 		getLoaderManager().initLoader(LOADER_ID, bundle, this).forceLoad();
 
 		fragmentView = inflater.inflate(R.layout.set_layout, container, false);
@@ -67,6 +69,12 @@ public class AddFragment extends Fragment implements LoaderCallbacks<Cursor>{
 		sumEdit = (EditText) fragmentView.findViewById(R.id.sum);
 		datePicker = (DatePicker) fragmentView.findViewById(R.id.date);
 		sumSignsRadioGroup = (RadioGroup) fragmentView.findViewById(R.id.sumSign);
+		
+		if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+			nameEdit.setHint(R.string.horizontal_addfragment_placeholder_name);
+			surnameEdit.setHint(R.string.horizontal_addfragment_placeholder_surname);
+			sumEdit.setHint(R.string.horizontal_addfragment_placeholder_sum);
+		}
 		
 		datePicker.setCalendarViewShown(false);
 		datePicker.setMaxDate(Calendar.getInstance().getTimeInMillis());

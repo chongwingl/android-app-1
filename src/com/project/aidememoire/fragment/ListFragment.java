@@ -77,23 +77,18 @@ public class ListFragment extends Fragment{
 
 		registerForContextMenu(peopleListView);
 		
-		if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-			fragmentView.findViewById(R.id.layout_footer).setVisibility(View.GONE);
+		addButton = (Button) fragmentView.findViewById(R.id.footer_button);
+		addButton.setOnClickListener(new View.OnClickListener() {
 			
-		}
-		else {
-			addButton = (Button) fragmentView.findViewById(R.id.footer_button);
-			addButton.setOnClickListener(new View.OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-		           	fragmentTransaction.replace(R.id.main_container, new AddFragment());
-		           	fragmentTransaction.addToBackStack(null);
-		           	fragmentTransaction.commit();
-				}
-			});
-		}
+			@Override
+			public void onClick(View v) {
+				FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+	           	fragmentTransaction.replace(R.id.main_container, new AddFragment());
+	           	fragmentTransaction.addToBackStack(null);
+	           	fragmentTransaction.commit();
+			}
+		});
+		
 		
 		peopleListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -112,14 +107,8 @@ public class ListFragment extends Fragment{
 		       	InfosFragment infosFragment = new InfosFragment();
 		       	bundle.putParcelable(PERSON, person);
 		       	infosFragment.setArguments(bundle);
-		       	
-		       	if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){            
-		       		fragmentTransaction.replace(R.id.second_container, infosFragment);
-		    	}
-		       	else {
-		       		fragmentTransaction.replace(R.id.main_container, infosFragment);
-			       	
-		       	}
+		      
+		       	fragmentTransaction.replace(R.id.main_container, infosFragment);
 		       	fragmentTransaction.addToBackStack(null);
 		       	fragmentTransaction.commit();
 			}
@@ -212,9 +201,7 @@ public class ListFragment extends Fragment{
 	 @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
-		if(menu.size() == 0){
 	        inflater.inflate(R.menu.main_menu, menu);
-		}
     }
 
 	@Override

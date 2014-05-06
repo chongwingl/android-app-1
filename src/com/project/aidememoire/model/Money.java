@@ -1,6 +1,5 @@
 package com.project.aidememoire.model;
 
-import java.util.Date;
 
 public class Money {
 	private int somme;

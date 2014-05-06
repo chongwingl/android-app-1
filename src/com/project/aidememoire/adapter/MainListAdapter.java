@@ -1,14 +1,11 @@
 package com.project.aidememoire.adapter;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
-import android.content.Context;
-import android.content.res.Resources;
-import android.database.Cursor;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +13,8 @@ import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 import com.project.aidememoire.R;
-import com.project.aidememoire.adapter.database.DataBaseAdapter;
 import com.project.aidememoire.database.api.DatabaseApi;
 import com.project.aidememoire.database.loader.DataBaseLoader;
-import com.project.aidememoire.fragment.ListFragment;
 
 public class MainListAdapter extends CursorAdapter implements LoaderCallbacks<Cursor>{
 
