@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.project.aidememoire.R;
 import com.project.aidememoire.database.api.DatabaseApi;
@@ -34,6 +35,7 @@ private final static String TAG = "EditFragment";
 	private EditText sumEdit;
 	private RadioGroup sumSignsRadioGroup;
 	private DatePicker datePicker;
+	private TextView title;
 	private Context context;
 	
 	@Override
@@ -45,6 +47,10 @@ private final static String TAG = "EditFragment";
 		final Bundle bundle = getArguments();
 	
 		fragmentView = inflater.inflate(R.layout.set_layout, container, false);
+		
+		title = (TextView) fragmentView.findViewById(R.id.set_title);
+		title.setText(R.string.editfragment_title);
+		title.setTextAppearance(context, R.style.TitleFontStyle);
 		
 		editButton = (Button) fragmentView.findViewById(R.id.validate);
 		editButton.setText(R.string.form_button_edit);

@@ -22,6 +22,7 @@ public class InfosFragment extends Fragment {
 	
 	private View fragmentView;
 	private Context context;
+	private TextView title;
 	
 	private ListView partialListView;
 	private PartialListAdapter adapter;
@@ -40,6 +41,10 @@ public class InfosFragment extends Fragment {
 		
 		Bundle bundle = getArguments();
 		Person person = (Person) bundle.get(ListFragment.PERSON);
+		
+		title = (TextView) fragmentView.findViewById(R.id.infos_title);
+		title.setText(R.string.infosfragment_title);
+		title.setTextAppearance(context, R.style.TitleFontStyle);
 		
 		((TextView) fragmentView.findViewById(R.id.infos_name)).setText(person.getName().substring(0, 1).toUpperCase() + person.getName().substring(1));
 		((TextView) fragmentView.findViewById(R.id.infos_surname)).setText(person.getSurname().substring(0, 1).toUpperCase() + person.getSurname().substring(1));

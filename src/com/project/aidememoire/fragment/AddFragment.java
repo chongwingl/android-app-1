@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.project.aidememoire.R;
 import com.project.aidememoire.database.api.DatabaseApi;
@@ -46,6 +47,7 @@ public class AddFragment extends Fragment implements LoaderCallbacks<Cursor>{
 	private EditText sumEdit;
 	private RadioGroup sumSignsRadioGroup;
 	private DatePicker datePicker;
+	private TextView title;
 	private Context context;
 	
 	@Override
@@ -60,6 +62,10 @@ public class AddFragment extends Fragment implements LoaderCallbacks<Cursor>{
 		getLoaderManager().initLoader(LOADER_ID, bundle, this).forceLoad();
 
 		fragmentView = inflater.inflate(R.layout.set_layout, container, false);
+		
+		title = (TextView) fragmentView.findViewById(R.id.set_title);
+		title.setText(R.string.addfragment_title);
+		title.setTextAppearance(context, R.style.TitleFontStyle);
 		
 		addButton = (Button) fragmentView.findViewById(R.id.validate);
 		cancelButton = (Button) fragmentView.findViewById(R.id.cancel);

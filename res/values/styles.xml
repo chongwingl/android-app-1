@@ -42,6 +42,11 @@
    	    <item name="android:textSize">20sp</item>
    	</style>
    	
+   		<style name="TitleFontStyle" parent="BaseFontStyle">
+   	    <item name="android:textSize">25sp</item>
+   	    <item name="android:textStyle">bold</item>
+   	</style>
+   	
    	<style name="ButtonFontStyle" parent="WhiteFontStyle">
    	    <item name="android:textSize">20sp</item>
    	    <item name="android:background">@android:color/black</item>

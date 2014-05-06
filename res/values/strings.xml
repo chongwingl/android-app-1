@@ -3,6 +3,10 @@
 
     <string name="app_name">AideMemoire</string>
     
+    <string name="infosfragment_title">RECAPITULATIF</string>
+    <string name="addfragment_title">AJOUT</string>
+    <string name="editfragment_title">EDITION</string>
+    
     <string name="form_name">Nom</string>
     <string name="form_surname">Prénom</string>
     <string name="form_sum">Somme</string>
