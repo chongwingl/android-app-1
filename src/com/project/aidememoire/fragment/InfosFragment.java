@@ -41,8 +41,8 @@ public class InfosFragment extends Fragment {
 		Bundle bundle = getArguments();
 		Person person = (Person) bundle.get(ListFragment.PERSON);
 		
-		((TextView) fragmentView.findViewById(R.id.infos_name)).setText(person.getName());
-		((TextView) fragmentView.findViewById(R.id.infos_surname)).setText(person.getSurname());
+		((TextView) fragmentView.findViewById(R.id.infos_name)).setText(person.getName().substring(0, 1).toUpperCase() + person.getName().substring(1));
+		((TextView) fragmentView.findViewById(R.id.infos_surname)).setText(person.getSurname().substring(0, 1).toUpperCase() + person.getSurname().substring(1));
 		
 		partialListView = (ListView) fragmentView.findViewById(R.id.infosListView);
 		adapter = new PartialListAdapter(context);

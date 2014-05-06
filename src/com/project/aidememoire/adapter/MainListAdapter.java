@@ -47,8 +47,8 @@ public class MainListAdapter extends CursorAdapter implements LoaderCallbacks<Cu
         sum = (TextView) view.findViewById(R.id.money_sum);
         date = (TextView) view.findViewById(R.id.money_date);
         
-        name.setText(cursor.getString(6));
-        surname.setText(cursor.getString(7));
+        name.setText(cursor.getString(6).substring(0,  1).toUpperCase() + cursor.getString(6).substring(1));
+        surname.setText(cursor.getString(7).substring(0,  1).toUpperCase() + cursor.getString(7).substring(1));
 		sum.setText(cursor.getString(3));
 		date.setText(cursor.getString(2));
 		
